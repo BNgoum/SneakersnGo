@@ -25,8 +25,6 @@ const InscriptionStack = createStackNavigator({
     }
 })
 
-const AppContainer = createAppContainer({ConnexionStack, InscriptionStack});
-
 export default createAppContainer(createSwitchNavigator(
     {
       Connexion: ConnexionStack,

@@ -1,6 +1,11 @@
 import { createStore, combineReducers } from 'redux';
 
 import AuthenticationReducer from './reducers/user/reducer';
-//import SetSignUp from './Reducers/SetSignUp';
+import SneakersReducer from './reducers/sneakers/reducer';
 
-export default createStore(AuthenticationReducer);
+const reducers = combineReducers({
+    AuthenticationReducer,
+    SneakersReducer
+})
+
+export default createStore(reducers);

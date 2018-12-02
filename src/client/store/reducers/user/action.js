@@ -1,21 +1,14 @@
+import axios from 'axios';
+
 export const requestLogin = (email, password) => {
-    return fetch('https://sneakersngo-api.herokuapp.com/auth/login', {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            email: email,
-            password: password
-        })
-    })
-    .then((response) => {
-        return response.json();
+
+    return axios.post('https://sneakersngo-api.herokuapp.com/auth/login', {
+        email: email,
+        password: password
     })
     .then((responseJson) => {
-        if ( responseJson.data === null && responseJson.err === true) {
-            if ( responseJson.message === "Unknown user" ) {
+        if ( responseJson.data.data === null && responseJson.data.err === true) {
+            if ( responseJson.data.message === "Unknown user" ) {
                 const action = {
                     type: "AUTH_MESSAGE_ERROR", value: "Les identifiants entrés n'existent pas."
                 }
@@ -39,21 +32,11 @@ export const requestLogin = (email, password) => {
 }
 
 export const requestRegister = (firstname, lastname, email, password) => {
-    return fetch('https://sneakersngo-api.herokuapp.com/auth/register', {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            firstname: firstname,
-            lastname: lastname,
-            email: email,
-            password: password
-        })
-    })
-    .then((response) => {
-        return response.json();
+    return axios.post('https://sneakersngo-api.herokuapp.com/auth/register', {
+        firstname: firstname,
+        lastname: lastname,
+        email: email,
+        password: password
     })
     .then((responseJson) => {
         if (responseJson.data.err === true && responseJson.data.data === null) {
@@ -71,4 +54,12 @@ export const requestRegister = (firstname, lastname, email, password) => {
     .catch(err => {
         console.log('Erreur lors de la connexion du user : ', err);
     });
+}
+
+export const requestDisconnect = () => {
+    const action = {
+        type: "TO_DISCONNECT", value: null
+    }
+
+    return action;
 }

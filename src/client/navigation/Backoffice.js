@@ -17,7 +17,7 @@ const NavigatorStack = createStackNavigator({
     AddSneakers: {
         screen: AddSneakers,
         navigationOptions: {
-            title: 'Ajouter une paire de sneakers'
+            title: 'Ajouter des sneakers'
         }
     },
     

@@ -31,7 +31,7 @@ class Inscription extends Component {
             .then((action) => {
                 this.props.dispatch(action);
             })
-            .catch((error) => { console.log('Erreur lors de la connexion : ', error); reject(error); });
+            .catch((error) => { console.log('Erreur lors de la connexion : ', error); });
         }
     }
 
@@ -40,7 +40,7 @@ class Inscription extends Component {
             <View style={ styles.wrapperInscription }>
                 <Text style={ styles.title }>Inscription</Text>
 
-                { this.props.state.auth_inscription_not_validated === "" ? null : <Text style={styles.textSignUpSuccess}>{this.props.state.auth_inscription_not_validated}</Text> }
+                { this.props.state.AuthenticationReducer.auth_inscription_not_validated === "" ? null : <Text style={styles.textSignUpSuccess}>{this.props.state.AuthenticationReducer.auth_inscription_not_validated}</Text> }
 
                 <TextInput 
                     style={styles.inputText}
