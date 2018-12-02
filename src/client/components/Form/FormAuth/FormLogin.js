@@ -47,7 +47,7 @@ class FormLogin extends Component {
                     placeholder="Saisissez votre mot de passe..."
                     secureTextEntry={this.state.isSecureTextEntry}/>
 
-                { this.props.AuthenticationReducer.auth_message_error !== "" ? <Text style={styles.textError}>{this.props.AuthenticationReducer.auth_message_error}</Text> : null }
+                { this.props.state.AuthenticationReducer.auth_message_error !== "" ? <Text style={styles.textError}>{this.props.state.AuthenticationReducer.auth_message_error}</Text> : null }
 
                 { this.state.isFound ? null : <Text style={styles.textError}>Email ou mot de passe incorrect.</Text> }
                 { this.state.isPasswordBlank ? <Text style={styles.textError}>Vous devez saisir votre mot de passe.</Text> : null }
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
 })
 
 const mapStateToProps = (state) => { 
-    return state;
+    return {state: state};
 }
 
 const mapDispatchToProps = (dispatch) => {

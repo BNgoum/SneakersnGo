@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TextInput, Button, TouchableOpacity } from 'react-native';
-
 import { connect } from 'react-redux';
 import FormLogin from '../../components/Form/FormAuth/FormLogin'
 
