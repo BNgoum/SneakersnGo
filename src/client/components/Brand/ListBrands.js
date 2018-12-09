@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, FlatList, Text, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, FlatList, Text } from 'react-native';
 import { connect } from 'react-redux';
 import Brand from './Brand';
 import axios from "axios";
@@ -29,9 +29,7 @@ class ListBrands extends Component {
         });
     }
 
-
     render() {
-        console.log('Props liste brands : ', this.props)
         return (
             <View style={styles.wrapperListBrands}>
                 <Text style={styles.title}>Les marques :</Text>

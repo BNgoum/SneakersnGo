@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 
-import AddBrand from '../../components/Brand/AddBrand'
+import FormAddBrand from '../../components/Brand/FormAddBrand';
+import ListBrands from '../../components/Brand/ListBrands';
 
 export default class AddBrands extends Component {
     render() {
-        console.log('Proooops : ', this.props.navigation)
         return (
             <View>
-                <AddBrand />
+                <FormAddBrand />
+                <ListBrands navigation={this.props.navigation}/>
             </View>
         )
     }

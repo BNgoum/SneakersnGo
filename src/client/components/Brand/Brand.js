@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 
 class Brand extends Component {
     render() {
-        console.log('In braaaand : ', this.props)
         return (
             <View style={styles.wrapperBrand}>
                 <TouchableOpacity onPress={() => this.props.navigation.navigate('AddModels')}>
