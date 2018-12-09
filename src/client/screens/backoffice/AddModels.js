@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 
-import AddModel from '../../components/Model/AddModel'
+import FormAddModel from '../../components/Model/FormAddModel';
+import ListModels from '../../components/Model/ListModels';
 
 export default class AddModels extends Component {
     render() {
         return (
             <View>
-                <AddModel />
+                <FormAddModel />
+                <ListModels navigation={this.props.navigation} />
             </View>
         )
     }

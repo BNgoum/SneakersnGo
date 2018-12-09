@@ -11,6 +11,7 @@ class FormAddModel extends Component {
     }
 
     render() {
+        // console.log('In Form add model : ', this.props)
         return (
             <View style={styles.wrapperFormModel}>
                 <Text style={styles.title}>Ajouter une nouveau modèle</Text>

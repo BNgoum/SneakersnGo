@@ -21,9 +21,8 @@ class ListBrands extends Component {
             const action = {
                 type: "GET_ALL_BRANDS", value: responseJson.data.data
             }
-            return action;
+            return this.props.dispatch(action);
         })
-        .then((action) => this.props.dispatch(action))
         .catch(err => {
             console.log('Erreur lors de la tentative de récupération des marques : ', err);
         });

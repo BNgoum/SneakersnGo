@@ -1,12 +1,25 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, FlatList, Text, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 
 class Brand extends Component {
+
+    handlePressBrand = () => {
+        return new Promise ( (resolve, reject) => {
+            const action = {
+                type: "SET_CURRENT_BRAND", value: this.props.dataBrand._id
+            }
+
+             resolve(this.props.dispatch(action));
+        })
+        .then(() => this.props.navigation.navigate('AddModels'))
+        .catch((error) => reject('Erreur lors du passage vers l\'écran "Ajout modèle" : ', error))
+    }
+
     render() {
         return (
             <View style={styles.wrapperBrand}>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('AddModels')}>
+                <TouchableOpacity onPress={this.handlePressBrand}>
                     <Text style={styles.title}>{this.props.dataBrand.name}</Text>
                 </TouchableOpacity>
             </View>
