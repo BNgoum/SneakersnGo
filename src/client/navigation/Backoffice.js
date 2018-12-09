@@ -1,11 +1,8 @@
-import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
-
-import { createStackNavigator, createAppContainer, createSwitchNavigator } from 'react-navigation'
+import { createStackNavigator, createAppContainer } from 'react-navigation'
 
 import Home from '../screens/backoffice/Home';
-import AddSneakers from '../screens/backoffice/AddSneakers';
-// import Connexion from '../screens/authentication/Connexion';
+import AddBrands from '../screens/backoffice/AddBrands';
+import AddModels from '../screens/backoffice/AddModels';
 
 const NavigatorStack = createStackNavigator({
     Home: {
@@ -14,10 +11,16 @@ const NavigatorStack = createStackNavigator({
             title: 'Accueil'
         }
     },
-    AddSneakers: {
-        screen: AddSneakers,
+    AddBrands: {
+        screen: AddBrands,
         navigationOptions: {
-            title: 'Ajouter des sneakers'
+            title: 'Les marques'
+        }
+    },
+    AddModels: {
+        screen: AddModels,
+        navigationOptions: {
+            title: 'Les modèles'
         }
     },
     
@@ -26,11 +29,3 @@ const NavigatorStack = createStackNavigator({
 const AppContainer = createAppContainer(NavigatorStack);
 
 export default AppContainer;
-
-const styles = StyleSheet.create({
-    wrapperAuth: {
-        display: 'flex',
-        flex: 1,
-    },
-    
-})

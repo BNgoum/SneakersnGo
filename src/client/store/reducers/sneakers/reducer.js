@@ -1,30 +1,20 @@
 const initialState = { 
-    marque: "",
-    modele: ""
+    brands: [],
+    brandsToAdd: "",
+    models: ""
 }
 
 function addSneakers(state = initialState, action) {
     let nextState;
-
     switch (action.type) {
-        case 'ADD_BRAND':
+        case 'GET_ALL_BRANDS':
             nextState = {
-                ...state, marque: action.value
+                ...state, brands: action.value
             }
             return nextState;
-        case 'TO_DISCONNECT':
+        case 'STORE_BRANDS':
             nextState = {
-                ...state, isLogin: action.value
-            }
-            return nextState;
-        case 'AUTH_MESSAGE_ERROR':
-            nextState = {
-                ...state, auth_message_error: action.value
-            }
-            return nextState;
-        case 'AUTH_INSCRIPTION_NOT_VALIDATED':
-            nextState = {
-                ...state, auth_inscription_not_validated: action.value
+                ...state, brandsToAdd: action.value
             }
             return nextState;
         default:
