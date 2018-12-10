@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 
+import { requestAddModel, requestAllModelsByBrand } from '../../store/reducers/sneakers/action';
+
 class FormAddModel extends Component {
     constructor(props) {
         super(props);
@@ -9,18 +11,41 @@ class FormAddModel extends Component {
             model: ""
         }
     }
+    
+    handleValidateModel = () => {
+        const token = this.props.state.AuthenticationReducer.isAdmin;
+        const idBrand = this.props.state.SneakersReducer.currentBrand;
+
+        return new Promise((resolve, reject) => {
+            let models = [];
+            models.push(this.state.model);
+            
+            resolve(requestAddModel(token, models, idBrand));
+        })
+        .then(() => {
+            return requestAllModelsByBrand(token, idBrand)
+        })
+        .then((models) => {
+            this.textInput.clear();
+
+            const action = { type: "GET_ALL_MODELS", value: models }
+
+            return this.props.dispatch(action)
+        })
+        .catch((error) => console.log('Erreur lors de l\'ajout du modèle : ', error))
+    }
 
     render() {
-        // console.log('In Form add model : ', this.props)
         return (
             <View style={styles.wrapperFormModel}>
                 <Text style={styles.title}>Ajouter une nouveau modèle</Text>
                 <TextInput
                     placeholder="Saisir un modèle..."
                     onChangeText={ (model) => this.setState({model})}
+                    ref={input => { this.textInput = input }}
                     style={styles.textinput}
                 />
-                <TouchableOpacity style={styles.button}><Text>Valider</Text></TouchableOpacity>
+                <TouchableOpacity onPress={this.handleValidateModel} style={styles.button}><Text>Valider</Text></TouchableOpacity>
             </View>
         )
     }

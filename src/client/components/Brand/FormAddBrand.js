@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
-import { requestStoreBrand, requestAddBrand } from '../../store/reducers/sneakers/action';
+import { requestAllBrands, requestAddBrand } from '../../store/reducers/sneakers/action';
 import axios from "axios";
 
 class FormAddBrand extends Component {
@@ -18,25 +18,24 @@ class FormAddBrand extends Component {
 
         const action = { type: "STORE_BRANDS", value: arrayBrands }
 
-        return new Promise ((resolve, reject) => {resolve(this.props.dispatch(action))})
-        .then(() => {requestAddBrand(this.props.state.AuthenticationReducer.isAdmin, this.props.state.SneakersReducer.brandsToAdd)})
-        .then(() => {
-            const action = { type: "STORE_BRANDS", value: "" }
+        const token = this.props.state.AuthenticationReducer.isAdmin;
 
-            this.props.dispatch(action)
+        return new Promise ((resolve, reject) => {resolve(this.props.dispatch(action))})
+        .then(() => {
+            const brandsToAdd = this.props.state.SneakersReducer.brandsToAdd;
+            return requestAddBrand(token, brandsToAdd)
         })
         .then(() => {
-            // TODO: export this function to action.js
-            let config = {
-                headers: {'Authorization': 'Bearer ' + this.props.state.AuthenticationReducer.isAdmin}
-            }
-            
-            return axios.get('https://sneakersngo-api.herokuapp.com/brand', config)})
-        .then((responseJson) => {
-            const action = {
-                type: "GET_ALL_BRANDS", value: responseJson.data.data
-            }
-            this.props.dispatch(action);
+            this.textInput.clear();
+            const action = { type: "STORE_BRANDS", value: "" }
+            return this.props.dispatch(action)
+        })
+        .then(() => {
+            return requestAllBrands(token);
+        })
+        .then((brands) => {
+            const action = { type: "GET_ALL_BRANDS", value: brands }
+            return this.props.dispatch(action);
         })
         .catch((error) => console.log("Erreur lors de requestAddBrand de la Promise : ", error))
     }
@@ -48,6 +47,7 @@ class FormAddBrand extends Component {
                 <TextInput 
                     placeholder="Saisir une marque..."
                     onChangeText={ (marque) => this.setState({marque})}
+                    ref={input => { this.textInput = input }}
                     style={styles.textinput}
                 />
                 <TouchableOpacity onPress={this.handleStoreBrand} style={styles.button}><Text>Valider</Text></TouchableOpacity>

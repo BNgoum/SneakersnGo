@@ -2,7 +2,7 @@ const initialState = {
     brands: [],
     brandsToAdd: "",
     currentBrand: "",
-    models: ""
+    models: []
 }
 
 function addSneakers(state = initialState, action) {

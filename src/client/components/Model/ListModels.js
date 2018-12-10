@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, FlatList, Text } from 'react-native';
 import { connect } from 'react-redux';
-import axios from "axios";
 
 import Model from './Model';
+import { requestAllModelsByBrand } from '../../store/reducers/sneakers/action';
 
 class ListModels extends Component {
 
@@ -12,24 +12,18 @@ class ListModels extends Component {
     }
 
     getAllModels = () => {
-        // TODO: Export this function to action.js
-        let config = {
-            headers: {'Authorization': 'Bearer ' + this.props.state.AuthenticationReducer.isAdmin}
-        }
+        const token = this.props.state.AuthenticationReducer.isAdmin;
+        const currentBrand = this.props.state.SneakersReducer.currentBrand;
 
-        let currentBrand = this.props.state.SneakersReducer.currentBrand;
-
-        return axios.get('https://sneakersngo-api.herokuapp.com/model/brand/' + currentBrand, config)
-        .then((responseJson) => {
-            const action = {
-                type: "GET_ALL_MODELS", value: responseJson.data.data
-            }
-
-            return this.props.dispatch(action)
+        return new Promise((resolve, reject) => {
+            resolve( requestAllModelsByBrand(token, currentBrand) );
         })
-        .catch(err => {
-            console.log('Erreur lors de la tentative de récupération des modèles : ', err);
-        });
+        .then((models) => {
+            const action = { type: "GET_ALL_MODELS", value: models }
+
+            return this.props.dispatch(action);
+        })
+        .catch( (error) => console.log('Erreur lors de la récupération des modèles : ', error))
     }
 
     render() {

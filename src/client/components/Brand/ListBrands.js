@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { StyleSheet, View, FlatList, Text } from 'react-native';
 import { connect } from 'react-redux';
 import Brand from './Brand';
-import axios from "axios";
+
+import { requestAllBrands } from '../../store/reducers/sneakers/action';
 
 class ListBrands extends Component {
 
@@ -11,21 +12,17 @@ class ListBrands extends Component {
     }
 
     getAllBrands = () => {
-        // TODO: Export this function to action.js
-        let config = {
-            headers: {'Authorization': 'Bearer ' + this.props.state.AuthenticationReducer.isAdmin}
-        }
-        
-        return axios.get('https://sneakersngo-api.herokuapp.com/brand', config)
-        .then((responseJson) => {
-            const action = {
-                type: "GET_ALL_BRANDS", value: responseJson.data.data
-            }
+        const token = this.props.state.AuthenticationReducer.isAdmin;
+
+        return new Promise( (resolve, reject) => {
+            resolve( requestAllBrands(token) );
+        })
+        .then((brands) => {
+            const action = { type: "GET_ALL_BRANDS", value: brands }
+
             return this.props.dispatch(action);
         })
-        .catch(err => {
-            console.log('Erreur lors de la tentative de récupération des marques : ', err);
-        });
+        .catch( (error) => console.log('Erreur lors de la récupération des marques : ', error))
     }
 
     render() {

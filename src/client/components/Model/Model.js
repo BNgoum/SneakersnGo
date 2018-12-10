@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 
 class Model extends Component {
     render() {
-        console.log(this.props.dataModel)
         return (
             <View style={styles.wrapperModel}>
                 <TouchableOpacity onPress={() => this.props.navigation.navigate('AddModels')}>
