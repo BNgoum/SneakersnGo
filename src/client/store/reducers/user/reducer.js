@@ -1,6 +1,7 @@
 const initialState = { 
     isLogin: null,
     isAdmin: null,
+    user: null,
     auth_message_error: "",
     auth_inscription_not_validated: ""
 }
@@ -17,6 +18,11 @@ function authentication(state = initialState, action) {
         case 'IS_ADMIN':
             nextState = {
                 ...state, isAdmin: action.value
+            }
+            return nextState;
+        case 'INFO_USER':
+            nextState = {
+                ...state, user: action.value
             }
             return nextState;
         case 'TO_DISCONNECT':

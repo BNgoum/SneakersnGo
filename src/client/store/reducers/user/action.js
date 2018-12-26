@@ -1,6 +1,5 @@
 import axios from 'axios';
 const jwtDecode = require('jwt-decode');
-const emailAdmin = "aze";
 
 export const requestLogin = (email, password) => {
 
@@ -21,23 +20,7 @@ export const requestLogin = (email, password) => {
                 }
                 return action;
             }
-        } else {
-            const token = responseJson.data.data.token;
-            const decoded = jwtDecode(token);
-
-            if(decoded.email === emailAdmin) {
-                const action = {
-                    type: "IS_ADMIN", value: responseJson.data.data.token
-                }
-                return action;
-            } else {
-                const action = {
-                    type: "IS_LOGIN", value: responseJson.data.data.token
-                }
-                return action;
-            }
-            
-        }
+        } else { return responseJson.data.data; }
     })
     .catch(err => {
         console.log('Erreur lors de la connexion du user : ', err);

@@ -29,13 +29,11 @@ class ListModels extends Component {
     render() {
         return (
             <View style={styles.wrapperListBrands}>
-                <Text style={styles.title}>Les modèles :</Text>
                 <FlatList 
                     data={this.props.state.SneakersReducer.models}
                     keyExtractor={(item) => item._id.toString()}
                     numColumns = {3}
                     renderItem={({item}) => <Model dataModel={item} navigation={this.props.navigation} /> }
-                    style={styles.wrapperModels}
                 />
             </View>
         )
@@ -44,23 +42,15 @@ class ListModels extends Component {
 
 const styles = StyleSheet.create({
     wrapperListBrands: {
-        backgroundColor: "#dedede"
-    },
-    title: {
-        fontSize: 20,
-        alignSelf: 'center',
-        marginTop: 8,
-        marginBottom: 16
-    },
-    wrapperModels: {
-        display: 'flex',
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-    },
+        backgroundColor: "#f2f2f2",
+        paddingTop: 16,
+        paddingRight: 8,
+        paddingLeft: 8,
+    }
 })
 
 const mapStateToProps = (state) => { 
-    return { state: state }
+    return { state }
 }
 
 const mapDispatchToProps = (dispatch) => {

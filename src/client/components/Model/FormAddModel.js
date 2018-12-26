@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, Image } from 'react-native';
 import { connect } from 'react-redux';
 
 import { requestAddModel, requestAllModelsByBrand } from '../../store/reducers/sneakers/action';
@@ -36,9 +36,16 @@ class FormAddModel extends Component {
     }
 
     render() {
+        const pathToImage = '../../images/';
+
         return (
             <View style={styles.wrapperFormModel}>
+                <TouchableOpacity onPress={ () => this.props.navigation.toggleDrawer() } style={styles.wrapperBurgerMenu}>
+                    <Image source={require(pathToImage + 'menu.png')} style={styles.buttonBurgerMenu} />
+                </TouchableOpacity>
+
                 <Text style={styles.title}>Ajouter une nouveau modèle</Text>
+
                 <TextInput
                     placeholder="Saisir un modèle..."
                     onChangeText={ (model) => this.setState({model})}
@@ -72,6 +79,16 @@ const styles = StyleSheet.create({
     textinput: {
         alignSelf: 'center',
         fontSize: 18
+    },
+    wrapperBurgerMenu: {
+        width: 32,
+        height: 32,
+        marginTop: 8,
+        marginLeft: 8,
+    },
+    buttonBurgerMenu: {
+        width: 32,
+        height: 32,
     }
 })
 

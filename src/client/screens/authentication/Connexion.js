@@ -5,7 +5,7 @@ import FormLogin from '../../components/Form/FormAuth/FormLogin'
 class Connexion extends Component {
     render() {
         return (
-            <FormLogin navigation={this.props.navigation} />
+            <FormLogin />
         )
     }
 }

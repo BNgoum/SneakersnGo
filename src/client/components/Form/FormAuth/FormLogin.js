@@ -3,6 +3,10 @@ import { StyleSheet, View, Text, TextInput, TouchableOpacity, Button } from 'rea
 import { connect } from 'react-redux';
 import {requestLogin} from '../../../store/reducers/user/action';
 
+const jwtDecode = require('jwt-decode');
+
+const emailAdmin = "aze";
+
 class FormLogin extends Component {
     constructor(props) {
         super(props);
@@ -24,7 +28,27 @@ class FormLogin extends Component {
         else if ( this.state.password === "" ) { this.setState({ isPasswordBlank: true }) }
         else {
             return new Promise((resolve, reject) => { resolve(requestLogin(this.state.email, this.state.password)) })
-            .then((action) => { this.props.dispatch(action); })
+            .then((user) => {
+                const token = user.token;
+                const decoded = jwtDecode(token);
+
+                if(decoded.email === emailAdmin) {
+                    const action = {
+                        type: "IS_ADMIN", value: user.token
+                    }
+                    this.props.dispatch(action);
+                } else {
+                    const action = {
+                        type: "IS_LOGIN", value: user.token
+                    }
+                    this.props.dispatch(action);
+                }
+
+                const action = {
+                    type: "INFO_USER", value: user.user
+                }
+                this.props.dispatch(action);
+            })
             .catch((error) => { console.log('Erreur lors de la connexion : ', error); });
         }
     }

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { requestAllBrands, requestAddBrand } from '../../store/reducers/sneakers/action';
-import axios from "axios";
 
 class FormAddBrand extends Component {
     constructor(props) {
@@ -41,8 +40,13 @@ class FormAddBrand extends Component {
     }
 
     render() {
+        const pathToImage = '../../images/';
+
         return (
             <View style={styles.wrapperFormBrand}>
+                <TouchableOpacity onPress={ () => this.props.navigation.toggleDrawer() } style={styles.wrapperBurgerMenu}>
+                    <Image source={require(pathToImage + 'menu.png')} style={styles.buttonBurgerMenu} />
+                </TouchableOpacity>
                 <Text style={styles.title}>Ajouter une nouvelle marque</Text>
                 <TextInput 
                     placeholder="Saisir une marque..."
@@ -77,6 +81,16 @@ const styles = StyleSheet.create({
     textinput: {
         alignSelf: 'center',
         fontSize: 18
+    },
+    wrapperBurgerMenu: {
+        width: 32,
+        height: 32,
+        marginTop: 8,
+        marginLeft: 8,
+    },
+    buttonBurgerMenu: {
+        width: 32,
+        height: 32,
     }
 })
 

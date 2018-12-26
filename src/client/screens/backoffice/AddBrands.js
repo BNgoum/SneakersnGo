@@ -8,7 +8,7 @@ export default class AddBrands extends Component {
     render() {
         return (
             <View>
-                <FormAddBrand />
+                <FormAddBrand navigation={this.props.navigation}/>
                 <ListBrands navigation={this.props.navigation}/>
             </View>
         )

@@ -8,7 +8,7 @@ export default class AddModels extends Component {
     render() {
         return (
             <View>
-                <FormAddModel />
+                <FormAddModel navigation={this.props.navigation} />
                 <ListModels navigation={this.props.navigation} />
             </View>
         )

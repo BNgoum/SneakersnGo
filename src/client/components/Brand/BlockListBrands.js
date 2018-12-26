@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, FlatList, Text } from 'react-native';
 import { connect } from 'react-redux';
-import Brand from './Brand';
+import BlockBrand from './BlockBrand';
 
 import { requestAllBrands } from '../../store/reducers/sneakers/action';
 
@@ -32,7 +32,7 @@ class ListBrands extends Component {
                     data={this.props.state.SneakersReducer.brands}
                     keyExtractor={(item) => item._id.toString()}
                     numColumns = {3}
-                    renderItem={({item}) => <Brand dataBrand={item} navigation={this.props.navigation} /> }
+                    renderItem={({item}) => <BlockBrand dataBrand={item} /> }
                 />
             </View>
         )
@@ -59,7 +59,9 @@ const styles = StyleSheet.create({
     },
 })
 
-const mapStateToProps = (state) => { return { state } }
+const mapStateToProps = (state) => { 
+    return { state }
+}
 
 const mapDispatchToProps = (dispatch) => {
     return {

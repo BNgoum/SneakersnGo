@@ -33,7 +33,7 @@ export const requestAllBrands = (token) => {
         return responseJson.data.data;
     })
     .catch(err => {
-        console.log('Erreur lors de la tentative de récupération des matchs de la semaine Premier League (get) : ', err);
+        console.log('Erreur lors de la récupération des toutes les marques : ', err);
     });
 }
 
@@ -45,6 +45,24 @@ export const requestAllModelsByBrand = (token, idBrand) => {
         return responseJson.data.data;
     })
     .catch(err => {
-        console.log('Erreur lors de la tentative de récupération des matchs de la semaine Premier League (get) : ', err);
+        console.log('Erreur lors de la récupération de tous les modèles d\'une marque : ', err);
+    });
+}
+
+export const deleteBrand = (token, idBrand) => {
+    let config = { headers: { 'Authorization': 'Bearer ' + token } }
+
+    return axios.delete('https://sneakersngo-api.herokuapp.com/brand/' + idBrand, config)
+    .catch(err => {
+        console.log('Erreur lors de la suppression d\'une marque : ', err);
+    });
+}
+
+export const deleteModel = (token, idModel) => {
+    let config = { headers: { 'Authorization': 'Bearer ' + token } }
+
+    return axios.delete('https://sneakersngo-api.herokuapp.com/model/' + idModel, config)
+    .catch(err => {
+        console.log('Erreur lors de la suppression d\'un modèle : ', err);
     });
 }

@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
-import { connect } from 'react-redux';
 
 import { deleteBrand, requestAllBrands } from '../../store/reducers/sneakers/action';
 
 
-class Brand extends Component {
+class BlockBrand extends Component {
 
     handlePressBrand = () => {
         return new Promise ( (resolve, reject) => {
@@ -35,16 +34,9 @@ class Brand extends Component {
     }
 
     render() {
-        const pathToImage = '../../images/';
-
         return (
             <View style={styles.wrapperBrand}>
-                <TouchableOpacity onPress={this.handlePressBrand} style={styles.wrapperBrandname}>
-                    <Text style={styles.title}>{this.props.dataBrand.name}</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={this.handleDeleteBrand} style={styles.wrapperButtonDelete}>
-                    <Image source={require(pathToImage + 'cancel.png')} style={styles.buttonDelete} />
-                </TouchableOpacity>
+                <Text style={styles.title}>{this.props.dataBrand.name}</Text>
             </View>
         )
     }
@@ -52,9 +44,6 @@ class Brand extends Component {
 
 const styles = StyleSheet.create({
     wrapperBrand: {
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
         backgroundColor: '#fff',
         shadowColor: "#000",
         shadowOffset: {
@@ -68,38 +57,16 @@ const styles = StyleSheet.create({
         marginTop: 4,
         marginBottom: 12,
         marginLeft: 4,
-        marginRight: 4
-    },
-    wrapperBrandname: {
-        paddingTop: 8,
-        paddingBottom: 8,
-        paddingLeft: 12,
-        paddingRight: 4,
+        marginRight: 8
     },
     title: {
         fontSize: 20,
         alignSelf: 'center',
-    },
-    wrapperButtonDelete: {
         paddingTop: 8,
         paddingBottom: 8,
-        paddingLeft: 4,
-        paddingRight: 12,
-    },
-    buttonDelete: {
-        width: 12,
-        height: 12
+        paddingLeft: 16,
+        paddingRight: 16,
     }
 })
 
-const mapStateToProps = (state) => { 
-    return { state }
-}
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        dispatch: (action) => { dispatch(action) }
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Brand)
+export default BlockBrand;
