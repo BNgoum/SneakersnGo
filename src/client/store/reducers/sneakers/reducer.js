@@ -2,7 +2,10 @@ const initialState = {
     brands: [],
     brandsToAdd: "",
     currentBrand: "",
-    models: []
+    currentModel: "",
+    models: [],
+    sneakersByModel: [],
+    sneakers: [],
 }
 
 function addSneakers(state = initialState, action) {
@@ -26,6 +29,21 @@ function addSneakers(state = initialState, action) {
         case 'SET_CURRENT_BRAND':
             nextState = {
                 ...state, currentBrand: action.value
+            }
+            return nextState;
+        case 'SET_CURRENT_MODEL':
+            nextState = {
+                ...state, currentModel: action.value
+            }
+            return nextState;
+        case 'GET_ALL_SNEAKERS_BY_MODEL':
+            nextState = {
+                ...state, sneakersByModel: action.value
+            }
+            return nextState;
+        case 'GET_ALL_SNEAKERS':
+            nextState = {
+                ...state, sneakers: action.value
             }
             return nextState;
         default:

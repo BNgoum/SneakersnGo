@@ -1,13 +1,10 @@
 import { createDrawerNavigator, createStackNavigator, createAppContainer } from 'react-navigation'
-import { connect } from 'react-redux';
-import React, { Component } from 'react';
-import { Text, View, Icon, Button } from 'react-native';
-import { withNavigation } from 'react-navigation';
 
 import Home from '../screens/backoffice/Home';
 import AddBrands from '../screens/backoffice/AddBrands';
 import AddModels from '../screens/backoffice/AddModels';
-import SomeScreen from '../screens/backoffice/SomeScreen';
+import AddSneakers from '../screens/backoffice/AddSneakers';
+import AllSneakers from '../screens/backoffice/AllSneakers';
 
 const NavigatorStack = createStackNavigator({
     Home: {
@@ -28,6 +25,18 @@ const NavigatorStack = createStackNavigator({
             title: 'Les modèles'
         }
     },
+    AddSneakers: {
+        screen: AddSneakers,
+        navigationOptions: {
+            title: 'Les Sneakers'
+        }
+    },
+    AllSneakers: {
+        screen: AllSneakers,
+        navigationOptions: {
+            title: 'Les Sneakers'
+        }
+    },
 })
 
 const AddBrandsStack = createStackNavigator({
@@ -41,7 +50,7 @@ const AddBrandsStack = createStackNavigator({
 
 const Drawer = createDrawerNavigator({
     Dashboard: { screen: NavigatorStack },
-    'Nouvelle marque': { screen: AddBrandsStack }
+    'Nouvelle Sneaker': { screen: AddBrandsStack }
 })
 
 const AppContainer = createAppContainer(Drawer);

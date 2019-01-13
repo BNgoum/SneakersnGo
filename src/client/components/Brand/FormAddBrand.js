@@ -91,6 +91,9 @@ const styles = StyleSheet.create({
     buttonBurgerMenu: {
         width: 32,
         height: 32,
+        position: 'absolute',
+        left: 16,
+        top: 8
     }
 })
 

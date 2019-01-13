@@ -8,8 +8,8 @@ import { connect } from 'react-redux';
 
 class Navigation extends Component {
     render() {
-        const { isLogin, isAdmin, user } = this.props.state.AuthenticationReducer;
-        
+        const { isLogin, isAdmin } = this.props.state.AuthenticationReducer;
+
         if (isLogin !== null) { return <Home /> }
         else if (isAdmin !== null) { return <HomeAdmin /> }
         else { return <Authentication /> }

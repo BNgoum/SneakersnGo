@@ -44,7 +44,7 @@ class FormAddModel extends Component {
                     <Image source={require(pathToImage + 'menu.png')} style={styles.buttonBurgerMenu} />
                 </TouchableOpacity>
 
-                <Text style={styles.title}>Ajouter une nouveau modèle</Text>
+                <Text style={styles.title}>Ajouter un nouveau modèle</Text>
 
                 <TextInput
                     placeholder="Saisir un modèle..."
@@ -78,7 +78,8 @@ const styles = StyleSheet.create({
     },
     textinput: {
         alignSelf: 'center',
-        fontSize: 18
+        fontSize: 18,
+        borderBottomWidth: 1
     },
     wrapperBurgerMenu: {
         width: 32,
@@ -93,7 +94,7 @@ const styles = StyleSheet.create({
 })
 
 const mapStateToProps = (state) => { 
-    return { state: state }
+    return { state }
 }
 
 const mapDispatchToProps = (dispatch) => {

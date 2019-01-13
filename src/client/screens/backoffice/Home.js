@@ -28,13 +28,11 @@ class Home extends Component {
                 </View>
 
                 <View style={styles.wrapperBody}>
-                    <Button onPress={() => this.props.navigation.navigate('AddBrands')} title="Ajouter une marque"/>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('AddBrands')} style={styles.buttonAddSneaker}><Text>Ajouter une Sneaker</Text></TouchableOpacity>
 
                     <Block title="Les sneakers" content="sneakers" navigation={this.props.navigation} />
 
                     <Block title="Les marques" content="brands" navigation={this.props.navigation} />
-
-                    <Block title="Les models" content="models" navigation={this.props.navigation} />
                 </View>
 
                 <View style={styles.wrapperFooter}>
@@ -81,6 +79,13 @@ const styles = StyleSheet.create({
         width: 32,
         height: 32,
         alignSelf: 'flex-start'
+    },
+    buttonAddSneaker: {
+        alignSelf: 'center',
+        backgroundColor: '#dedede',
+        marginTop: 16,
+        marginBottom: 16,
+        padding: 16
     }
 })
 

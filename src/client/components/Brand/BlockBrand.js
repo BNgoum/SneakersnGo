@@ -5,34 +5,6 @@ import { deleteBrand, requestAllBrands } from '../../store/reducers/sneakers/act
 
 
 class BlockBrand extends Component {
-
-    handlePressBrand = () => {
-        return new Promise ( (resolve, reject) => {
-            const action = { type: "SET_CURRENT_BRAND", value: this.props.dataBrand._id }
-            resolve(this.props.dispatch(action));
-        })
-        .then(() => this.props.navigation.navigate('AddModels'))
-        .catch((error) => console.log('Erreur lors du passage vers l\'écran "Ajout modèle" : ', error))
-    }
-
-    handleDeleteBrand = () => {
-        const token = this.props.state.AuthenticationReducer.isAdmin;
-        const idBrand = this.props.dataBrand._id;
-
-        return new Promise((resolve, reject) => {
-            resolve(deleteBrand(token, idBrand))
-        })
-        .then(() => {
-            return requestAllBrands(token);
-        })
-        .then((brands) => {
-            const action = { type: "GET_ALL_BRANDS", value: brands }
-
-            return this.props.dispatch(action);
-        })
-        .catch((error) => console.log('Erreur lors de la promise suppression d\'une marque : ', error))
-    }
-
     render() {
         return (
             <View style={styles.wrapperBrand}>

@@ -1,6 +1,3 @@
-import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
-
 import { createStackNavigator, createAppContainer, createSwitchNavigator } from 'react-navigation'
 
 import Inscription from '../screens/authentication/Inscription';
@@ -31,11 +28,3 @@ export default createAppContainer(createSwitchNavigator(
       Inscription: InscriptionStack,
     }
 ));
-
-const styles = StyleSheet.create({
-    wrapperAuth: {
-        display: 'flex',
-        flex: 1,
-    },
-    
-})

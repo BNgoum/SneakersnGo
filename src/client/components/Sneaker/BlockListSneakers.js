@@ -1,38 +1,37 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, FlatList, Text } from 'react-native';
 import { connect } from 'react-redux';
-import Brand from './Brand';
+import BlockSneaker from './BlockSneaker';
 
-import { requestAllBrands } from '../../store/reducers/sneakers/action';
+import { requestAllSneakers } from '../../store/reducers/sneakers/action';
 
-class ListBrands extends Component {
+class ListSneakers extends Component {
 
     componentWillMount() {
-        this.getAllBrands();
+        this.getAllSneakers();
     }
 
-    getAllBrands = () => {
+    getAllSneakers = () => {
         const token = this.props.state.AuthenticationReducer.isAdmin;
 
         return new Promise( (resolve, reject) => {
-            resolve( requestAllBrands(token) );
+            resolve( requestAllSneakers(token) );
         })
-        .then((brands) => {
-            const action = { type: "GET_ALL_BRANDS", value: brands }
-
+        .then((sneakers) => {
+            const action = { type: "GET_ALL_SNEAKERS", value: sneakers }
             return this.props.dispatch(action);
         })
-        .catch( (error) => console.log('Erreur lors de la récupération des marques : ', error))
+        .catch( (error) => console.log('Erreur lors de la récupération des Sneakers (BlockListSneakers.js) : ', error))
     }
 
     render() {
         return (
             <View style={styles.wrapperListBrands}>
                 <FlatList 
-                    data={this.props.state.SneakersReducer.brands}
+                    data={this.props.state.SneakersReducer.sneakers}
                     keyExtractor={(item) => item._id.toString()}
                     numColumns = {3}
-                    renderItem={({item}) => <Brand dataBrand={item} navigation={this.props.navigation} /> }
+                    renderItem={({item}) => <BlockSneaker dataSneaker={item} /> }
                 />
             </View>
         )
@@ -59,7 +58,9 @@ const styles = StyleSheet.create({
     },
 })
 
-const mapStateToProps = (state) => { return { state } }
+const mapStateToProps = (state) => { 
+    return { state }
+}
 
 const mapDispatchToProps = (dispatch) => {
     return {
@@ -67,4 +68,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ListBrands)
+export default connect(mapStateToProps, mapDispatchToProps)(ListSneakers)

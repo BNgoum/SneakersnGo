@@ -19,12 +19,21 @@ class Model extends Component {
         .catch((error) => console.log('Erreur lors de la promise suppression d\'un modèle : ', error))
     }
 
+    handlePressModel = () => {
+        return new Promise ( (resolve, reject) => {
+            const action = { type: "SET_CURRENT_MODEL", value: this.props.dataModel._id }
+            resolve(this.props.dispatch(action));
+        })
+        .then(() => this.props.navigation.navigate('AddSneakers'))
+        .catch((error) => console.log('Erreur lors du passage vers l\'écran "Ajout modèle" : ', error))
+    }
+
     render() {
         const pathToImage = '../../images/';
 
         return (
             <View style={styles.wrapperModel}>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('Home')} style={styles.wrapperModelname}>
+                <TouchableOpacity onPress={this.handlePressModel} style={styles.wrapperModelname}>
                     <Text style={styles.title}>{this.props.dataModel.name}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={this.handleDeleteModel} style={styles.wrapperButtonDelete}>
