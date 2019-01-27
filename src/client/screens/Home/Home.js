@@ -4,6 +4,12 @@ import { StyleSheet, View, Text, TextInput, Button, TouchableOpacity } from 'rea
 import { connect } from 'react-redux';
 import {requestDisconnect} from '../../store/reducers/user/action';
 
+import Container from '../../components/Style/Container';
+import Nouveautes from './Nouveautes';
+import Concept from './Concept';
+import Instagram from './Instagram';
+import Buy from './Buy';
+
 class Home extends Component {
 
     disconnect = () => {
@@ -14,13 +20,24 @@ class Home extends Component {
 
     render() {
         return (
-            <View>
-                <Text>Hello Client !</Text>
-                <TouchableOpacity onPress={this.disconnect} title="Se déconnecter"><Text>Se déconnecter</Text></TouchableOpacity>
-            </View>
+            <Container>
+                <Nouveautes></Nouveautes>
+                <Concept></Concept>
+                <Instagram></Instagram>
+                <Buy></Buy>
+            </Container>
         )
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        paddingTop: 64,
+    },
+    title: {
+        marginBottom: 13
+    }
+})
 
 const mapStateToProps = (state) => { 
     return { state: state }

@@ -6,7 +6,7 @@ const NavigatorStack = createStackNavigator({
     Home: {
         screen: Home,
         navigationOptions: {
-            title: 'Accueil'
+            title: 'SNEAKERS AND GO'
         }
     }
     
