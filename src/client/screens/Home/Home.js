@@ -9,6 +9,8 @@ import Nouveautes from './Nouveautes';
 import Concept from './Concept';
 import Instagram from './Instagram';
 import Buy from './Buy';
+import Link from '../../components/Style/Text/Link';
+import Background from '../../components/Style/Background';
 
 class Home extends Component {
 
@@ -25,17 +27,28 @@ class Home extends Component {
                 <Concept></Concept>
                 <Instagram></Instagram>
                 <Buy></Buy>
+                <Link style={ styles.linkText }>{'Besoin d\'assistance ?'.toUpperCase()}</Link>
+                <Background style={ styles.backgroundFooter }></Background>
             </Container>
         )
     }
 }
 
 const styles = StyleSheet.create({
-    container: {
-        paddingTop: 64,
-    },
     title: {
         marginBottom: 13
+    },
+    linkText: {
+        alignSelf: 'center',
+        marginTop: 20,
+        marginBottom: 60,
+        zIndex: 5,
+        textTransform: 'uppercase'
+    },
+    backgroundFooter: {
+        bottom: -180,
+        top: 'auto',
+        left: -60
     }
 })
 

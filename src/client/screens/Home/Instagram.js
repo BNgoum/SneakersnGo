@@ -13,7 +13,7 @@ export default class Instagram extends Component {
                 <Image style={ styles.instaImage2 } source={require('../../images/instagram.jpg')} />
                 <Image style={ styles.instaImage3 } source={require('../../images/instagram.jpg')} />
                 <ButtonSecondary style={ styles.instaBtn }>
-                    <ButtonTextBold>Instagram</ButtonTextBold>
+                    <ButtonTextBold>{'Instagram'.toUpperCase()}</ButtonTextBold>
                 </ButtonSecondary>
             </View>
         )
@@ -25,23 +25,30 @@ const styles = StyleSheet.create({
         position: 'relative',
         marginTop: 50,
         backgroundColor: '#dedede',
-        height: 150
+        height: 150,
+        paddingLeft: 20,
+        paddingRight: 20,
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-around'
     },
     instaImage1: {
-        position: 'absolute',
+        // position: 'absolute',
         width: 150,
         height: 150,
         left: -50
     },
     instaImage2: {
-        position: 'absolute',
+        // position: 'absolute',
         width: 150,
         height: 150,
         left: '50%',
-        transform: [{ translateX: -75 }]
+        transform: [{ translateX: -75 }],
+        paddingRight: 10,
+        paddingLeft: 10,
     },
     instaImage3: {
-        position: 'absolute',
+        // position: 'absolute',
         width: 150,
         height: 150,
         right: -50
@@ -52,6 +59,6 @@ const styles = StyleSheet.create({
         height: 34,
         top: '50%',
         left: '50%',
-        transform: [{ translateX: -109 }, { translateY: -17 }]
+        transform: [{ translateX: -90 }, { translateY: -17 }]
     }
 })

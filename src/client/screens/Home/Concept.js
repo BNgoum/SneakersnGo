@@ -10,7 +10,7 @@ export default class Concept extends Component {
         return (
             <View style={ styles.container }>
                 <Paragraph>La plateforme de location de sneakers authentiques pour les professionnels de la mode.</Paragraph>
-                <Link style={ styles.linkStyle }>Découvrir le concept</Link>
+                <Link style={ styles.linkStyle }>{'Découvrir le concept'.toUpperCase()}</Link>
             </View>
         )
     }
@@ -19,6 +19,8 @@ export default class Concept extends Component {
 const styles = StyleSheet.create({
     container: {
         paddingTop: 70,
+        paddingRight: 20,
+        paddingLeft: 20,
     },
     linkStyle: {
         paddingTop: 16

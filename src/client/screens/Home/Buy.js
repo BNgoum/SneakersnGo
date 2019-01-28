@@ -6,7 +6,6 @@ import BorderBottomTitle from '../../components/Style/Text/BorderBottomTitle';
 import Title from '../../components/Style/Text/Title';
 import ButtonCTA from '../../components/Style/Button/Button';
 import ButtonText from '../../components/Style/Button/ButtonText';
-import Container from '../../components/Style/Container';
 import Background from '../../components/Style/Background';
 
 export default class Buy extends Component {
@@ -16,11 +15,11 @@ export default class Buy extends Component {
             <View style={ styles.container }>
                 <View style={ styles.header }>
                     <ContainerTitle style={ styles.wrapperTitle }>
-                        <Title style={ styles.title }>Acheter</Title>
+                        <Title style={ styles.title }>{'Acheter'.toUpperCase()}</Title>
                         <BorderBottomTitle></BorderBottomTitle>
                     </ContainerTitle>
 
-                    <ButtonCTA><ButtonText>Découvrir</ButtonText></ButtonCTA>
+                    <ButtonCTA><ButtonText>{'Découvrir'.toUpperCase()}</ButtonText></ButtonCTA>
                 </View>
                 <View style={ styles.content }>
                     <Background style={ styles.backgroundSneaker }></Background>
@@ -33,8 +32,11 @@ export default class Buy extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 64,
-        marginBottom: 54,
+        marginTop: 30,
+        marginBottom: 64,
+        paddingTop: 30,
+        paddingRight: 20,
+        paddingLeft: 20,
         display: 'flex',
         alignItems: 'flex-end',
         height: 270
@@ -50,10 +52,7 @@ const styles = StyleSheet.create({
         zIndex: 5
     },
     content: {
-        position: 'absolute',
-        left: '50%',
-        top: '50%',
-        transform: [{translateX: -92}, {translateY: -20}],
+        alignSelf: 'center',
         width: 184,
         height: 155,
         zIndex: 1
@@ -62,7 +61,7 @@ const styles = StyleSheet.create({
         width: 184,
         height: 155,
         transform: [{rotate: '-77deg'}],
-        bottom: 0,
+        bottom: 20,
         left: 0
     },
     imgSneaker: {

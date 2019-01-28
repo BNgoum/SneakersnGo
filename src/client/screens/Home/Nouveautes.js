@@ -13,16 +13,15 @@ export default class Nouveautes extends Component {
     render() {
         return (
             <View style={ styles.container }>
-                <Background></Background>
+                <Background style={ styles.backgroundSquare }></Background>
                 <Image style={ styles.backgroundSneaker } source={require('../../images/balenciaga.png')} />
                 
-                
                 <ContainerTitle style={ styles.title }>
-                    <Title>Toutes les nouveautés</Title>
+                    <Title>{'Toutes les nouveautés'.toUpperCase()}</Title>
                     <BorderBottomTitle></BorderBottomTitle>
                 </ContainerTitle>
 
-                <ButtonCTA><ButtonText>Découvrir</ButtonText></ButtonCTA>
+                <ButtonCTA><ButtonText>{'Découvrir'.toUpperCase()}</ButtonText></ButtonCTA>
             </View>
         )
     }
@@ -31,7 +30,13 @@ export default class Nouveautes extends Component {
 const styles = StyleSheet.create({
     container: {
         paddingTop: 64,
+        paddingRight: 20,
+        paddingLeft: 20,
         marginBottom: 54,
+    },
+    backgroundSquare: {
+        top: -60,
+        left: -60
     },
     title: {
         marginBottom: 13

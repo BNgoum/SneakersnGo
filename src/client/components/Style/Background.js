@@ -2,8 +2,6 @@ import styled from 'styled-components';
 
 const Background = styled.View`
     position: absolute;
-    top: -60px;
-    left: -30px;
     width: 150%;
     height: 253px;
     transform: rotate(-8deg);
