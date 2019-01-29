@@ -1,33 +1,27 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TextInput, Button, TouchableOpacity } from 'react-native';
-
-import { connect } from 'react-redux';
-import {requestDisconnect} from '../../store/reducers/user/action';
+import { StyleSheet } from 'react-native';
 
 import Container from '../../components/Style/Container';
-import Nouveautes from './Nouveautes';
-import Concept from './Concept';
-import Instagram from './Instagram';
-import Buy from './Buy';
+import Nouveautes from '../../components/Home/Nouveautes';
+import Concept from '../../components/Home/Concept';
+import Instagram from '../../components/Home/Instagram';
+import Buy from '../../components/Home/Buy';
 import Link from '../../components/Style/Text/Link';
+import TextLink from '../../components/Style/Text/TextLink';
 import Background from '../../components/Style/Background';
 
-class Home extends Component {
-
-    disconnect = () => {
-        return new Promise((resolve, reject) => { resolve(requestDisconnect()) })
-        .then((action) => { this.props.dispatch(action) })
-        .catch((error) => { console.log('Erreur lors de la déconnexion : ', error); })
-    }
+export default class Home extends Component {
 
     render() {
         return (
             <Container>
                 <Nouveautes></Nouveautes>
-                <Concept></Concept>
+                <Concept navigation={ this.props.navigation }></Concept>
                 <Instagram></Instagram>
                 <Buy></Buy>
-                <Link style={ styles.linkText }>{'Besoin d\'assistance ?'.toUpperCase()}</Link>
+                <Link style={ styles.linkText }>
+                    <TextLink>{'Besoin d\'assistance ?'.toUpperCase()}</TextLink>
+                </Link>
                 <Background style={ styles.backgroundFooter }></Background>
             </Container>
         )
@@ -51,15 +45,3 @@ const styles = StyleSheet.create({
         left: -60
     }
 })
-
-const mapStateToProps = (state) => { 
-    return { state: state }
-}
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        dispatch: (action) => { dispatch(action) }
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home)

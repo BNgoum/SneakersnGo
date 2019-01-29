@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Image } from 'react-native';
 
-import ButtonSecondary from '../../components/Style/Button/ButtonSecondary';
-import ButtonTextBold from '../../components/Style/Button/ButtonTextBold';
+import ButtonSecondary from '../Style/Button/ButtonSecondary';
+import ButtonTextBold from '../Style/Button/ButtonTextBold';
 
 export default class Instagram extends Component {
 

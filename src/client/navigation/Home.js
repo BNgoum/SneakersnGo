@@ -1,6 +1,7 @@
 import { createStackNavigator, createAppContainer } from 'react-navigation'
 
 import Home from '../screens/Home/Home';
+import Concept from '../screens/Home/ConceptScreen';
 
 const NavigatorStack = createStackNavigator({
     Home: {
@@ -8,7 +9,13 @@ const NavigatorStack = createStackNavigator({
         navigationOptions: {
             title: 'SNEAKERS AND GO'
         }
-    }
+    },
+    Concept: {
+        screen: Concept,
+        navigationOptions: {
+            title: 'SNEAKERS AND GO'
+        }
+    },
     
 })
 

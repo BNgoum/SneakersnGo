@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { StyleSheet, Image, View } from 'react-native';
 
-import ContainerTitle from '../../components/Style/Text/ContainerTitle';
-import BorderBottomTitle from '../../components/Style/Text/BorderBottomTitle';
-import Title from '../../components/Style/Text/Title';
-import ButtonCTA from '../../components/Style/Button/Button';
-import ButtonText from '../../components/Style/Button/ButtonText';
-import Background from '../../components/Style/Background';
+import ContainerTitle from '../Style/Text/ContainerTitle';
+import BorderBottomTitle from '../Style/Text/BorderBottomTitle';
+import Title from '../Style/Text/Title';
+import ButtonCTA from '../Style/Button/Button';
+import ButtonText from '../Style/Button/ButtonText';
+import Background from '../Style/Background';
 
 export default class Buy extends Component {
 
