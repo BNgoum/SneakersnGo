@@ -1,23 +1,18 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Image, View } from 'react-native';
 
 import Citation from '../Style/Text/Citation';
-import BorderBottomTitle from '../Style/Text/BorderBottomTitle';
-import Title from '../Style/Text/Title';
-import ButtonCTA from '../Style/Button/Button';
-import ButtonText from '../Style/Button/ButtonText';
-import Background from '../Style/Background';
 
 export default class CitationComponent extends Component {
 
     render() {
         return (
             <View style={ styles.container }>
-                <Text style={ styles.textApostropheBefore }>"</Text>
+                <Image style={ styles.textApostropheBefore } source={require('../../images/apostrophes.png')} />
                 <Citation style={ styles.citation }>
                 {'Soyez libre d’utiliser la mode sans la posséder'.toUpperCase()}
                 </Citation>
-                <Text style={ styles.textApostropheAfter }>"</Text>
+                <Image style={ styles.textApostropheAfter } source={require('../../images/apostrophes.png')} />
             </View>
         )
     }
@@ -34,16 +29,12 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: -20,
         left: 0,
-        fontSize: 44,
-        fontFamily: 'roboto-bold',
-        color: '#F00'
+        flex: 1,
     },
     textApostropheAfter: {
         position: 'absolute',
         bottom: -20,
         right: 40,
-        fontSize: 44,
-        fontFamily: 'roboto-bold',
-        color: '#F00'
+        flex:1,
     }
 })

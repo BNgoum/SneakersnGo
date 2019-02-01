@@ -4,12 +4,12 @@ import Home from '../screens/Home/Home';
 import Concept from '../screens/Home/ConceptScreen';
 
 const NavigatorStack = createStackNavigator({
-    Home: {
-        screen: Home,
-        navigationOptions: {
-            title: 'SNEAKERS AND GO'
-        }
-    },
+    // Home: {
+    //     screen: Home,
+    //     navigationOptions: {
+    //         title: 'SNEAKERS AND GO'
+    //     }
+    // },
     Concept: {
         screen: Concept,
         navigationOptions: {
