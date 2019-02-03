@@ -82,3 +82,14 @@ export const ArrowBottom = props => (
       />
     </Svg>
 )
+
+export const ArrowBottomBig = props => (
+  <Svg width={13} height={9} {...props}>
+    <Path
+      d="M.7.75l5.6 7.5m6-7.5l-5.6 7.5"
+      fill="none"
+      stroke="#979797"
+      strokeLinecap="square"
+    />
+  </Svg>
+)

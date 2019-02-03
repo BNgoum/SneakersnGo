@@ -31,7 +31,7 @@ export default class SneakersListeItem extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
     },
     wrapperSneakersBloc: {
         display: 'flex',
