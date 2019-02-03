@@ -19,7 +19,7 @@ export default class Buy extends Component {
                         <BorderBottomTitle></BorderBottomTitle>
                     </ContainerTitle>
 
-                    <ButtonCTA><ButtonText>{'Découvrir'.toUpperCase()}</ButtonText></ButtonCTA>
+                    <ButtonCTA style={ styles.ButtonCTA }><ButtonText>{'Découvrir'.toUpperCase()}</ButtonText></ButtonCTA>
                 </View>
                 <View style={ styles.content }>
                     <Background style={ styles.backgroundSneaker }></Background>
@@ -70,5 +70,8 @@ const styles = StyleSheet.create({
         left: -60,
         width: 230,
         height: 200
+    },
+    ButtonCTA: {
+        width: 137
     }
 })

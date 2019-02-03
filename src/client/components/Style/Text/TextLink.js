@@ -6,6 +6,7 @@ const TextLink = styled.Text`
     text-decoration: underline;
     text-transform: uppercase;
     font-family: 'roboto-bold';
+    letter-spacing: 1px;
 `;
 
 export default TextLink;

@@ -21,7 +21,7 @@ export default class Nouveautes extends Component {
                     <BorderBottomTitle></BorderBottomTitle>
                 </ContainerTitle>
 
-                <ButtonCTA><ButtonText>{'Découvrir'.toUpperCase()}</ButtonText></ButtonCTA>
+                <ButtonCTA style={ styles.ButtonCTA }><ButtonText>{'Découvrir'.toUpperCase()}</ButtonText></ButtonCTA>
             </View>
         )
     }
@@ -50,5 +50,8 @@ const styles = StyleSheet.create({
         left: 70,
         width: 247,
         height: 133
+    },
+    ButtonCTA: {
+        width: 137
     }
 })

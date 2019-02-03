@@ -7,22 +7,17 @@ export default class Filters extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            lignes: true,
-            bloc: false
+            isBlock: false,
         }
     }
 
     handleOnPressFilters = type => {
         if (type === "Lignes") {
-            this.setState({
-                lignes: true,
-                bloc: false
-            })
+            this.setState({ isBlock: false });
+            this.props.displaySneakers(false);
         } else {
-            this.setState({
-                lignes: false,
-                bloc: true
-            })
+            this.setState({ isBlock: true });
+            this.props.displaySneakers(true);
         }
     }
 
@@ -34,16 +29,19 @@ export default class Filters extends Component {
                     <Text style={ styles.textStyle }>{ 'Filtrer'.toUpperCase() }</Text>
                 </TouchableOpacity>
                 <View style={ styles.wrapperFiltres }>
-                    <TouchableOpacity onPress={ () => this.handleOnPressFilters("Lignes") }>
+                    <TouchableOpacity onPress={ 
+                        () => {this.handleOnPressFilters("Lignes")} }>
                         {
-                            this.state.lignes ? 
-                            <FiltreLignesActive style={ styles.icon }></FiltreLignesActive> :
-                            <FiltreLignesInactive style={ styles.icon }></FiltreLignesInactive>
+                            this.state.isBlock ? 
+                            <FiltreLignesInactive style={ styles.icon }></FiltreLignesInactive> :
+                            <FiltreLignesActive style={ styles.icon }></FiltreLignesActive>
+                            
                         }
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={ () => this.handleOnPressFilters("Bloc") }>
+                    <TouchableOpacity onPress={ 
+                        () => {this.handleOnPressFilters("Bloc")} }>
                         {
-                            this.state.bloc ?
+                            this.state.isBlock ?
                             <FiltreBlocActive style={ styles.icon }></FiltreBlocActive> :
                             <FiltreBlocInactive style={ styles.icon }></FiltreBlocInactive>
                         }

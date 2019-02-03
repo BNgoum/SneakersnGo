@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
-export default class Tab extends Component {
+export default class TabResearch extends Component {
     constructor(props) {
         super(props);
         this.state = {
             isActiveLeft: true,
-            isActiveRight: false,
         }
     }
 
@@ -14,13 +13,13 @@ export default class Tab extends Component {
         if (side === "left") {
             this.setState({
                 isActiveLeft: true,
-                isActiveRight: false,
             })
+            this.props.displayTabContent(true);
         } else {
             this.setState({
                 isActiveLeft: false,
-                isActiveRight: true,
             })
+            this.props.displayTabContent(false);
         }
     }
 
@@ -32,8 +31,8 @@ export default class Tab extends Component {
                     <View style={ [styles.borderBottom, this.state.isActiveLeft && styles.borderBottomActive] }></View>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={ () => this.handleOnPressTab("right") } style={ styles.wrapperTab }>
-                    <Text style={ [styles.title, this.state.isActiveRight && styles.titleActive] }>{'Ma paire à la demande'.toUpperCase()}</Text>
-                    <View style={ [styles.borderBottom, this.state.isActiveRight && styles.borderBottomActive] }></View>
+                    <Text style={ [styles.title, !this.state.isActiveLeft && styles.titleActive] }>{'Ma paire à la demande'.toUpperCase()}</Text>
+                    <View style={ [styles.borderBottom, !this.state.isActiveLeft && styles.borderBottomActive] }></View>
                 </TouchableOpacity>
             </View>
         )

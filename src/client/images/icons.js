@@ -46,3 +46,39 @@ export const FiltreBlocActive = props => (
       <Path fill="none" stroke="#898989" d="M.5.5h17v13H.5z" />
     </Svg>
 )
+
+export const CoeurInactive = props => (
+    <Svg width={22} height={19} {...props}>
+      <Path
+        fill="none"
+        fillRule="evenodd"
+        stroke="#EA2300"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M11 3.232C5.84-2.865-3.485 4.753 3.503 11.427 8.573 16.27 10.383 17.622 11 18c.617-.378 2.427-1.73 7.498-6.573C25.484 4.753 16.158-2.865 11 3.232"
+      />
+    </Svg>
+)
+
+export const Croix = props => (
+    <Svg width={11} height={11} {...props}>
+      <Path
+        d="M1.11.95l9.193 9.193m0-9.193l-9.192 9.193"
+        fill="none"
+        stroke="#070E37"
+        strokeLinecap="square"
+      />
+    </Svg>
+)
+
+export const ArrowBottom = props => (
+    <Svg width={13} height={9} {...props}>
+      <Path
+        d="M.7.75l5.6 7.5m6-7.5l-5.6 7.5"
+        fill="none"
+        stroke="#979797"
+        strokeLinecap="square"
+      />
+    </Svg>
+)

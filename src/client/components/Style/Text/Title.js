@@ -7,6 +7,7 @@ const Title = styled.Text`
     text-transform: uppercase;
     margin-bottom: 10px;
     line-height: 30;
+    letter-spacing: 1px;
 `;
 
 export default Title;

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 
-import { Loupe, FiltreBloc, FiltreLignes } from '../../images/icons';
 import BackgroundSneakersBloc from '../../components/Style/BackgroundSneakersBloc';
 
 export default class SneakersListeItem extends Component {
@@ -14,7 +13,7 @@ export default class SneakersListeItem extends Component {
     render() {
         return (
             <View style={ styles.container }>
-               <TouchableOpacity style={ styles.wrapperSneakersBloc }>
+               <TouchableOpacity style={ styles.wrapperSneakersBloc } onPress={ () => this.props.navigation.navigate('DetailsSneakers') }>
                     <View style={ styles.wrapperInformations }>
                         <Text style={ styles.marque }>{ 'Balenciaga'.toUpperCase() }</Text>
                         <Text style={ styles.modele }>{ 'Basket Triple S'.toUpperCase() }</Text>

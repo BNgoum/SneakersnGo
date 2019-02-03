@@ -7,6 +7,7 @@ import { HomeActiveSvg, HomeInactiveSvg, ResearchActiveSvg, ResearchInactiveSvg,
 import Home from '../screens/Home/Home';
 import Concept from '../screens/Home/ConceptScreen';
 import Research from '../screens/Research/Research';
+import DetailsSneakers from '../screens/Research/DetailsSneakers';
 import WishList from '../screens/WishList/WishList';
 import Chat from '../screens/Chat/Chat';
 import User from '../screens/User/User';
@@ -31,6 +32,12 @@ const HomeStack = createStackNavigator({
 const ResearchStack = createStackNavigator({
     Research : {
         screen: Research,
+        navigationOptions: {
+            title: 'SNEAKERS AND GO'
+        }
+    },
+    DetailsSneakers : {
+        screen: DetailsSneakers,
         navigationOptions: {
             title: 'SNEAKERS AND GO'
         }

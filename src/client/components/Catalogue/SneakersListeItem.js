@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 
-import { Loupe, FiltreBloc, FiltreLignes } from '../../images/icons';
 import BackgroundSneakers from '../../components/Style/BackgroundSneakersListe';
 
 export default class SneakersListeItem extends Component {
@@ -14,7 +13,7 @@ export default class SneakersListeItem extends Component {
     render() {
         return (
             <View style={ styles.container }>
-               <TouchableOpacity style={ styles.wrapperSneakersListe }>
+               <TouchableOpacity style={ styles.wrapperSneakersListe } onPress={ () => this.props.navigation.navigate('DetailsSneakers') }>
                 <View style={ styles.wrapperSneakers }>
                     <Image style={ styles.sneakersImage } source={require('../../images/balenciaga_liste.png')} />
                     <BackgroundSneakers style={ styles.backgroundSneakers }></BackgroundSneakers>

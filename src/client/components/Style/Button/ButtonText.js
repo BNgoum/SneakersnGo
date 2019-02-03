@@ -5,6 +5,7 @@ const ButtonText = styled.Text`
     color: #fff;
     text-transform: uppercase;
     font-family: 'roboto-regular';
+    letter-spacing: 1px;
 `;
 
 export default ButtonText;
