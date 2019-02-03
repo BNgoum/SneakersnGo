@@ -1,6 +1,6 @@
 import React from 'react'
 import { createStackNavigator, createBottomTabNavigator, createAppContainer } from 'react-navigation'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View, Image } from 'react-native'
 
 import { HomeActiveSvg, HomeInactiveSvg, ResearchActiveSvg, ResearchInactiveSvg, WishListActiveSvg, WishListInactiveSvg, ChatActiveSvg, ChatInactiveSvg, UserActiveSvg, UserInactiveSvg, ActiveIcon } from '../images/tabbar/icons';
 
@@ -13,17 +13,33 @@ import Chat from '../screens/Chat/Chat';
 import User from '../screens/User/User';
 
 
+class Logo extends React.Component {
+    render() {
+      return (
+          <View style={{display: 'flex', alignItems: 'center', flex: 1}}>
+              <Image source={require('../images/logo.png')} style={{ 
+                aspectRatio: 6, 
+                resizeMode: 'contain' }} />
+          </View>
+            
+      );
+    }
+}
+
+
 const HomeStack = createStackNavigator({
     Home: {
         screen: Home,
         navigationOptions: {
-            title: 'SNEAKERS AND GO'
+            headerTitle: <Logo></Logo>,
+            headerBackTitle: null,
         }
     },
     Concept: {
         screen: Concept,
         navigationOptions: {
-            title: 'SNEAKERS AND GO'
+            headerTitle: <Logo></Logo>,
+            
         }
     },
     
@@ -33,13 +49,14 @@ const ResearchStack = createStackNavigator({
     Research : {
         screen: Research,
         navigationOptions: {
-            title: 'SNEAKERS AND GO'
+            headerTitle: <Logo></Logo>,
+            headerBackTitle: null,
         }
     },
     DetailsSneakers : {
         screen: DetailsSneakers,
         navigationOptions: {
-            title: 'SNEAKERS AND GO'
+            headerTitle: <Logo></Logo>,
         }
     }
 })
@@ -48,7 +65,8 @@ const WishListStack = createStackNavigator({
     WishList : {
         screen: WishList,
         navigationOptions: {
-            title: 'SNEAKERS AND GO'
+            headerTitle: <Logo></Logo>,
+            headerBackTitle: null,
         }
     }
 })
@@ -57,7 +75,8 @@ const ChatStack = createStackNavigator({
     Chat : {
         screen: Chat,
         navigationOptions: {
-            title: 'SNEAKERS AND GO'
+            headerTitle: <Logo></Logo>,
+            headerBackTitle: null,
         }
     }
 })
@@ -66,7 +85,8 @@ const UserStack = createStackNavigator({
     User : {
         screen: User,
         navigationOptions: {
-            title: 'SNEAKERS AND GO'
+            headerTitle: <Logo></Logo>,
+            headerBackTitle: null,
         }
     }
 })

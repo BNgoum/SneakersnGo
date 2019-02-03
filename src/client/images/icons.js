@@ -1,5 +1,5 @@
-import React from 'react'
-import Svg, { Path } from 'react-native-svg'
+import React from 'react';
+import Svg, { Path } from 'react-native-svg';
 
 export const Loupe = props => (
     <Svg width={17} height={13} {...props}>
