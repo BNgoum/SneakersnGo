@@ -11,13 +11,14 @@ import ButtonText from '../../components/Style/Button/ButtonText';
 
 export default class ConceptScreen extends Component {
     render() {
+        console.log('Props : ', this.props)
         return (
             <Container>
                 <Background style={ styles.backgroundHeader }></Background>
                 <Citation style={ styles.citation }></Citation>
                 <Paragraph style={ styles.paragraph }>Maîtrisez votre budget en optant pour notre service de location pour vos shootings photos, clips vidéos & évènements.</Paragraph>
                 <Steps></Steps>
-                <Button style={ styles.btnSneakers }>
+                <Button style={ styles.btnSneakers } onPress={ () => this.props.navigation.navigate('Research') }>
                     <ButtonText>{'Parcourir les sneakers'.toUpperCase()}</ButtonText>
                 </Button>
                 <Background style={ styles.backgroundFooter }></Background>

@@ -29,7 +29,7 @@ export default class InputText extends Component {
                     onFocus={() => this.setState({isFocus: true})}
                     onBlur={() => this.handleOnBlur()}
                 />
-                <Text style={ [styles.placeholder, this.state.isFocus && styles.isFocus] }>{'Marque'.toUpperCase()}</Text>
+                <Text style={ [styles.placeholder, this.state.isFocus && styles.isFocus] }>{this.props.placeholder.toUpperCase()}</Text>
             </View>
         )
     }

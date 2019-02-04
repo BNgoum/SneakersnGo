@@ -92,16 +92,6 @@ const UserStack = createStackNavigator({
 })
 
 const TabBarNavigator = createBottomTabNavigator({
-    Research: {
-        screen: ResearchStack,
-        navigationOptions: {
-            tabBarIcon: ({ focused }) =>  (
-                focused
-                ? <View style={ styles.wrapperSvg }><ResearchActiveSvg></ResearchActiveSvg><ActiveIcon></ActiveIcon></View>
-                : <View style={ styles.wrapperSvg }><ResearchInactiveSvg></ResearchInactiveSvg></View>
-            )
-        }
-    },
     Accueil: {
         screen: HomeStack,
         navigationOptions: {
@@ -112,7 +102,16 @@ const TabBarNavigator = createBottomTabNavigator({
             )
         }
     },
-    
+    Research: {
+        screen: ResearchStack,
+        navigationOptions: {
+            tabBarIcon: ({ focused }) =>  (
+                focused
+                ? <View style={ styles.wrapperSvg }><ResearchActiveSvg></ResearchActiveSvg><ActiveIcon></ActiveIcon></View>
+                : <View style={ styles.wrapperSvg }><ResearchInactiveSvg></ResearchInactiveSvg></View>
+            )
+        }
+    },
     WishList: {
         screen: WishListStack,
         navigationOptions: {

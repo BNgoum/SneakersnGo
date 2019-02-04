@@ -99,8 +99,6 @@ const styles = StyleSheet.create({
     },
     wrapperSneakersAsk: {
         flex: 1,
-        paddingVertical: 40,
-        paddingHorizontal: 20,
     },
     swiper: {
         position: 'relative',
