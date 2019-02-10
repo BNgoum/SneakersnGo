@@ -24,17 +24,16 @@ export default class Filters extends Component {
     render() {
         return (
             <View style={ styles.container }>
-                <TouchableOpacity style={ styles.buttonStyle }><Loupe></Loupe></TouchableOpacity>
+                <TouchableOpacity onPress={ () => this.props.navigation.navigate('ResearchSneakers') } style={ styles.buttonStyle }><Loupe /></TouchableOpacity>
                 <TouchableOpacity>
                     <Text style={ styles.textStyle }>{ 'Filtrer'.toUpperCase() }</Text>
                 </TouchableOpacity>
                 <View style={ styles.wrapperFiltres }>
-                    <TouchableOpacity onPress={ 
-                        () => {this.handleOnPressFilters("Lignes")} }>
+                    <TouchableOpacity onPress={ () => {this.handleOnPressFilters("Lignes")} }>
                         {
                             this.state.isBlock ? 
-                            <FiltreLignesInactive style={ styles.icon }></FiltreLignesInactive> :
-                            <FiltreLignesActive style={ styles.icon }></FiltreLignesActive>
+                            <FiltreLignesInactive style={ styles.icon } /> :
+                            <FiltreLignesActive style={ styles.icon } />
                             
                         }
                     </TouchableOpacity>
@@ -42,8 +41,8 @@ export default class Filters extends Component {
                         () => {this.handleOnPressFilters("Bloc")} }>
                         {
                             this.state.isBlock ?
-                            <FiltreBlocActive style={ styles.icon }></FiltreBlocActive> :
-                            <FiltreBlocInactive style={ styles.icon }></FiltreBlocInactive>
+                            <FiltreBlocActive style={ styles.icon } /> :
+                            <FiltreBlocInactive style={ styles.icon } />
                         }
                     </TouchableOpacity>
                 </View>

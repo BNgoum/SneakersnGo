@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TextInput, TouchableOpacity, Button } from 'react-native';
+import { StyleSheet, View, Text, FlatList, TouchableOpacity, Button } from 'react-native';
 
 import Modal from "react-native-modal";
 
@@ -42,33 +42,19 @@ export default class InputSelect extends Component {
                     <View style={ styles.wrapperModal }>
                         <Text style={ styles.titleModal }>{ this.props.placeholder.toUpperCase() }</Text>
                         <View style={ styles.wrapperItems }>
-                            <TouchableOpacity 
-                                style={ styles.itemStyle } 
-                                onPress={ () => this.handleOnPressItem(38) }>
-                                <Text style={ styles.itemText }>38</Text>
-                                { this.state.selected === 38 && <Circle></Circle> }
-                            </TouchableOpacity>
-
-                            <TouchableOpacity 
-                                style={ styles.itemStyle }
-                                onPress={ () => this.handleOnPressItem(39) }>
-                                <Text style={ styles.itemText }>39</Text>
-                                { this.state.selected === 39 && <Circle></Circle> }
-                            </TouchableOpacity>
-
-                            <TouchableOpacity 
-                                style={ styles.itemStyle }
-                                onPress={ () => this.handleOnPressItem(40) }>
-                                <Text style={ styles.itemText }>40</Text>
-                                { this.state.selected === 40 && <Circle></Circle> }
-                            </TouchableOpacity>
-
-                            <TouchableOpacity 
-                                style={ styles.itemStyle }
-                                onPress={ () => this.handleOnPressItem(41) }>
-                                <Text style={ styles.itemText }>41</Text>
-                                { this.state.selected === 41 && <Circle></Circle> }
-                            </TouchableOpacity>
+                            <FlatList
+                                data={ this.props.data }
+                                keyExtractor={ (item) => item.toString() }
+                                renderItem={ 
+                                    ({item}) => 
+                                    <TouchableOpacity 
+                                        style={ styles.itemStyle } 
+                                        onPress={ () => this.handleOnPressItem(item) }>
+                                        <Text style={ styles.itemText }>{item}</Text>
+                                        { this.state.selected === item && <Circle></Circle> }
+                                    </TouchableOpacity> 
+                                }
+                            />
                         </View>
                         <TouchableOpacity onPress={this._toggleModal} style={ styles.wrapperClose }>
                             <Croix></Croix>
@@ -82,11 +68,11 @@ export default class InputSelect extends Component {
 
 const styles = StyleSheet.create({
     container: {
+        marginBottom: 32
     },
     inputSelect: {
         position: 'relative',
         height: 30,
-        marginBottom: 32,
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',

@@ -1,19 +1,21 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
 
-import { CoeurInactive, Croix } from '../../images/icons';
+import { CoeurInactive, CoeurActive, Croix } from '../../images/icons';
 import SwiperSneakers from '../../components/Catalogue/SwiperSneakers';
 import Price from '../../components/Catalogue/Price';
 import TextLink from '../Style/Text/TextLink'
 import ButtonText from '../Style/Button/ButtonText'
 import Button from '../Style/Button/Button';
 import Select from '../Form/Select';
+import InputSelect from '../../components/Form/InputSelect';
 
 export default class SneakersDetails extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isOpenDetails: false
+            isOpenDetails: false,
+            isLiked: false
         }
     }
 
@@ -23,11 +25,19 @@ export default class SneakersDetails extends Component {
         })
     }
 
+    handleOnPressHeart = () => {
+        this.setState({ isLiked: !this.state.isLiked })
+    }
+
     render() {
         return (
             <ScrollView style={ styles.container }>
-                <TouchableOpacity>
-                    <CoeurInactive style={ styles.wishlistPicto }></CoeurInactive>
+                <TouchableOpacity onPress={ () => this.handleOnPressHeart() }>
+                    {
+                        this.state.isLiked ? 
+                        <CoeurActive style={ styles.wishlistPicto }></CoeurActive> :
+                        <CoeurInactive style={ styles.wishlistPicto }></CoeurInactive>
+                    }
                 </TouchableOpacity>
                 
                 <SwiperSneakers></SwiperSneakers>
@@ -56,12 +66,10 @@ export default class SneakersDetails extends Component {
                     </TouchableOpacity>
                 }
 
-                <View style={ styles.wrapperSelect }>
-                    <Select ></Select>
-                    <Select ></Select>
-                </View>
+                <InputSelect placeholder="Coloris" data={["BLEU", "ROUGE", "VERT", "NOIR", "VIOLET"]}></InputSelect>
+                <InputSelect placeholder="Taille" data={[39, 40, 41, 42]}></InputSelect>
                 
-                <Price price={50}></Price>
+                <Price price={50} style={ styles.price }></Price>
 
                 <Button style={ styles.buttonValidate }>
                     <ButtonText>{ 'Je les veux'.toUpperCase() }</ButtonText>
@@ -131,7 +139,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         marginBottom: 40
     },
-    wrapperSelect: {
-        marginBottom: 28
+    price: {
+        marginTop: 32
     }
 })

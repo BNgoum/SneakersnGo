@@ -39,7 +39,8 @@ const styles = StyleSheet.create({
         left: -60
     },
     title: {
-        marginBottom: 13
+        marginBottom: 13,
+        width: 170
     },
     wrapperBackground: {
         position: 'relative'

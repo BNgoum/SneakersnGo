@@ -18,7 +18,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'flex-start',
         alignItems: 'baseline',
-        marginBottom: 38
+        marginBottom: 38,
+        marginTop: 16
     },
     price: {
         color: '#070e37',

@@ -45,7 +45,7 @@ export default class Research extends Component {
     displayContent = () => {
         if( this.state.isCatalogue ) {
             return <View style={styles.wrapperBloc}>
-                <Filters displaySneakers={ this.handleDisplaySneakers }></Filters>
+                <Filters navigation={ this.props.navigation } displaySneakers={ this.handleDisplaySneakers }></Filters>
                 {
                     this.state.isBlock ?
                     <View style={ styles.swiper }>
@@ -75,7 +75,7 @@ export default class Research extends Component {
             
         } else {
             return <View style={ styles.wrapperSneakersAsk }>
-                <SneakersAsk></SneakersAsk>
+                <SneakersAsk navigation={ this.props.navigation }></SneakersAsk>
             </View>
         }
     }
