@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, ScrollView } from 'react-native';
 
 import InputText from '../../components/Form/InputText';
 import InputSelect from '../../components/Form/InputSelect';
@@ -24,7 +24,7 @@ export default class SneakersAsk extends Component {
         return (
             this.state.isSend ?
             <SuccessSend /> :
-            <View style={ styles.container }>
+            <ScrollView style={ styles.container }>
                 <InputText placeholder="Marque"></InputText>
                 <InputText placeholder="Modèle"></InputText>
                 <InputSelect style={ styles.inputSelectStyle } placeholder="Coloris" data={["BLEU", "ROUGE", "VERT", "NOIR", "VIOLET"]}></InputSelect>
@@ -33,7 +33,7 @@ export default class SneakersAsk extends Component {
                 <DatePickerCustom placeholder="Début de location" />
                 <DatePickerCustom placeholder="Fin de location" />
                 <Button onPress={ () => this.props.navigation.navigate('SuccessSend') } style={ [styles.buttonStyle, this.state.isDisable && styles.buttonDisable] }><ButtonText>{ "Envoyer ma demande".toUpperCase() }</ButtonText></Button>
-            </View>
+            </ScrollView>
         )
     }
 }

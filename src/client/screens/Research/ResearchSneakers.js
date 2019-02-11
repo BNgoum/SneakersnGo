@@ -25,8 +25,12 @@ export default class ResearchSneakers extends Component {
                         <TouchableOpacity><Text style={ styles.textHeaderContent }>{ "Effacer".toUpperCase() }</Text></TouchableOpacity>
                     </View>
                     <View style={ styles.content }>
-                        <Text style={ styles.textContent }>{ "Balenciaga".toUpperCase() }</Text>
-                        <Text style={ styles.textContent }>{ "Air Jordan".toUpperCase() }</Text>
+                        <TouchableOpacity>
+                            <Text style={ styles.textContent }>{ "Balenciaga".toUpperCase() }</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity>
+                            <Text style={ styles.textContent }>{ "Air Jordan".toUpperCase() }</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </View>

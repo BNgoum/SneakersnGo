@@ -86,6 +86,17 @@ export const Croix = props => (
     </Svg>
 )
 
+export const ArrowBottomLittle = props => (
+    <Svg width={10} height={6} {...props}>
+      <Path
+        d="M.7.75l5.6 7.5m6-7.5l-5.6 7.5"
+        fill="none"
+        stroke="#979797"
+        strokeLinecap="square"
+      />
+    </Svg>
+)
+
 export const ArrowBottom = props => (
     <Svg width={13} height={9} {...props}>
       <Path

@@ -25,7 +25,7 @@ export default class Filters extends Component {
         return (
             <View style={ styles.container }>
                 <TouchableOpacity onPress={ () => this.props.navigation.navigate('ResearchSneakers') } style={ styles.buttonStyle }><Loupe /></TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={ () => this.props.navigation.navigate('Filters') }>
                     <Text style={ styles.textStyle }>{ 'Filtrer'.toUpperCase() }</Text>
                 </TouchableOpacity>
                 <View style={ styles.wrapperFiltres }>
