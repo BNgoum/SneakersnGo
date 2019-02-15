@@ -42,6 +42,8 @@ const styles = StyleSheet.create({
     container: {
         position: 'relative',
         padding: 20,
+        display: 'flex',
+        justifyContent: 'center',
         flex: 1
     },
     backgroundTop: {
@@ -60,6 +62,9 @@ const styles = StyleSheet.create({
         marginBottom: 0
     },
     wrapperLink: {
+        position: 'absolute',
+        top: 20,
+        right: 20,
         alignSelf: 'flex-end'
     },
     linkStyle: {
@@ -77,7 +82,7 @@ const styles = StyleSheet.create({
     },
     wrapperBtn: {
         marginTop: 25,
-        marginBottom: 13,
+        marginBottom: 20,
         alignSelf: 'center'
     },
     backgroundBottom: {

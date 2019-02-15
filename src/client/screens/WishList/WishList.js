@@ -27,6 +27,7 @@ export default class Research extends Component {
                 <SwipeListView
                     useFlatList
                     data={this.state.arrayWishlist}
+                    keyExtractor={(item) => item.toString()}
                     renderItem={ (data, rowMap) => (
                         <View style={styles.rowFront}>
                             <SneakersListeItem style={ styles.listSneakers } navigation={ this.props.navigation }></SneakersListeItem>

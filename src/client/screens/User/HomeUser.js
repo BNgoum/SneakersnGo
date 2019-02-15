@@ -29,7 +29,7 @@ export default class HomeUser extends Component {
                 </ContainerTitle>
 
                 <View style={ styles.viewUser }>
-                    <TouchableOpacity style={ styles.containerUser }>
+                    <TouchableOpacity onPress={ () => this.props.navigation.navigate('MesCommandes') } style={ styles.containerUser }>
                         <Text style={ styles.titleUser }>{ "Mes commandes".toUpperCase() }</Text>
                         { this.state.genre !== "" && <Text style={ styles.selectedUser }>{ this.state.genre.toUpperCase() }</Text> }
                         <ArrowBottom style={ styles.iconArrow }/>
@@ -53,7 +53,7 @@ export default class HomeUser extends Component {
                 </View>
 
                 <View style={ styles.viewUser }>
-                    <TouchableOpacity style={ styles.containerUser }>
+                    <TouchableOpacity onPress={ () => this.props.navigation.navigate('ChangePassword') } style={ styles.containerUser }>
                         <Text style={ styles.titleUser }>{ "Modifier mon mot de passe".toUpperCase() }</Text>
                         { this.state.coloris !== "" && <Text style={ styles.selectedUser }>{ this.state.coloris.toUpperCase() }</Text> }
                         <ArrowBottom style={ styles.iconArrow }/>

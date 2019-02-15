@@ -22,6 +22,8 @@ import Connexion from '../screens/User/Connexion';
 import Inscription from '../screens/User/Inscription';
 import HomeUser from '../screens/User/HomeUser';
 import Profil from '../screens/User/Profil';
+import ChangePassword from '../screens/User/ChangePassword';
+import MesCommandes from '../screens/User/MesCommandes';
 
 
 class Logo extends React.Component {
@@ -143,7 +145,20 @@ const UserStack = createStackNavigator({
         navigationOptions: {
             headerTitle: <Logo></Logo>
         }
-    }
+    },
+    ChangePassword: {
+        screen: ChangePassword,
+        navigationOptions: {
+            headerTitle: <Logo></Logo>
+        }
+    },
+    MesCommandes: {
+        screen: MesCommandes,
+        navigationOptions: {
+            headerTitle: <Logo></Logo>
+        }
+    },
+    
 })
 
 const TabBarNavigator = createBottomTabNavigator({

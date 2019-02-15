@@ -43,6 +43,8 @@ const styles = StyleSheet.create({
     container: {
         position: 'relative',
         padding: 20,
+        display: 'flex',
+        justifyContent: 'center',
         flex: 1
     },
     backgroundTop: {
@@ -61,7 +63,11 @@ const styles = StyleSheet.create({
         marginBottom: 0
     },
     wrapperLink: {
-        alignSelf: 'flex-end'
+        position: 'absolute',
+        top: 0,
+        right: 0,
+        alignSelf: 'flex-end',
+        padding: 20
     },
     linkStyle: {
         textTransform: 'none',
