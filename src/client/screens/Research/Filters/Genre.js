@@ -18,7 +18,7 @@ export default class Filters extends Component {
 
     handleOnPress = type => {
         this.setState({selected: type});
-        this.props.selectedFilter("genre", this.state.selected);
+        //this.props.selectedFilter("genre", this.state.selected);
     }
 
     render() {
@@ -32,7 +32,7 @@ export default class Filters extends Component {
                 <Text style={ styles.texteResultats }>56 résultats</Text>
 
                 <View style={ styles.viewFilter }>
-                    <TouchableOpacity onPress={() => this.handleOnPress("Femme")} style={ styles.containerFilter }>
+                    <TouchableOpacity onPress={ () => this.handleOnPress("Femme") } style={ styles.containerFilter }>
                         <Text style={ styles.titleFilter }>{ "Femme".toUpperCase() }</Text>
                         { this.state.selected === "Femme" && <Circle /> }
                     </TouchableOpacity>

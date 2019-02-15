@@ -17,7 +17,7 @@ export default class Research extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            arrayWishlist: []
+            arrayWishlist: ["er", "ty"]
         }
     }
 

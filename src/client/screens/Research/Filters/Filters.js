@@ -20,7 +20,7 @@ export default class Filters extends Component {
         }
     }
 
-    selectedFilter = (type, value) => {
+    handleSelectedFilter = (type, value) => {
         switch (type) {
             case "genre":
                 this.setState({genre: value})
@@ -53,7 +53,7 @@ export default class Filters extends Component {
                 <Text style={ styles.texteResultats }>182 résultats</Text>
 
                 <View style={ styles.viewFilter }>
-                    <TouchableOpacity onPress={ () => this.props.navigation.navigate('Genre') } selectedFilter={() => this.selectedFilter()} style={ styles.containerFilter }>
+                    <TouchableOpacity selectedFilter={ this.handleSelectedFilter } onPress={ () => this.props.navigation.navigate('Genre') } style={ styles.containerFilter }>
                         <Text style={ styles.titleFilter }>{ "Genre".toUpperCase() }</Text>
                         { this.state.genre !== "" && <Text style={ styles.selectedFilter }>{ this.state.genre.toUpperCase() }</Text> }
                         <ArrowBottom style={ styles.iconArrow }/>

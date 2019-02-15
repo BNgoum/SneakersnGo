@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TextInput, TouchableOpacity, Button } from 'react-native';
+import { StyleSheet, View, Text, TextInput } from 'react-native';
 
 
 export default class InputText extends Component {
@@ -28,6 +28,8 @@ export default class InputText extends Component {
                     value={this.state.text}
                     onFocus={() => this.setState({isFocus: true})}
                     onBlur={() => this.handleOnBlur()}
+                    textContentType={this.props.typeContent}
+                    secureTextEntry={this.props.isPassword}
                 />
                 <Text style={ [styles.placeholder, this.state.isFocus && styles.isFocus] }>{this.props.placeholder.toUpperCase()}</Text>
             </View>
@@ -47,7 +49,8 @@ const styles = StyleSheet.create({
         paddingVertical: 5,
         letterSpacing:1,
         fontFamily: 'roboto-regular',
-        color: '#070e37'
+        color: '#070e37',
+        width: 'auto'
     },
     placeholder: {
         position: 'absolute',

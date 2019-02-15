@@ -18,7 +18,10 @@ import WishList from '../screens/WishList/WishList';
 
 import Chat from '../screens/Chat/Chat';
 
-import User from '../screens/User/User';
+import Connexion from '../screens/User/Connexion';
+import Inscription from '../screens/User/Inscription';
+import HomeUser from '../screens/User/HomeUser';
+import Profil from '../screens/User/Profil';
 
 
 class Logo extends React.Component {
@@ -115,11 +118,30 @@ const ChatStack = createStackNavigator({
 })
 
 const UserStack = createStackNavigator({
-    User : {
-        screen: User,
+    Connexion: {
+        screen: Connexion,
         navigationOptions: {
             headerTitle: <Logo></Logo>,
             headerBackTitle: null,
+        }
+    },
+    Inscription: {
+        screen: Inscription,
+        navigationOptions: {
+            headerTitle: <Logo></Logo>
+        }
+    },
+    HomeUser: {
+        screen: HomeUser,
+        navigationOptions: {
+            headerTitle: <Logo></Logo>,
+            headerBackTitle: null,
+        }
+    },
+    Profil: {
+        screen: Profil,
+        navigationOptions: {
+            headerTitle: <Logo></Logo>
         }
     }
 })

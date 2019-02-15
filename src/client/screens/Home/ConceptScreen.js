@@ -11,7 +11,6 @@ import ButtonText from '../../components/Style/Button/ButtonText';
 
 export default class ConceptScreen extends Component {
     render() {
-        console.log('Props : ', this.props)
         return (
             <Container>
                 <Background style={ styles.backgroundHeader }></Background>

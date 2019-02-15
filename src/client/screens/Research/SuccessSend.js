@@ -11,7 +11,6 @@ import ButtonText from '../../components/Style/Button/ButtonText'
 export default class SuccessSend extends Component {
 
     render() {
-        console.log('props : ', this.props)
         return (
             <View style={ styles.container }>
                 <ContainerTitle><Title>{ 'Demande envoyée'.toUpperCase() }</Title><BorderTitle /></ContainerTitle>
