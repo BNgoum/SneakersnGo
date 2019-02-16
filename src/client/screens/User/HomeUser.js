@@ -4,8 +4,6 @@ import { StyleSheet, ScrollView, View, TouchableOpacity, Text } from 'react-nati
 import ContainerTitle from '../../components/Style/Text/ContainerTitle';
 import Title from '../../components/Style/Text/Title';
 import BorderTitle from '../../components/Style/Text/BorderBottomTitle';
-import ButtonCTA from '../../components/Style/Button/Button';
-import ButtonText from '../../components/Style/Button/ButtonText';
 import { ArrowBottom } from '../../images/icons';
 
 export default class HomeUser extends Component {
@@ -45,7 +43,7 @@ export default class HomeUser extends Component {
                 </View>
 
                 <View style={ styles.viewUser }>
-                    <TouchableOpacity style={ styles.containerUser }>
+                    <TouchableOpacity onPress={ () => this.props.navigation.navigate('CarnetAdresses') } style={ styles.containerUser }>
                         <Text style={ styles.titleUser }>{ "Carnet d'adresses".toUpperCase() }</Text>
                         { this.state.style !== "" && <Text style={ styles.selectedUser }>{ this.state.style.toUpperCase() }</Text> }
                         <ArrowBottom style={ styles.iconArrow }/>
@@ -75,8 +73,12 @@ export default class HomeUser extends Component {
                         <ArrowBottom style={ styles.iconArrow }/>
                     </TouchableOpacity>
                 </View>
-                
-                <ButtonCTA style={ styles.containerButton }><ButtonText>{ "Deconnexion".toUpperCase() }</ButtonText></ButtonCTA>
+
+                <View style={ styles.btnDeconnexion }>
+                    <TouchableOpacity style={ styles.containerBtnDeconnexion }>
+                        <Text style={ styles.titleUser }>{ "Deconnexion".toUpperCase() }</Text>
+                    </TouchableOpacity>
+                </View>
             </ScrollView>
         )
     }
@@ -108,6 +110,21 @@ const styles = StyleSheet.create({
     lastViewUser: {
         borderBottomWidth: 1,
         borderBottomColor: '#c4c4c4'
+    },
+    btnDeconnexion: {
+        borderTopWidth: 1,
+        borderTopColor: '#c4c4c4',
+        borderBottomWidth: 1,
+        borderBottomColor: '#c4c4c4',
+        marginTop: 32,
+        marginBottom: 50,
+    },
+    containerBtnDeconnexion: {
+        paddingVertical: 18,
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     containerUser: {
         position: 'relative',

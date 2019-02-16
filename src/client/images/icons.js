@@ -1,5 +1,5 @@
 import React from 'react';
-import Svg, { Path } from 'react-native-svg';
+import Svg, { Path, G, Circle } from 'react-native-svg';
 
 export const Loupe = props => (
     <Svg width={17} height={13} {...props}>
@@ -136,5 +136,20 @@ export const Poubelle = props => (
       fill="#FFF"
       fillRule="evenodd"
     />
+  </Svg>
+)
+
+export const Add = props => (
+  <Svg width={32} height={32} {...props}>
+    <G fill="none">
+      <Circle cx={16} cy={16} r={16} fill="#070E37" />
+      <Path
+        stroke="#FFF"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={1.5}
+        d="M9.5 16.5h13M16 10v13"
+      />
+    </G>
   </Svg>
 )

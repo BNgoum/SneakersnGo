@@ -15,7 +15,7 @@ export default class BlockSneakers extends Component {
                     <BackgroundSneakers style={ styles.backgroundSneakers }></BackgroundSneakers>
                 </View>
                 <View style={ styles.wrapperInformations }>
-                    <Text style={ styles.statut }>{ 'A venir'.toUpperCase() }</Text>
+                    <Text style={ styles.statut }>{ this.props.statut.toUpperCase() }</Text>
                     <Text style={ styles.date }>{ 'Fev.2019'.toUpperCase() }</Text>
                     <Text style={ styles.nbArticles }>1 article</Text>
                     <Text style={ styles.total }>Total: 150 €</Text>
@@ -37,11 +37,8 @@ const styles = StyleSheet.create({
         width: '100%',
         paddingHorizontal: 20,
         height: 130,
-        borderBottomWidth: 1,
-        borderBottomColor: '#c4c4c4',
         borderTopWidth: 1,
         borderTopColor: '#c4c4c4',
-        marginBottom: 18
     },
     wrapperSneakers: {
         position: 'relative',

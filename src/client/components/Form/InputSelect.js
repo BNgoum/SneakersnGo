@@ -32,7 +32,7 @@ export default class InputSelect extends Component {
             <View style={styles.container}>
                 <TouchableOpacity onPress={() => { this._toggleModal() }} style={ styles.inputSelect }>
                     <Text style={ [styles.placeholder, this.state.selected !== null && styles.isFocus] }>{ this.props.placeholder.toUpperCase() }</Text>
-                    <Text style={ styles.libelle }>{ this.state.selected !== null && this.state.selected }</Text>
+                    <Text style={ styles.libelle }>{ this.state.selected !== null && this.state.selected.toUpperCase() }</Text>
                     <ArrowBottom style={ styles.iconArrow }></ArrowBottom>
                 </TouchableOpacity>
 
@@ -50,7 +50,7 @@ export default class InputSelect extends Component {
                                     <TouchableOpacity 
                                         style={ styles.itemStyle } 
                                         onPress={ () => this.handleOnPressItem(item) }>
-                                        <Text style={ styles.itemText }>{item}</Text>
+                                        <Text style={ styles.itemText }>{item.toUpperCase()}</Text>
                                         { this.state.selected === item && <Circle></Circle> }
                                     </TouchableOpacity> 
                                 }

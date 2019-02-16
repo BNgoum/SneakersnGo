@@ -24,6 +24,8 @@ import HomeUser from '../screens/User/HomeUser';
 import Profil from '../screens/User/Profil';
 import ChangePassword from '../screens/User/ChangePassword';
 import MesCommandes from '../screens/User/MesCommandes';
+import CarnetAdresses from '../screens/User/CarnetAdresses';
+import DetailsAdresse from '../screens/User/DetailsAdresse';
 
 
 class Logo extends React.Component {
@@ -158,7 +160,19 @@ const UserStack = createStackNavigator({
             headerTitle: <Logo></Logo>
         }
     },
-    
+    CarnetAdresses: {
+        screen: CarnetAdresses,
+        navigationOptions: {
+            headerTitle: <Logo></Logo>,
+            headerBackTitle: null,
+        }
+    },
+    DetailsAdresse: {
+        screen: DetailsAdresse,
+        navigationOptions: {
+            headerTitle: <Logo></Logo>
+        }
+    },
 })
 
 const TabBarNavigator = createBottomTabNavigator({
