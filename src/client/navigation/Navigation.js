@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 class Navigation extends Component {
     render() {
         // const { isLogin, isAdmin } = this.props.state.AuthenticationReducer;
-
+        // console.log('Token : ', isAdmin)
         // if (isLogin !== null) { return <Home /> }
         // else if (isAdmin !== null) { return <HomeAdmin /> }
         // else { return <Authentication /> }

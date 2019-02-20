@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, ScrollView, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, ScrollView, TouchableOpacity, FlatList } from 'react-native';
+import { connect } from 'react-redux';
+import { requestAllSneakers } from '../../store/reducers/sneakers/action';
+
 import Swiper from 'react-native-swiper';
 
 import Tab from '../../components/Tab/TabResearch';
@@ -11,7 +14,7 @@ import SneakersAsk from '../../components/Catalogue/SneakersAsk';
 
 import { ArrowBottomBig } from '../../images/icons';
 
-export default class Research extends Component {
+class Research extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -19,6 +22,23 @@ export default class Research extends Component {
             isBlock: false,
             indexScreen: 0
         }
+    }
+
+    componentWillMount() {
+        this.getAllSneakers();
+    }
+
+    getAllSneakers = () => {
+        const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YzAzZjMwMmJiNTQ4MTAwMjNjNDZkZTIiLCJlbWFpbCI6ImF6ZSIsInBhc3N3b3JkIjoiJDJhJDEwJGRYVVJLQmpuNkFRMGpTMDBRdENCVE84cGd3TUhKYWNpVHJ1SExYRDVteE43VTJPNTYyMXBDIiwiZXhwaXJlSW4iOiIxMHMiLCJleHAiOjE1NTU3OTEyNzg0LCJpYXQiOjE1NTA2OTM2Nzh9.Xb-4eSSK4uJ_aVYjE6XAIhD7iLmOG3jRhCdTQLk6DGM';
+
+        return new Promise( (resolve, reject) => {
+            resolve( requestAllSneakers(token) );
+        })
+        .then((sneakers) => {
+            const action = { type: "GET_ALL_SNEAKERS", value: sneakers }
+            return this.props.dispatch(action);
+        })
+        .catch( (error) => console.log('Erreur lors de la récupération des Sneakers (ListSneakers.js) : ', error))
     }
 
     handleSwipeScreen = (index) => { 
@@ -51,9 +71,16 @@ export default class Research extends Component {
                     <View style={ styles.swiper }>
                         <Swiper index={this.state.indexScreen} showsButtons={false} showsPagination={false}>
                         
+                        {/* <SneakersBlocItem navigation={ this.props.navigation }></SneakersBlocItem>
                         <SneakersBlocItem navigation={ this.props.navigation }></SneakersBlocItem>
-                        <SneakersBlocItem navigation={ this.props.navigation }></SneakersBlocItem>
-                        <SneakersBlocItem navigation={ this.props.navigation }></SneakersBlocItem>
+                        <SneakersBlocItem navigation={ this.props.navigation }></SneakersBlocItem> */}
+                        
+                                {
+                                    this.props.state.SneakersReducer.sneakers.map((item, index) => (
+                                        <SneakersBlocItem key = {item._id} navigation={ this.props.navigation } dataSneaker={item} /> 
+                                    ))
+                                }
+                          
                         
                         </Swiper>
                         <TouchableOpacity onPress={ () => this.handleSwipeScreen('moins') } style={ styles.buttonPrev }>
@@ -65,10 +92,11 @@ export default class Research extends Component {
                     </View>
                      :
                     <ScrollView>
-                        <SneakersListeItem navigation={ this.props.navigation }></SneakersListeItem>
-                        <SneakersListeItem navigation={ this.props.navigation }></SneakersListeItem>
-                        <SneakersListeItem navigation={ this.props.navigation }></SneakersListeItem>
-                        <SneakersListeItem navigation={ this.props.navigation }></SneakersListeItem>
+                        <FlatList 
+                            data={this.props.state.SneakersReducer.sneakers}
+                            keyExtractor={(item) => item._id.toString()}
+                            renderItem={({item}) => <SneakersListeItem navigation={ this.props.navigation } dataSneaker={item} /> }
+                        />
                     </ScrollView>
                 }
             </View>
@@ -81,6 +109,7 @@ export default class Research extends Component {
     }
 
     render() {
+        console.log('Props redux : ', this.props.state.SneakersReducer.sneakers)
         return (
             <View style={ styles.container }>
                 <Tab displayTabContent={ this.handleDisplayTabContent }></Tab>
@@ -119,3 +148,15 @@ const styles = StyleSheet.create({
         padding: 16,
     }
 })
+
+const mapStateToProps = (state) => { 
+    return { state }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        dispatch: (action) => { dispatch(action) }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Research)

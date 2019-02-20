@@ -18,7 +18,7 @@ export default class Home extends Component {
                 <Nouveautes></Nouveautes>
                 <Concept navigation={ this.props.navigation }></Concept>
                 <Instagram></Instagram>
-                <Buy></Buy>
+                <Buy navigation={ this.props.navigation }></Buy>
                 <Link style={ styles.linkText }>
                     <TextLink>{'Besoin d\'assistance ?'.toUpperCase()}</TextLink>
                 </Link>

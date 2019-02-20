@@ -104,7 +104,19 @@ export const requestOneModel = (token, idModel) => {
         return responseJson.data.data;
     })
     .catch(err => {
-        console.log('Erreur lors de la récupération de tous les modèles d\'une marque : ', err);
+        console.log('Erreur lors de la récupération d\'un modèle : ', err);
+    });
+}
+
+export const requestOneBrand = (token, idBrand) => {
+    let config = { headers: {'Authorization': 'Bearer ' + token} }
+
+    return axios.get('https://sneakersngo-api.herokuapp.com/brand/' + idBrand, config)
+    .then((responseJson) => {
+        return responseJson.data.data;
+    })
+    .catch(err => {
+        console.log('Erreur lors de la récupération d\'une marque : ', err);
     });
 }
 
