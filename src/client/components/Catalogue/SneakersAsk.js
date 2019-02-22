@@ -27,9 +27,8 @@ export default class SneakersAsk extends Component {
             <ScrollView style={ styles.container }>
                 <InputText placeholder="Marque"></InputText>
                 <InputText placeholder="Modèle"></InputText>
-                <InputSelect style={ styles.inputSelectStyle } placeholder="Coloris" data={["BLEU", "ROUGE", "VERT", "NOIR", "VIOLET"]}></InputSelect>
-                <InputSelect style={ styles.inputSelectStyle } placeholder="Taille" data={[39, 40, 41, 42]}></InputSelect>
-                {/* <InputSelect placeholder="Jour(s) de location"></InputSelect> */}
+                <InputSelect style={ styles.inputSelectStyle } placeholder="Coloris" data={["BLEU", "ROUGE", "VERT", "NOIR", "VIOLET"]} />
+                <InputSelect style={ styles.inputSelectStyle } placeholder="Taille" data={[39, 40, 41, 42]} />
                 <DatePickerCustom placeholder="Début de location" />
                 <DatePickerCustom placeholder="Fin de location" />
                 <Button onPress={ () => this.props.navigation.navigate('SuccessSend') } style={ [styles.buttonStyle, this.state.isDisable && styles.buttonDisable] }><ButtonText>{ "Envoyer ma demande".toUpperCase() }</ButtonText></Button>

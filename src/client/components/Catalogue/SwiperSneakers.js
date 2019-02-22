@@ -10,20 +10,28 @@ import Button from '../Style/Button/Button';
 import Select from '../Form/Select';
 
 export default class SwiperSneakers extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            modele: this.props.model,
+            brand: this.props.brand,
+            pathImage: this.props.pathImage
+        }
+    }
 
     render() {
         return (
             <View>
                 <View style={ styles.wrapperSliderImage }>
                     <Swiper style={styles.wrapperImage} showsButtons={false} activeDotColor="#070e37">
-                        <Image style={ styles.sneakersImage } source={require('../../images/balenciaga_liste.png')} />
-                        <Image style={ styles.sneakersImage } source={require('../../images/balenciaga_liste.png')} />
+                        <Image style={ styles.sneakersImage } source={this.props.pathImage} />
+                        <Image style={ styles.sneakersImage } source={this.props.pathImage} />
                     </Swiper>
                     <BackgroundSneakersBloc style={ styles.backgroundSneakers }></BackgroundSneakersBloc>
                 </View>
                 <View style={ styles.wrapperTitle }>
-                    <Text style={ styles.marque }>{ 'Balenciaga'.toUpperCase() }</Text>
-                    <Text style={ styles.modele }>{ 'Basket Triple S'.toUpperCase() }</Text>
+                    <Text style={ styles.marque }>{ this.props.brand.name }</Text>
+                    <Text style={ styles.modele }>{ this.props.model.name }</Text>
                 </View>
             </View>
         )
@@ -38,8 +46,9 @@ const styles = StyleSheet.create({
         zIndex: 5
     },
     sneakersImage: {
-        width: '85%',
+        width: '100%',
         height: '100%',
+        resizeMode: 'center',
         alignSelf: 'center'
     },
     backgroundSneakers: {

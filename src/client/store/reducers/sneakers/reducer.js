@@ -6,6 +6,8 @@ const initialState = {
     models: [],
     sneakersByModel: [],
     sneakers: [],
+    currentSneakers: "",
+    pathImage: {}
 }
 
 function addSneakers(state = initialState, action) {
@@ -36,6 +38,11 @@ function addSneakers(state = initialState, action) {
                 ...state, currentModel: action.value
             }
             return nextState;
+        case 'SET_CURRENT_SNEAKERS':
+            nextState = {
+                ...state, currentSneakers: action.value
+            }
+            return nextState;
         case 'GET_ALL_SNEAKERS_BY_MODEL':
             nextState = {
                 ...state, sneakersByModel: action.value
@@ -44,6 +51,11 @@ function addSneakers(state = initialState, action) {
         case 'GET_ALL_SNEAKERS':
             nextState = {
                 ...state, sneakers: action.value
+            }
+            return nextState;
+        case 'SET_CURRENT_PATH_IMAGE':
+            nextState = {
+                ...state, pathImage: action.value
             }
             return nextState;
         default:

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, ScrollView, TouchableOpacity, FlatList } from 'react-native';
 import { connect } from 'react-redux';
-import { requestAllSneakers } from '../../store/reducers/sneakers/action';
+import { requestAllSneakers, requestAllModels } from '../../store/reducers/sneakers/action';
 
 import Swiper from 'react-native-swiper';
 
@@ -25,7 +25,7 @@ class Research extends Component {
     }
 
     componentWillMount() {
-        this.getAllSneakers();
+        this.getAllModels();
     }
 
     getAllSneakers = () => {
@@ -38,7 +38,20 @@ class Research extends Component {
             const action = { type: "GET_ALL_SNEAKERS", value: sneakers }
             return this.props.dispatch(action);
         })
-        .catch( (error) => console.log('Erreur lors de la récupération des Sneakers (ListSneakers.js) : ', error))
+        .catch( (error) => console.log('Erreur lors de la récupération des Sneakers (Research.js) : ', error))
+    }
+
+    getAllModels = () => {
+        const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YzAzZjMwMmJiNTQ4MTAwMjNjNDZkZTIiLCJlbWFpbCI6ImF6ZSIsInBhc3N3b3JkIjoiJDJhJDEwJGRYVVJLQmpuNkFRMGpTMDBRdENCVE84cGd3TUhKYWNpVHJ1SExYRDVteE43VTJPNTYyMXBDIiwiZXhwaXJlSW4iOiIxMHMiLCJleHAiOjE1NTU3OTEyNzg0LCJpYXQiOjE1NTA2OTM2Nzh9.Xb-4eSSK4uJ_aVYjE6XAIhD7iLmOG3jRhCdTQLk6DGM';
+
+        return new Promise( (resolve, reject) => {
+            resolve( requestAllModels(token) );
+        })
+        .then((models) => {
+            const action = { type: "GET_ALL_MODELS", value: models }
+            return this.props.dispatch(action);
+        })
+        .catch( (error) => console.log('Erreur lors de la récupération des modèles (Research.js) : ', error))
     }
 
     handleSwipeScreen = (index) => { 
@@ -76,8 +89,8 @@ class Research extends Component {
                         <SneakersBlocItem navigation={ this.props.navigation }></SneakersBlocItem> */}
                         
                                 {
-                                    this.props.state.SneakersReducer.sneakers.map((item, index) => (
-                                        <SneakersBlocItem key = {item._id} navigation={ this.props.navigation } dataSneaker={item} /> 
+                                    this.props.state.SneakersReducer.models.map((item, index) => (
+                                        <SneakersBlocItem key = {item._id} navigation={ this.props.navigation } dataModel={item} /> 
                                     ))
                                 }
                           
@@ -92,11 +105,16 @@ class Research extends Component {
                     </View>
                      :
                     <ScrollView>
-                        <FlatList 
+                        {/* <FlatList 
                             data={this.props.state.SneakersReducer.sneakers}
                             keyExtractor={(item) => item._id.toString()}
                             renderItem={({item}) => <SneakersListeItem navigation={ this.props.navigation } dataSneaker={item} /> }
-                        />
+                        /> */}
+                        {
+                            this.props.state.SneakersReducer.models.map((item, index) => (
+                                <SneakersListeItem key = {item._id} navigation={ this.props.navigation } dataModel={item} /> 
+                            ))
+                        }
                     </ScrollView>
                 }
             </View>
@@ -109,7 +127,6 @@ class Research extends Component {
     }
 
     render() {
-        console.log('Props redux : ', this.props.state.SneakersReducer.sneakers)
         return (
             <View style={ styles.container }>
                 <Tab displayTabContent={ this.handleDisplayTabContent }></Tab>

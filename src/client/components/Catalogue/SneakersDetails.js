@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
+import { connect } from 'react-redux';
+
+import { requestOneModel, requestOneBrand, requestAllSneakerByModel } from '../../store/reducers/sneakers/action';
 
 import { CoeurInactive, CoeurActive, Croix } from '../../images/icons';
 import SwiperSneakers from '../../components/Catalogue/SwiperSneakers';
@@ -9,14 +12,24 @@ import ButtonText from '../Style/Button/ButtonText'
 import Button from '../Style/Button/Button';
 import Select from '../Form/Select';
 import InputSelect from '../../components/Form/InputSelect';
+import DatePickerCustom from '../../components/Form/DatePicker';
 
-export default class SneakersDetails extends Component {
+class SneakersDetails extends Component {
     constructor(props) {
         super(props);
         this.state = {
             isOpenDetails: false,
-            isLiked: false
+            isLiked: false,
+            modele: "",
+            idBrand: "",
+            brand: "",
+            pathImage: {}
         }
+    }
+
+    componentWillMount() {
+        // this.getModel();
+        this.setImage();
     }
 
     handleOnPressDetails = () => {
@@ -29,7 +42,69 @@ export default class SneakersDetails extends Component {
         this.setState({ isLiked: !this.state.isLiked })
     }
 
+    getModel = () => {
+        const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YzAzZjMwMmJiNTQ4MTAwMjNjNDZkZTIiLCJlbWFpbCI6ImF6ZSIsInBhc3N3b3JkIjoiJDJhJDEwJGRYVVJLQmpuNkFRMGpTMDBRdENCVE84cGd3TUhKYWNpVHJ1SExYRDVteE43VTJPNTYyMXBDIiwiZXhwaXJlSW4iOiIxMHMiLCJleHAiOjE1NTU3OTEyNzg0LCJpYXQiOjE1NTA2OTM2Nzh9.Xb-4eSSK4uJ_aVYjE6XAIhD7iLmOG3jRhCdTQLk6DGM';
+        const currentSneakers = this.props.state.SneakersReducer.currentSneakers;
+        console.log('Current sneakers : ', currentSneakers)
+
+        return new Promise((resolve, reject) => {
+            const idModel = currentSneakers[0].model;
+            resolve(requestAllSneakerByModel(token, idModel))
+        })
+        .then(model => {
+            //this.setState({ modele: model.name , idBrand: model.brand })
+            //console.log('Sneaker by model : ', model)
+            switch (model[0].name) {
+                case 'Stan Smith':
+                    this.setState({ pathImage: require("../../images/stansmith.png"), modele: model[0].name , idBrand: model[0].brand })
+                    break;
+                case 'Classic':
+                    this.setState({ pathImage: require("../../images/vans.png"), modele: model[0].name , idBrand: model[0].brand })
+                    break;
+                case 'Triple S':
+                    this.setState({ pathImage: require("../../images/balenciaga_triple_s.png"), modele: model[0].name , idBrand: model[0].brand })
+                    break;
+            }
+        })
+        .then(() => {
+            return requestOneBrand(token, this.state.idBrand)
+        })
+        .then(brand => {
+            this.setState({ brand: brand.name })
+        })
+        .catch((error) => console.log('Erreur lors de la récupération d\'une Sneaker (Sneaker.js) :', error ))
+    }
+
+    setImage = () => {
+        const currentModel = this.props.state.SneakersReducer.currentModel;
+
+        switch (currentModel.name) {
+            case 'Stan Smith':
+                this.setState({ pathImage: require("../../images/stansmith.png") })
+                break;
+            case 'Classic':
+                this.setState({ pathImage: require("../../images/vans.png") })
+                break;
+            case 'Triple S':
+                this.setState({ pathImage: require("../../images/balenciaga_triple_s.png") })
+                break;
+        }
+
+        console.log('Path image : ', this.state.pathImage)
+        console.log('Path image / model name : ', currentModel.name)
+    }
+
     render() {
+        console.log('Current model : ', this.props.state.SneakersReducer.currentModel)
+        console.log('Current sneakers : ', this.props.state.SneakersReducer.currentSneakers)
+        console.log('Current brand : ', this.props.state.SneakersReducer.currentBrand)
+        console.log('Path image render : ', this.state.pathImage)
+        
+        //console.log('Props sneakers daetails received : ', this.props.state.SneakersReducer.currentSneakers)
+        const currentSneakers = this.props.state.SneakersReducer.currentSneakers;
+        const currentModel = this.props.state.SneakersReducer.currentModel;
+        const currentBrand = this.props.state.SneakersReducer.currentBrand;
+        const currentPathImage = this.props.state.SneakersReducer.pathImage;
         return (
             <ScrollView style={ styles.container }>
                 <TouchableOpacity onPress={ () => this.handleOnPressHeart() }>
@@ -40,7 +115,7 @@ export default class SneakersDetails extends Component {
                     }
                 </TouchableOpacity>
                 
-                <SwiperSneakers></SwiperSneakers>
+                <SwiperSneakers brand={ currentBrand } model={ currentModel } pathImage={ currentPathImage }></SwiperSneakers>
 
                 <Text style={ styles.description }>Petit texte court pour expliquer ou décrire la paire de sneakers dans la fiche produit.</Text>
 
@@ -66,10 +141,14 @@ export default class SneakersDetails extends Component {
                     </TouchableOpacity>
                 }
 
-                <InputSelect placeholder="Coloris" data={["BLEU", "ROUGE", "VERT", "NOIR", "VIOLET"]}></InputSelect>
-                <InputSelect placeholder="Taille" data={[39, 40, 41, 42]}></InputSelect>
+                {/* Mapper sur toutes les sneakers et mettre dans un array les couleurs et size */}
                 
-                <Price price={50} style={ styles.price }></Price>
+                {/* <InputSelect placeholder="Coloris" data={currentSneakers.color} />
+                <InputSelect placeholder="Taille" data={currentSneakers.size} /> */}
+                <DatePickerCustom placeholder="Début de location" />
+                <DatePickerCustom placeholder="Fin de location" />
+                
+                <Price price={ currentSneakers[0].rentPrice } style={ styles.price }></Price>
 
                 <Button style={ styles.buttonValidate }>
                     <ButtonText>{ 'Je les veux'.toUpperCase() }</ButtonText>
@@ -143,3 +222,15 @@ const styles = StyleSheet.create({
         marginTop: 32
     }
 })
+
+const mapStateToProps = (state) => { 
+    return { state }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        dispatch: (action) => { dispatch(action) }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SneakersDetails)

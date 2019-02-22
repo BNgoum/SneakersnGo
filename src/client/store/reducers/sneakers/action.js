@@ -140,3 +140,15 @@ export const requestAllSneakers = (token) => {
         console.log('Erreur lors de la récupération de tous les modèles d\'une marque : ', err);
     });
 }
+
+export const requestAllModels = (token) => {
+    let config = { headers: {'Authorization': 'Bearer ' + token} }
+
+    return axios.get('https://sneakersngo-api.herokuapp.com/model/', config)
+    .then((responseJson) => {
+        return responseJson.data.data;
+    })
+    .catch(err => {
+        console.log('Erreur lors de la récupération de tous les modèles : ', err);
+    });
+}

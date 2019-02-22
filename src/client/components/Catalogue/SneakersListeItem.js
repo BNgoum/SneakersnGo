@@ -1,66 +1,105 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
-import { requestOneModel, requestOneBrand } from '../../store/reducers/sneakers/action';
+import { connect } from 'react-redux';
+
+import { requestOneBrand, requestAllSneakerByModel } from '../../store/reducers/sneakers/action';
 
 import BackgroundSneakers from '../../components/Style/BackgroundSneakersListe';
 
-export default class SneakersListeItem extends Component {
+class SneakersListeItem extends Component {
     constructor(props) {
         super(props);
         this.state = {
             modele: "",
             idBrand: "",
             brand: "",
-            pathImage: ""
+            pathImage: {},
+            sneakers: {}
         }
     }
 
-    componentDidMount() {
-        this.getModel();
+    componentWillMount() {
+        this.getBrand();
+        this.getAllSneakers()
     }
 
-    getModel = () => {
+    getAllSneakers = () => {
         const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YzAzZjMwMmJiNTQ4MTAwMjNjNDZkZTIiLCJlbWFpbCI6ImF6ZSIsInBhc3N3b3JkIjoiJDJhJDEwJGRYVVJLQmpuNkFRMGpTMDBRdENCVE84cGd3TUhKYWNpVHJ1SExYRDVteE43VTJPNTYyMXBDIiwiZXhwaXJlSW4iOiIxMHMiLCJleHAiOjE1NTU3OTEyNzg0LCJpYXQiOjE1NTA2OTM2Nzh9.Xb-4eSSK4uJ_aVYjE6XAIhD7iLmOG3jRhCdTQLk6DGM';
-        return new Promise((resolve, reject) => {
-            const idModel = this.props.dataSneaker.model;
-            resolve(requestOneModel(token, idModel))
-        })
-        .then(model => {
-            this.setState({ modele: model.name , idBrand: model.brand })
+        const idModel = this.props.dataModel._id;
+        const nameModel = this.props.dataModel.name;
 
-            switch (model.name) {
+        return new Promise((resolve, reject) => {
+            resolve(requestAllSneakerByModel(token, idModel))
+        })
+        .then(sneakers => {
+            this.setState({ sneakers })
+
+            switch (nameModel) {
                 case 'Stan Smith':
-                    this.setState({ pathImage: {uri: 'https://media.chausport.com/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/4/1/4181-chaussures-adidas-stan-smith-junior-blanche-vue-exterieure.png'} })
+                    this.setState({ pathImage: require("../../images/stansmith.png")})
                     break;
                 case 'Classic':
-                    this.setState({ pathImage: {uri: 'http://static1.squarespace.com/static/569fe2da3b0be3d67be2dd39/569fe388a2bab81a504abac9/58c08922b8a79bc99bedd12f/1530019090918/Schermata+2017-10-12+alle+23.10.58.png?format=1500w'} })
+                    this.setState({ pathImage: require("../../images/vans.png")})
                     break;
                 case 'Triple S':
-                    this.setState({ pathImage: {uri: 'https://images.complex.com/complex/images/c_fill,g_center,w_1200/fl_lossy,pg_1,q_auto/svcohbwib0fnwbdhi2gw/balenciaga-triple-s'} })
+                    this.setState({ pathImage: require("../../images/balenciaga_triple_s.png")})
                     break;
             }
-        })
-        .then(() => {
-            return requestOneBrand(token, this.state.idBrand)
-        })
-        .then(brand => {
-            this.setState({ brand: brand.name })
         })
         .catch((error) => console.log('Erreur lors de la récupération d\'une Sneaker (Sneaker.js) :', error ))
     }
 
+    getBrand = () => {
+        const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YzAzZjMwMmJiNTQ4MTAwMjNjNDZkZTIiLCJlbWFpbCI6ImF6ZSIsInBhc3N3b3JkIjoiJDJhJDEwJGRYVVJLQmpuNkFRMGpTMDBRdENCVE84cGd3TUhKYWNpVHJ1SExYRDVteE43VTJPNTYyMXBDIiwiZXhwaXJlSW4iOiIxMHMiLCJleHAiOjE1NTU3OTEyNzg0LCJpYXQiOjE1NTA2OTM2Nzh9.Xb-4eSSK4uJ_aVYjE6XAIhD7iLmOG3jRhCdTQLk6DGM';
+        return new Promise((resolve, reject) => {
+            const idBrand = this.props.dataModel.brand;
+            resolve(requestOneBrand(token, idBrand))
+        })
+        .then(brand => {
+            this.setState({ brand })
+        })
+        .catch((error) => console.log('Erreur lors de la récupération d\'une Sneaker (Sneaker.js) :', error ))
+    }
+
+    handleOnPress = () => {
+        return new Promise((resolve, reject) => {
+            const action = { type: "SET_CURRENT_SNEAKERS", value: this.state.sneakers }
+
+            resolve(this.props.dispatch(action))
+        })
+        .then(() => {
+            const action = { type: "SET_CURRENT_BRAND", value: this.state.brand }
+
+            this.props.dispatch(action)
+        })
+        .then(() => {
+            const action = { type: "SET_CURRENT_MODEL", value: this.props.dataModel }
+
+            this.props.dispatch(action)
+        })
+        .then(() => {
+            const action = { type: "SET_CURRENT_PATH_IMAGE", value: this.state.pathImage }
+
+            this.props.dispatch(action)
+        })
+        .then(() => {
+            this.props.navigation.navigate('DetailsSneakers')
+        })
+    }
+
     render() {
+        const dataModel = this.props.dataModel;
         return (
             <View style={ styles.container }>
-               <TouchableOpacity style={ styles.wrapperSneakersListe } onPress={ () => this.props.navigation.navigate('DetailsSneakers') }>
+               <TouchableOpacity style={ styles.wrapperSneakersListe } onPress={ () => this.handleOnPress() }>
                 <View style={ styles.wrapperSneakers }>
                     <Image style={ styles.sneakersImage } source={this.state.pathImage} />
                     <BackgroundSneakers style={ styles.backgroundSneakers }></BackgroundSneakers>
                 </View>
                 <View style={ styles.wrapperInformations }>
-                    <Text style={ styles.modele }>{ this.state.brand.toUpperCase() }</Text>
-                    <Text style={ styles.marque }>{ this.state.modele.toUpperCase() }</Text>
-                    <Text style={ styles.prix }>A partir de { this.props.dataSneaker.rentPrice }€ /jour</Text>
+                    <Text style={ styles.marque }>{ this.state.brand.name !== undefined && this.state.brand.name.toUpperCase() }</Text>
+                    <Text style={ styles.modele }>{ dataModel.name.toUpperCase() }</Text>
+                    <Text style={ styles.prix }>A partir de { this.state.sneakers.length > 0 && this.state.sneakers[0].rentPrice }€ /jour</Text>
                 </View>
                </TouchableOpacity>
             </View>
@@ -99,20 +138,20 @@ const styles = StyleSheet.create({
         zIndex: 0
     },
     sneakersImage: {
-        width: 132,
-        height: 110,
+        width: '100%',
+        height: '100%',
         resizeMode: 'center',
         zIndex: 1
     },
     wrapperInformations: {
         display: 'flex',
     },
-    marque: {
+    modele: {
         fontSize: 11,
         color: '#9b9b9b',
         marginBottom: 7
     },
-    modele: {
+    marque: {
         color: '#070e37',
         fontSize: 15,
         fontFamily: 'roboto-bold',
@@ -124,3 +163,15 @@ const styles = StyleSheet.create({
         color: '#070e37',
     }
 })
+
+const mapStateToProps = (state) => { 
+    return { state }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        dispatch: (action) => { dispatch(action) }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SneakersListeItem)
