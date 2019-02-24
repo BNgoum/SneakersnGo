@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { StyleSheet, ScrollView, View, TouchableOpacity, Text } from 'react-native';
 
+import { connect } from 'react-redux';
+
 import ContainerTitle from '../../components/Style/Text/ContainerTitle';
 import Title from '../../components/Style/Text/Title';
 import BorderTitle from '../../components/Style/Text/BorderBottomTitle';
 import { ArrowBottom } from '../../images/icons';
 
-export default class HomeUser extends Component {
+class HomeUser extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -14,15 +16,24 @@ export default class HomeUser extends Component {
             marque: "",
             style: "",
             coloris: "",
-            prix: ""
+            prix: "",
+            prenom: ""
         }
     }
 
+    componentWillMount() {
+        this.setState({
+            prenom: this.props.state.user.firstname
+        })
+    }
+
     render() {
+        console.log('Props home user : ', this.props.state.user)
+        const user = this.props.state.user;
         return (
             <ScrollView style={ styles.container }>
                 <ContainerTitle style={ styles.containerTitle }>
-                    <Title style={ styles.titleStyle }>{ "Hello Benjamin".toUpperCase() }</Title>
+                    <Title style={ styles.titleStyle }>{ "Hello ".toUpperCase() } { this.state.prenom.toUpperCase() }</Title>
                     <BorderTitle />
                 </ContainerTitle>
 
@@ -159,3 +170,15 @@ const styles = StyleSheet.create({
         marginBottom: 40
     }
 })
+
+const mapStateToProps = (state) => { 
+    return {state: state.AuthenticationReducer};
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        dispatch: (action) => { dispatch(action) }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeUser)

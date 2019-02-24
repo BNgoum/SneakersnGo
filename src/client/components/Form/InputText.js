@@ -19,12 +19,20 @@ export default class InputText extends Component {
         }
     }
 
+    handleChange = (text) => {
+        this.setState({
+            text
+        })
+
+        this.props.sendPropsToParent(text);            
+    }
+
     render() {
         return (
             <View style={styles.container}>
                 <TextInput
                     style={ styles.inputText }
-                    onChangeText={(text) => this.setState({text: text.toUpperCase()})}
+                    onChangeText={(text) => this.handleChange(text)}
                     value={this.state.text}
                     onFocus={() => this.setState({isFocus: true})}
                     onBlur={() => this.handleOnBlur()}

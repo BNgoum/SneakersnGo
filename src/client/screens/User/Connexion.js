@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Text, TextInput } from 'react-native';
+import { connect } from 'react-redux';
+
+import {requestLogin} from '../../store/reducers/user/action';
+
+const jwtDecode = require('jwt-decode');
+const emailAdmin = "aze";
 
 import Link from '../../components/Style/Text/Link';
 import Title from '../../components/Style/Text/Title';
@@ -10,7 +16,71 @@ import ButtonText from '../../components/Style/Button/ButtonText';
 import Circle from '../../components/Style/Circle';
 import InputText from '../../components/Form/InputText';
 
-export default class Connexion extends Component {
+class Connexion extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            email: "",
+            password: "",
+            isFound: true,
+            isEmailBlank: false,
+            isPasswordBlank: false
+        }
+    }
+
+    handleInputTextEmail = email => {
+        this.setState({email});
+    }
+    
+    handleInputTextPassword = password => {
+        this.setState({password});
+    }
+
+    checkInputNotBlank = () => {
+        if ( this.state.email === "" && this.state.password === "" ) {
+            this.setState({ isEmailBlank: true, isPasswordBlank: true })
+        }
+        else if ( this.state.email === "" ) { this.setState({ isEmailBlank: true }) }
+        else if ( this.state.password === "" ) { this.setState({ isPasswordBlank: true }) }
+        else {
+            return new Promise((resolve, reject) => { resolve(requestLogin(this.state.email, this.state.password)) })
+            .then((user) => {
+                if ( user.type === "AUTH_MESSAGE_ERROR") {
+                    this.props.dispatch(user);
+                } else {
+                    const token = user.token;
+                    const decoded = jwtDecode(token);
+
+                    if(decoded.email === emailAdmin) {
+                        const action = {
+                            type: "IS_ADMIN", value: user.token
+                        }
+                        this.props.dispatch(action);
+
+                        const action_user = {
+                            type: "INFO_USER", value: user.user
+                        }
+                        this.props.dispatch(action_user);
+
+                        return this.props.navigation.navigate('HomeUser');
+                    } else {
+                        const action = {
+                            type: "IS_LOGIN", value: user.token
+                        }
+                        this.props.dispatch(action);
+
+                        const action_user = {
+                            type: "INFO_USER", value: user.user
+                        }
+                        this.props.dispatch(action_user);
+
+                        return this.props.navigation.navigate('HomeUser');
+                    }
+                }
+            })
+            .catch((error) => { console.log('Erreur lors de la connexion : ', error); });
+        }
+    }
 
     render() {
         return (
@@ -26,9 +96,14 @@ export default class Connexion extends Component {
                 </View>
 
                 <View style={ styles.wrapperForm }>
-                    <InputText placeholder="E-mail" style={ styles.inputTextStyle} />
-                    <InputText typeContent="password" isPassword={true} placeholder="Mot de passe" style={ styles.inputTextStyle} />
-                    <ButtonCTA onPress={ () => this.props.navigation.navigate('HomeUser') } style={ styles.wrapperBtn }><ButtonText>{ "Se connecter".toUpperCase() }</ButtonText></ButtonCTA>
+                    <InputText placeholder="E-mail" sendPropsToParent={ this.handleInputTextEmail }/>
+                    <InputText placeholder="Mot de passe" sendPropsToParent={ this.handleInputTextPassword } isPassword={true} />
+
+                    { this.props.state.AuthenticationReducer.auth_message_error !== "" && <Text style={styles.textError}>{this.props.state.AuthenticationReducer.auth_message_error}</Text> }
+                    { this.state.isPasswordBlank && <Text style={styles.textError}>Vous devez saisir votre mot de passe.</Text> }
+                    { this.state.isEmailBlank && <Text style={styles.textError}>Vous devez saisir votre adresse mail.</Text> }
+
+                    <ButtonCTA onPress={ () => this.checkInputNotBlank() } style={ styles.wrapperBtn }><ButtonText>{ "Se connecter".toUpperCase() }</ButtonText></ButtonCTA>
                     <Link style={ styles.wrapperLinkBottom }><TextLink style={ styles.linkStyle }>Mot de passe oublié ?</TextLink></Link>
                 </View>
 
@@ -89,5 +164,20 @@ const styles = StyleSheet.create({
         bottom: -200,
         left: -50,
         zIndex: -1
+    },
+    textError: {
+        alignSelf: 'center'
     }
 })
+
+const mapStateToProps = (state) => { 
+    return {state: state};
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        dispatch: (action) => { dispatch(action) }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Connexion)

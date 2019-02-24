@@ -152,3 +152,14 @@ export const requestAllModels = (token) => {
         console.log('Erreur lors de la récupération de tous les modèles : ', err);
     });
 }
+
+export const addToWishlist = (token, sneakerId) => {
+    let config = { headers: {'Authorization': 'Bearer ' + token} }
+
+    let bodyParameters = { sneakerId }
+
+    return axios.post('https://sneakersngo-api.herokuapp.com/wishlist', bodyParameters, config)
+    .catch(err => {
+        console.log('Erreur lors de l\'ajout de sneakers dans la wishlist: ', err);
+    });
+}

@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
+import { connect } from 'react-redux';
+
 import { requestOneBrand, requestAllSneakerByModel } from '../../store/reducers/sneakers/action';
 
 import BackgroundSneakersBloc from '../../components/Style/BackgroundSneakersBloc';
 
-export default class SneakersListeItem extends Component {
+class SneakersBlocItem extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -54,16 +56,31 @@ export default class SneakersListeItem extends Component {
             resolve(requestOneBrand(token, idBrand))
         })
         .then(brand => {
-            this.setState({ brand: brand.name })
+            this.setState({ brand })
         })
         .catch((error) => console.log('Erreur lors de la récupération d\'une Sneaker (Sneaker.js) :', error ))
     }
 
     handleOnPress = () => {
         return new Promise((resolve, reject) => {
-            const action = { type: "SET_CURRENT_SNEAKERS", value: this.props.dataSneaker }
+            const action = { type: "SET_CURRENT_SNEAKERS", value: this.state.sneakers }
 
             resolve(this.props.dispatch(action))
+        })
+        .then(() => {
+            const action = { type: "SET_CURRENT_BRAND", value: this.state.brand }
+
+            this.props.dispatch(action)
+        })
+        .then(() => {
+            const action = { type: "SET_CURRENT_MODEL", value: this.props.dataModel }
+
+            this.props.dispatch(action)
+        })
+        .then(() => {
+            const action = { type: "SET_CURRENT_PATH_IMAGE", value: this.state.pathImage }
+
+            this.props.dispatch(action)
         })
         .then(() => {
             this.props.navigation.navigate('DetailsSneakers')
@@ -75,9 +92,9 @@ export default class SneakersListeItem extends Component {
 
         return (
             <View style={ styles.container }>
-               <TouchableOpacity style={ styles.wrapperSneakersBloc } onPress={ () => this.props.navigation.navigate('DetailsSneakers') }>
+               <TouchableOpacity style={ styles.wrapperSneakersBloc } onPress={ () => this.handleOnPress() }>
                     <View style={ styles.wrapperInformations }>
-                        <Text style={ styles.marque }>{ this.state.brand.toUpperCase() }</Text>
+                        <Text style={ styles.marque }>{ this.state.brand.name !== undefined && this.state.brand.name.toUpperCase() }</Text>
                         <Text style={ styles.modele }>{ dataModel.name.toUpperCase() }</Text>
                         <Text style={ styles.prix }>A partir de { this.state.sneakers.length > 0 && this.state.sneakers[0].rentPrice }€ /jour</Text>
                     </View>
@@ -144,3 +161,15 @@ const styles = StyleSheet.create({
         color: '#070e37',
     }
 })
+
+const mapStateToProps = (state) => { 
+    return { state }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        dispatch: (action) => { dispatch(action) }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SneakersBlocItem)

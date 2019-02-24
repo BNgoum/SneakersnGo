@@ -29,10 +29,10 @@ export const requestLogin = (email, password) => {
 
 export const requestRegister = (firstname, lastname, email, password) => {
     return axios.post('https://sneakersngo-api.herokuapp.com/auth/register', {
-        firstname: firstname,
-        lastname: lastname,
-        email: email,
-        password: password
+        firstname,
+        lastname,
+        email,
+        password
     })
     .then((responseJson) => {
         if (responseJson.data.err === true && responseJson.data.data === null) {

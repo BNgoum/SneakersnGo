@@ -24,7 +24,11 @@ export default class InputSelect extends Component {
     }
 
     handleOnPressItem = item => {
-        this.setState({ selected: item, isModalVisible: false })
+        this.setState({ selected: item, isModalVisible: false });
+        
+        if(this.props.sendPropsToParent) {
+            this.props.sendPropsToParent(item);
+        }
     }
 
     render() {

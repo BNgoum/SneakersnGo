@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 
-import { requestOneModel, requestOneBrand, requestAllSneakerByModel } from '../../store/reducers/sneakers/action';
+import { requestOneBrand, requestAllSneakerByModel, addToWishlist } from '../../store/reducers/sneakers/action';
 
 import { CoeurInactive, CoeurActive, Croix } from '../../images/icons';
 import SwiperSneakers from '../../components/Catalogue/SwiperSneakers';
@@ -23,13 +23,17 @@ class SneakersDetails extends Component {
             modele: "",
             idBrand: "",
             brand: "",
-            pathImage: {}
+            pathImage: {},
+            size: [],
+            color: [],
+            selectedSize: ""
         }
     }
 
     componentWillMount() {
         // this.getModel();
         this.setImage();
+        this.setColorAndSizeSneakers()
     }
 
     handleOnPressDetails = () => {
@@ -39,7 +43,27 @@ class SneakersDetails extends Component {
     }
 
     handleOnPressHeart = () => {
-        this.setState({ isLiked: !this.state.isLiked })
+        if ( this.state.isLiked ) {
+            this.setState({ isLiked: !this.state.isLiked })
+        } else {
+            const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YzAzZjMwMmJiNTQ4MTAwMjNjNDZkZTIiLCJlbWFpbCI6ImF6ZSIsInBhc3N3b3JkIjoiJDJhJDEwJGRYVVJLQmpuNkFRMGpTMDBRdENCVE84cGd3TUhKYWNpVHJ1SExYRDVteE43VTJPNTYyMXBDIiwiZXhwaXJlSW4iOiIxMHMiLCJleHAiOjE1NTU3OTEyNzg0LCJpYXQiOjE1NTA2OTM2Nzh9.Xb-4eSSK4uJ_aVYjE6XAIhD7iLmOG3jRhCdTQLk6DGM';
+            let sneakerId = "";
+            this.props.state.SneakersReducer.currentSneakers.map(sneakers => {
+                if ( this.state.selectedSize == sneakers.size) {
+                    sneakerId = sneakers._id;
+                }
+            })
+
+            return new Promise((resolve, reject) => {
+                resolve(addToWishlist(token, sneakerId))
+            })
+            .then(data => {
+                console.log('Data : ', data.data)
+                this.setState({ isLiked: !this.state.isLiked })
+            })
+            
+        }
+
     }
 
     getModel = () => {
@@ -89,16 +113,28 @@ class SneakersDetails extends Component {
                 this.setState({ pathImage: require("../../images/balenciaga_triple_s.png") })
                 break;
         }
+    }
 
-        console.log('Path image : ', this.state.pathImage)
-        console.log('Path image / model name : ', currentModel.name)
+    setColorAndSizeSneakers = () => {
+        this.props.state.SneakersReducer.currentSneakers.map(sneakers => {
+            this.setState(prevState => ({
+                size: [...prevState.size, sneakers.size.toString()],
+                color: [...prevState.color, sneakers.color]
+            }))
+        })
+    }
+
+    handleInputSelectSize = selectedSize => {
+        this.setState({ selectedSize })
     }
 
     render() {
-        console.log('Current model : ', this.props.state.SneakersReducer.currentModel)
-        console.log('Current sneakers : ', this.props.state.SneakersReducer.currentSneakers)
-        console.log('Current brand : ', this.props.state.SneakersReducer.currentBrand)
-        console.log('Path image render : ', this.state.pathImage)
+        // console.log('Current model : ', this.props.state.SneakersReducer.currentModel)
+        //console.log('Current sneakers : ', this.props.state.SneakersReducer.currentSneakers)
+        // console.log('Current brand : ', this.props.state.SneakersReducer.currentBrand)
+        // console.log('Path image render : ', this.state.pathImage)
+        // console.log(' Set Size : ', this.state.size)
+        // console.log(' Set colors : ', this.state.color)
         
         //console.log('Props sneakers daetails received : ', this.props.state.SneakersReducer.currentSneakers)
         const currentSneakers = this.props.state.SneakersReducer.currentSneakers;
@@ -117,38 +153,38 @@ class SneakersDetails extends Component {
                 
                 <SwiperSneakers brand={ currentBrand } model={ currentModel } pathImage={ currentPathImage }></SwiperSneakers>
 
-                <Text style={ styles.description }>Petit texte court pour expliquer ou décrire la paire de sneakers dans la fiche produit.</Text>
+                <View style={ styles.wrapperContent }>
+                    <Text style={ styles.description }>Petit texte court pour expliquer ou décrire la paire de sneakers dans la fiche produit.</Text>
 
-                {
-                    this.state.isOpenDetails ? 
-                    <View style={ styles.wrapperDetailsDeplie }>
-                        <TouchableOpacity onPress={ () => this.handleOnPressDetails() }  style={ styles.wrapperLinkDetail }>
-                            <Text style={ styles.linkDetailsDeplie }>{ 'Plus de détails'.toUpperCase() }</Text>
-                            <Croix></Croix>
+                    {
+                        this.state.isOpenDetails ? 
+                        <View style={ styles.wrapperDetailsDeplie }>
+                            <TouchableOpacity onPress={ () => this.handleOnPressDetails() }  style={ styles.wrapperLinkDetail }>
+                                <Text style={ styles.linkDetailsDeplie }>{ 'Plus de détails'.toUpperCase() }</Text>
+                                <Croix></Croix>
+                            </TouchableOpacity>
+                            <View style={ styles.wrapperDetailsText }>
+                                <Text style={ styles.titleDetails }>Composition extérieure</Text>
+                                <Text style={ styles.textDetails }>Coton 100%</Text>
+                                <Text style={ styles.textDetails }>Cuir 100%</Text>
+                            </View>
+                            <View style={ styles.wrapperDetailsText }>
+                                <Text style={ styles.titleDetails }>Composition de la semelle</Text>
+                                <Text style={ styles.textDetails }>Caoutchouc 100%</Text>
+                            </View>
+                        </View> :
+                        <TouchableOpacity style={ styles.linkDetails } onPress={ () => this.handleOnPressDetails() }>
+                            <TextLink>{ 'Plus de détails'.toUpperCase() }</TextLink>
                         </TouchableOpacity>
-                        <View style={ styles.wrapperDetailsText }>
-                            <Text style={ styles.titleDetails }>Composition extérieure</Text>
-                            <Text style={ styles.textDetails }>Coton 100%</Text>
-                            <Text style={ styles.textDetails }>Cuir 100%</Text>
-                        </View>
-                        <View style={ styles.wrapperDetailsText }>
-                            <Text style={ styles.titleDetails }>Composition de la semelle</Text>
-                            <Text style={ styles.textDetails }>Caoutchouc 100%</Text>
-                        </View>
-                    </View> :
-                    <TouchableOpacity style={ styles.linkDetails } onPress={ () => this.handleOnPressDetails() }>
-                        <TextLink>{ 'Plus de détails'.toUpperCase() }</TextLink>
-                    </TouchableOpacity>
-                }
+                    }
 
-                {/* Mapper sur toutes les sneakers et mettre dans un array les couleurs et size */}
-                
-                {/* <InputSelect placeholder="Coloris" data={currentSneakers.color} />
-                <InputSelect placeholder="Taille" data={currentSneakers.size} /> */}
-                <DatePickerCustom placeholder="Début de location" />
-                <DatePickerCustom placeholder="Fin de location" />
-                
-                <Price price={ currentSneakers[0].rentPrice } style={ styles.price }></Price>
+                    <InputSelect placeholder="Coloris" data={this.state.color}/>
+                    <InputSelect placeholder="Taille" data={this.state.size} sendPropsToParent={ this.handleInputSelectSize }/>
+                    <DatePickerCustom placeholder="Début de location" />
+                    <DatePickerCustom placeholder="Fin de location" />
+
+                    <Price price={ currentSneakers[0].rentPrice } style={ styles.price }></Price>
+                </View>
 
                 <Button style={ styles.buttonValidate }>
                     <ButtonText>{ 'Je les veux'.toUpperCase() }</ButtonText>
@@ -161,12 +197,15 @@ class SneakersDetails extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 20,
+        // padding: 20,
         paddingBottom: 40
     },
     wishlistPicto: {
         alignSelf: 'flex-end',
-        marginBottom: 32
+        marginBottom: 32,
+        marginTop: 20,
+        marginLeft: 20,
+        marginRight: 20,
     },
     description: {
         fontSize: 13,
@@ -174,10 +213,10 @@ const styles = StyleSheet.create({
         fontFamily: 'brawler-regular',
         lineHeight: 20,
         letterSpacing: 1,
-        marginVertical: 16
+        marginVertical: 16,
     },
     linkDetails: {
-        marginBottom: 24
+        marginBottom: 24,
     },
     wrapperLinkDetail: {
         display: 'flex',
@@ -189,8 +228,11 @@ const styles = StyleSheet.create({
     wrapperDetailsDeplie: {
         borderBottomWidth: 1,
         borderBottomColor: '#070e37',
-        marginBottom: 24
+        marginBottom: 24,
     },
+    wrapperContent: {
+        marginHorizontal: 20
+    },  
     linkDetailsDeplie: {
         color: '#070e37',
         fontSize: 13,

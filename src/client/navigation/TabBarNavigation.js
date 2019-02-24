@@ -1,6 +1,6 @@
 import React from 'react'
-import { createStackNavigator, createBottomTabNavigator, createAppContainer } from 'react-navigation'
-import { StyleSheet, View, Image } from 'react-native'
+import { createStackNavigator, createBottomTabNavigator, createAppContainer, StackNavigator } from 'react-navigation'
+import { StyleSheet, View, Image, TouchableOpacity } from 'react-native'
 
 import { HomeActiveSvg, HomeInactiveSvg, ResearchActiveSvg, ResearchInactiveSvg, WishListActiveSvg, WishListInactiveSvg, ChatActiveSvg, ChatInactiveSvg, UserActiveSvg, UserInactiveSvg, ActiveIcon } from '../images/tabbar/icons';
 
@@ -41,19 +41,18 @@ class Logo extends React.Component {
     }
 }
 
-
 const HomeStack = createStackNavigator({
     Home: {
         screen: Home,
         navigationOptions: {
-            headerTitle: <Logo></Logo>,
+            headerTitle: <Logo />,
             headerBackTitle: null,
         }
     },
     Concept: {
         screen: Concept,
         navigationOptions: {
-            headerTitle: <Logo></Logo>,
+            headerTitle: <Logo />,
             
         }
     },
@@ -64,39 +63,39 @@ const ResearchStack = createStackNavigator({
     Research : {
         screen: Research,
         navigationOptions: {
-            headerTitle: <Logo></Logo>,
+            headerTitle: <Logo />,
             headerBackTitle: null,
         }
     },
     DetailsSneakers : {
         screen: DetailsSneakers,
         navigationOptions: {
-            headerTitle: <Logo></Logo>,
+            headerTitle: <Logo />,
         }
     },
     SuccessSend : {
         screen: SuccessSend,
         navigationOptions: {
-            headerTitle: <Logo></Logo>,
+            headerTitle: <Logo />,
         }
     },
     ResearchSneakers: {
         screen: ResearchSneakers,
         navigationOptions: {
-            headerTitle: <Logo></Logo>,
+            headerTitle: <Logo />,
         }
     },
     Filters: {
         screen: Filters,
         navigationOptions: {
-            headerTitle: <Logo></Logo>,
+            headerTitle: <Logo />,
             headerBackTitle: null,
         }
     },
     Genre: {
         screen: Genre,
         navigationOptions: {
-            headerTitle: <Logo></Logo>,
+            headerTitle: <Logo />,
         }
     }
 })
@@ -105,7 +104,7 @@ const WishListStack = createStackNavigator({
     WishList : {
         screen: WishList,
         navigationOptions: {
-            headerTitle: <Logo></Logo>,
+            headerTitle: <Logo />,
             headerBackTitle: null,
         }
     }
@@ -115,7 +114,7 @@ const ChatStack = createStackNavigator({
     Chat : {
         screen: Chat,
         navigationOptions: {
-            headerTitle: <Logo></Logo>,
+            headerTitle: <Logo />,
             headerBackTitle: null,
         }
     }
@@ -125,52 +124,53 @@ const UserStack = createStackNavigator({
     Connexion: {
         screen: Connexion,
         navigationOptions: {
-            headerTitle: <Logo></Logo>,
+            headerTitle: <Logo />,
             headerBackTitle: null,
         }
     },
     Inscription: {
         screen: Inscription,
         navigationOptions: {
-            headerTitle: <Logo></Logo>
+            headerTitle: <Logo />,
+            headerBackTitle: null,
         }
     },
     HomeUser: {
         screen: HomeUser,
         navigationOptions: {
-            headerTitle: <Logo></Logo>,
+            headerTitle: <Logo />,
             headerBackTitle: null,
         }
     },
     Profil: {
         screen: Profil,
         navigationOptions: {
-            headerTitle: <Logo></Logo>
+            headerTitle: <Logo />
         }
     },
     ChangePassword: {
         screen: ChangePassword,
         navigationOptions: {
-            headerTitle: <Logo></Logo>
+            headerTitle: <Logo />
         }
     },
     MesCommandes: {
         screen: MesCommandes,
         navigationOptions: {
-            headerTitle: <Logo></Logo>
+            headerTitle: <Logo />
         }
     },
     CarnetAdresses: {
         screen: CarnetAdresses,
         navigationOptions: {
-            headerTitle: <Logo></Logo>,
+            headerTitle: <Logo />,
             headerBackTitle: null,
         }
     },
     DetailsAdresse: {
         screen: DetailsAdresse,
         navigationOptions: {
-            headerTitle: <Logo></Logo>
+            headerTitle: <Logo />
         }
     },
 })
@@ -181,8 +181,8 @@ const TabBarNavigator = createBottomTabNavigator({
         navigationOptions: {
             tabBarIcon: ({ focused }) =>  (
                 focused
-                ? <View style={ styles.wrapperSvg }><HomeActiveSvg></HomeActiveSvg><ActiveIcon></ActiveIcon></View>
-                : <View style={ styles.wrapperSvg }><HomeInactiveSvg></HomeInactiveSvg></View>
+                ? <View style={ styles.wrapperSvg }><HomeActiveSvg /><ActiveIcon /></View>
+                : <HomeInactiveSvg style={ styles.wrapperSvg } />
             )
         }
     },
@@ -191,8 +191,8 @@ const TabBarNavigator = createBottomTabNavigator({
         navigationOptions: {
             tabBarIcon: ({ focused }) =>  (
                 focused
-                ? <View style={ styles.wrapperSvg }><ResearchActiveSvg></ResearchActiveSvg><ActiveIcon></ActiveIcon></View>
-                : <View style={ styles.wrapperSvg }><ResearchInactiveSvg></ResearchInactiveSvg></View>
+                ? <View style={ styles.wrapperSvg }><ResearchActiveSvg /><ActiveIcon /></View>
+                : <ResearchInactiveSvg style={ styles.wrapperSvg } />
             )
         }
     },
@@ -201,8 +201,8 @@ const TabBarNavigator = createBottomTabNavigator({
         navigationOptions: {
             tabBarIcon: ({ focused }) =>  (
                 focused
-                ? <View style={ styles.wrapperSvg }><WishListActiveSvg></WishListActiveSvg><ActiveIcon></ActiveIcon></View>
-                : <View style={ styles.wrapperSvg }><WishListInactiveSvg></WishListInactiveSvg></View>
+                ? <View style={ styles.wrapperSvg }><WishListActiveSvg /><ActiveIcon /></View>
+                : <WishListInactiveSvg style={ styles.wrapperSvg }/>
             )
         }
     },
@@ -211,8 +211,8 @@ const TabBarNavigator = createBottomTabNavigator({
         navigationOptions: {
             tabBarIcon: ({ focused }) =>  (
                 focused
-                ? <View style={ styles.wrapperSvg }><ChatActiveSvg></ChatActiveSvg><ActiveIcon></ActiveIcon></View>
-                : <View style={ styles.wrapperSvg }><ChatInactiveSvg></ChatInactiveSvg></View>
+                ? <View style={ styles.wrapperSvg }><ChatActiveSvg /><ActiveIcon /></View>
+                : <ChatInactiveSvg style={ styles.wrapperSvg } />
             )
         }
     },
@@ -221,8 +221,8 @@ const TabBarNavigator = createBottomTabNavigator({
         navigationOptions: {
             tabBarIcon: ({ focused }) =>  (
                 focused
-                ? <View style={ styles.wrapperSvg }><UserActiveSvg></UserActiveSvg><ActiveIcon></ActiveIcon></View>
-                : <View style={ styles.wrapperSvg }><UserInactiveSvg></UserInactiveSvg></View>
+                ? <View style={ styles.wrapperSvg }><UserActiveSvg /><ActiveIcon style={ styles.activeIcon }/></View>
+                : <UserInactiveSvg style={ styles.wrapperSvg } />
             )
         }
     }
@@ -249,8 +249,6 @@ const styles = StyleSheet.create({
         // paddingLeft: 16,
         height: 42,
         marginBottom: -6
-    },
-    activeIcon: {
     }
 })
 

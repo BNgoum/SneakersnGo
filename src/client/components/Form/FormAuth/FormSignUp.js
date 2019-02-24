@@ -28,7 +28,7 @@ class FormSignUp extends Component {
                 resolve(requestRegister(this.state.firstName, this.state.lastName, this.state.email, this.state.password))
             })
             .then((action) => { this.props.dispatch(action) })
-            .catch((error) => { console.log('Erreur lors de la connexion : ', error); });
+            .catch((error) => { console.log('Erreur lors de l\'inscription : ', error); });
         }
     }
 
@@ -60,8 +60,8 @@ class FormSignUp extends Component {
                     placeholder="Saisissez votre mot de passe..."
                     secureTextEntry={this.state.isSecureTextEntry}/>
 
-                { this.state.isEmpty ? <Text>Tous les champs doivent être remplis.</Text> : null }
-                { this.state.isExist ? <Text>Cette adresse mail est déjà utilisée.</Text> : null }
+                { this.state.isEmpty && <Text>Tous les champs doivent être remplis.</Text> }
+                { this.state.isExist && <Text>Cette adresse mail est déjà utilisée.</Text> }
 
                 <TouchableOpacity onPress={this.checkInputNotBlank} style={styles.buttonValidate} title="Valider"><Text style={styles.textValidate}>Valider</Text></TouchableOpacity>
 
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
 })
 
 const mapStateToProps = (state) => { 
-    return {state: state};
+    return {state};
 }
 
 const mapDispatchToProps = (dispatch) => {

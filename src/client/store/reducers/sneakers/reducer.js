@@ -7,7 +7,8 @@ const initialState = {
     sneakersByModel: [],
     sneakers: [],
     currentSneakers: "",
-    pathImage: {}
+    pathImage: {},
+    wishlist: []
 }
 
 function addSneakers(state = initialState, action) {
@@ -56,6 +57,11 @@ function addSneakers(state = initialState, action) {
         case 'SET_CURRENT_PATH_IMAGE':
             nextState = {
                 ...state, pathImage: action.value
+            }
+            return nextState;
+        case 'ADD_WISHLIST':
+            nextState = {
+                ...state, wishlist: [...state.wishlist, action.value]
             }
             return nextState;
         default:

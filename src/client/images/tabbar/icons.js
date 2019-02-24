@@ -4,7 +4,7 @@ import Svg, { Path, G } from 'react-native-svg'
 export const HomeInactiveSvg = props => (
     <Svg width={17} height={18} {...props}>
       <Path
-        fill="none"
+        fill="#fff"
         fillRule="evenodd"
         stroke="#4A4949"
         strokeLinecap="round"
@@ -18,7 +18,7 @@ export const HomeInactiveSvg = props => (
 export const HomeActiveSvg = props => (
     <Svg width={17} height={18} {...props}>
       <Path
-        fill="none"
+        fill="#fff"
         fillRule="evenodd"
         stroke="#070E37"
         strokeLinecap="round"
@@ -32,7 +32,7 @@ export const HomeActiveSvg = props => (
 export const ResearchActiveSvg = props => (
     <Svg width={31} height={21} {...props}>
       <G
-        fill="none"
+        fill="#fff"
         fillRule="evenodd"
         stroke="#070E37"
         strokeLinecap="round"
@@ -48,7 +48,7 @@ export const ResearchActiveSvg = props => (
 export const ResearchInactiveSvg = props => (
   <Svg width={31} height={21} {...props}>
     <G
-      fill="none"
+      fill="#fff"
       fillRule="evenodd"
       stroke="#333"
       strokeLinecap="round"
@@ -64,7 +64,7 @@ export const ResearchInactiveSvg = props => (
 export const WishListActiveSvg = props => (
     <Svg width={21} height={18} {...props}>
       <Path
-        fill="none"
+        fill="#fff"
         fillRule="evenodd"
         stroke="#070E37"
         strokeLinecap="round"
@@ -78,7 +78,7 @@ export const WishListActiveSvg = props => (
 export const WishListInactiveSvg = props => (
     <Svg width={21} height={18} {...props}>
       <Path
-        fill="none"
+        fill="#fff"
         fillRule="evenodd"
         stroke="#4A4949"
         strokeLinecap="round"
@@ -91,7 +91,7 @@ export const WishListInactiveSvg = props => (
 export const ChatActiveSvg = props => (
   <Svg width={22} height={19} {...props}>
     <Path
-      fill="none"
+      fill="#fff"
       fillRule="evenodd"
       stroke="#070E37"
       strokeLinecap="round"
@@ -105,7 +105,7 @@ export const ChatActiveSvg = props => (
 export const ChatInactiveSvg = props => (
   <Svg width={21} height={19} {...props}>
     <Path
-      fill="none"
+      fill="#fff"
       fillRule="evenodd"
       stroke="#4A4949"
       strokeLinecap="round"
@@ -125,7 +125,7 @@ export const UserActiveSvg = props => (
     <Svg width={20} height={19} {...props}>
       <Path
         d="M14 5.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 .001zM19 18l-2.7-5H3.7L1 18"
-        fill="none"
+        fill="#fff"
         fillRule="evenodd"
         stroke="#070E37"
         strokeLinecap="round"
@@ -139,7 +139,7 @@ export const UserInactiveSvg = props => (
     <Svg width={20} height={17} {...props}>
       <Path
         d="M14 5.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 .001zM19 17l-2.7-5H3.7L1 17"
-        fill="none"
+        fill="#fff"
         fillRule="evenodd"
         stroke="#4A4949"
         strokeLinecap="round"

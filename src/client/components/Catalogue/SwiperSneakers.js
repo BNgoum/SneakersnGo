@@ -61,7 +61,8 @@ const styles = StyleSheet.create({
         borderBottomColor: '#ea2300',
         borderBottomWidth: 2,
         paddingBottom: 10,
-        marginTop: 16
+        marginTop: 16,
+        marginHorizontal: 20
     },
     marque: {
         color: '#070e37',
