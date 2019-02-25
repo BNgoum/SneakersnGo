@@ -26,7 +26,8 @@ class SneakersDetails extends Component {
             pathImage: {},
             size: [],
             color: [],
-            selectedSize: ""
+            selectedSize: "",
+            isLogin: true
         }
     }
 
@@ -43,27 +44,39 @@ class SneakersDetails extends Component {
     }
 
     handleOnPressHeart = () => {
-        if ( this.state.isLiked ) {
-            this.setState({ isLiked: !this.state.isLiked })
+        const token = this.props.state.AuthenticationReducer.isLogin;
+        const currentSneakers = this.props.state.SneakersReducer.currentSneakers;
+
+        // On check si le user est bien connecté en vérifiant si le token est dans le state redux isLogin
+        if (!token) {
+            this.setState({ isLogin: false })
         } else {
-            const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YzAzZjMwMmJiNTQ4MTAwMjNjNDZkZTIiLCJlbWFpbCI6ImF6ZSIsInBhc3N3b3JkIjoiJDJhJDEwJGRYVVJLQmpuNkFRMGpTMDBRdENCVE84cGd3TUhKYWNpVHJ1SExYRDVteE43VTJPNTYyMXBDIiwiZXhwaXJlSW4iOiIxMHMiLCJleHAiOjE1NTU3OTEyNzg0LCJpYXQiOjE1NTA2OTM2Nzh9.Xb-4eSSK4uJ_aVYjE6XAIhD7iLmOG3jRhCdTQLk6DGM';
-            let sneakerId = "";
-            this.props.state.SneakersReducer.currentSneakers.map(sneakers => {
-                if ( this.state.selectedSize == sneakers.size) {
-                    sneakerId = sneakers._id;
-                }
-            })
-
-            return new Promise((resolve, reject) => {
-                resolve(addToWishlist(token, sneakerId))
-            })
-            .then(data => {
-                console.log('Data : ', data.data)
+            if ( this.state.isLiked ) {
+                // On retire la sneakers ou le modèle de la wishlist
                 this.setState({ isLiked: !this.state.isLiked })
-            })
-            
-        }
+            } else {
+                // On ajoute la sneakers ou le modèle dans la wishlist
 
+                // Une taille correspond à un id de sneakers
+                // Si le user ne sélectionne pas la taille, on ajoute le modèle et non pas la sneakers dans la wishlist
+                if ( !this.state.selectedSize === "") {
+                    let sneakerId = "";
+                    currentSneakers.map(sneakers => {
+                        if ( this.state.selectedSize == sneakers.size) {
+                            sneakerId = sneakers._id;
+                        }
+                    })
+
+                    return new Promise((resolve, reject) => {
+                        resolve(addToWishlist(token, sneakerId))
+                    })
+                    .then(data => {
+                        console.log('Data : ', data.data)
+                        this.setState({ isLiked: !this.state.isLiked })
+                    })
+                }
+            }
+        }
     }
 
     getModel = () => {
@@ -136,7 +149,7 @@ class SneakersDetails extends Component {
         // console.log(' Set Size : ', this.state.size)
         // console.log(' Set colors : ', this.state.color)
         
-        //console.log('Props sneakers daetails received : ', this.props.state.SneakersReducer.currentSneakers)
+        //console.log('Props sneakers daetails received : ', this.props.state.AuthenticationReducer)
         const currentSneakers = this.props.state.SneakersReducer.currentSneakers;
         const currentModel = this.props.state.SneakersReducer.currentModel;
         const currentBrand = this.props.state.SneakersReducer.currentBrand;
@@ -150,6 +163,10 @@ class SneakersDetails extends Component {
                         <CoeurInactive style={ styles.wishlistPicto }></CoeurInactive>
                     }
                 </TouchableOpacity>
+
+                {
+                    !this.state.isLogin && <Text>Vous devez vous connectez pour ajouter à votre wishlist</Text>
+                }
                 
                 <SwiperSneakers brand={ currentBrand } model={ currentModel } pathImage={ currentPathImage }></SwiperSneakers>
 

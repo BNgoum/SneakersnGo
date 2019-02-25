@@ -8,7 +8,8 @@ const initialState = {
     sneakers: [],
     currentSneakers: "",
     pathImage: {},
-    wishlist: []
+    wishlist: [],
+    
 }
 
 function addSneakers(state = initialState, action) {

@@ -28,12 +28,12 @@ class HomeUser extends Component {
     }
 
     render() {
-        console.log('Props home user : ', this.props.state.user)
+        console.log('Props home user : ', this.props.state)
         const user = this.props.state.user;
         return (
             <ScrollView style={ styles.container }>
                 <ContainerTitle style={ styles.containerTitle }>
-                    <Title style={ styles.titleStyle }>{ "Hello ".toUpperCase() } { this.state.prenom.toUpperCase() }</Title>
+                    <Title style={ styles.titleStyle }>{ "Hello ".toUpperCase() } { user.firstname.toUpperCase() }</Title>
                     <BorderTitle />
                 </ContainerTitle>
 
