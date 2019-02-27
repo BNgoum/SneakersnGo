@@ -10,9 +10,9 @@ import Price from '../../components/Catalogue/Price';
 import TextLink from '../Style/Text/TextLink'
 import ButtonText from '../Style/Button/ButtonText'
 import Button from '../Style/Button/Button';
-import Select from '../Form/Select';
 import InputSelect from '../../components/Form/InputSelect';
 import DatePickerCustom from '../../components/Form/DatePicker';
+import Toast from '../../components/Style/Toast';
 
 class SneakersDetails extends Component {
     constructor(props) {
@@ -50,22 +50,27 @@ class SneakersDetails extends Component {
         // On check si le user est bien connecté en vérifiant si le token est dans le state redux isLogin
         if (!token) {
             this.setState({ isLogin: false })
+            setTimeout( () => { this.setState({ isLogin: true }) }, 3500);
+            
         } else {
             if ( this.state.isLiked ) {
                 // On retire la sneakers ou le modèle de la wishlist
                 this.setState({ isLiked: !this.state.isLiked })
             } else {
                 // On ajoute la sneakers ou le modèle dans la wishlist
+                console.log('In else: ', this.state.selectedSize)
 
                 // Une taille correspond à un id de sneakers
                 // Si le user ne sélectionne pas la taille, on ajoute le modèle et non pas la sneakers dans la wishlist
-                if ( !this.state.selectedSize === "") {
+                if ( this.state.selectedSize !== "") {
                     let sneakerId = "";
                     currentSneakers.map(sneakers => {
                         if ( this.state.selectedSize == sneakers.size) {
                             sneakerId = sneakers._id;
                         }
                     })
+
+                    console.log('Sneakers id : ', sneakerId)
 
                     return new Promise((resolve, reject) => {
                         resolve(addToWishlist(token, sneakerId))
@@ -165,7 +170,7 @@ class SneakersDetails extends Component {
                 </TouchableOpacity>
 
                 {
-                    !this.state.isLogin && <Text>Vous devez vous connectez pour ajouter à votre wishlist</Text>
+                    !this.state.isLogin && <Toast text="Vous devez vous connecter pour ajouter cette sneakers à la wishlist !"/>
                 }
                 
                 <SwiperSneakers brand={ currentBrand } model={ currentModel } pathImage={ currentPathImage }></SwiperSneakers>

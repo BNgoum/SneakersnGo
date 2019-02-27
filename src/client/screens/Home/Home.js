@@ -9,14 +9,12 @@ import Buy from '../../components/Home/Buy';
 import Link from '../../components/Style/Text/Link';
 import TextLink from '../../components/Style/Text/TextLink';
 import Background from '../../components/Style/Background';
-import Toast from '../../components/Style/Toast';
 
 export default class Home extends Component {
 
     render() {
         return (
             <Container>
-                <Toast text="Test du toast !" />
                 <Nouveautes></Nouveautes>
                 <Concept navigation={ this.props.navigation }></Concept>
                 <Instagram></Instagram>

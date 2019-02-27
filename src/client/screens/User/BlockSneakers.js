@@ -8,7 +8,7 @@ import { ArrowBottom } from '../../images/icons';
 export default class BlockSneakers extends Component {
     render() {
         return (
-            <TouchableOpacity style={ styles.wrapperSneakersListe }>
+            <TouchableOpacity style={ styles.wrapperSneakersListe } onPress={ () => this.props.navigation.navigate('DetailsCommande')}>
                 <View style={ styles.wrapperSneakers }>
                     <Image style={ styles.sneakersImage } source={require('../../images/balenciaga_liste.png')} />
                     <Badge numberBadge="2" addedStyle={ styles.badgeStyle }/>

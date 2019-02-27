@@ -29,7 +29,7 @@ export default class MesCommandes extends Component {
                     <FlatList 
                         data={this.state.arrayCommandesAvenir}
                         keyExtractor={(item) => item.toString()}
-                        renderItem={({item}) => <BlockSneakers statut="A venir" /> }
+                        renderItem={({item}) => <BlockSneakers statut="A venir" navigation={ this.props.navigation } /> }
                     />
                 </View>
 

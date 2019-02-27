@@ -21,23 +21,28 @@ class WishList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            arrayWishlist: []
+            arrayWishlist: [],
+            token: this.props.state.AuthenticationReducer.isLogin
         }
     }
 
-    componentWillMount() {
+    componentDidMount() {
         //console.log('Props : ', this.props.state.AuthenticationReducer.user.wishlist)
-        this.props.state.AuthenticationReducer.user.wishlist.map(sneakers => {
-            console.log('Sneakers : ', sneakers)
-            this.getModelAndBrand(sneakers)
-        })
+        
+        if ( this.state.token ) {
+            const wishlist = this.props.state.AuthenticationReducer.user.wishlist;
+            wishlist.map(sneakers => {
+                console.log('Sneakers : ', sneakers)
+                this.getModelAndBrand(sneakers)
+            })
+        }
     }
 
     getModelAndBrand = (idModel) => {
         const token = this.props.state.AuthenticationReducer.isLogin;
         console.log('Idmodel : ', idModel)
         console.log('Token : ', token)
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve, reject) => {   
             resolve(requestOneModel(token, idModel))
         })
         .then(data => {

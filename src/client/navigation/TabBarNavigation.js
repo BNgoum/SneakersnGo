@@ -26,6 +26,7 @@ import ChangePassword from '../screens/User/ChangePassword';
 import MesCommandes from '../screens/User/MesCommandes';
 import CarnetAdresses from '../screens/User/CarnetAdresses';
 import DetailsAdresse from '../screens/User/DetailsAdresse';
+import DetailsCommande from '../screens/User/DetailsCommande';
 
 
 class Logo extends React.Component {
@@ -157,7 +158,8 @@ const UserStack = createStackNavigator({
     MesCommandes: {
         screen: MesCommandes,
         navigationOptions: {
-            headerTitle: <Logo />
+            headerTitle: <Logo />,
+            headerBackTitle: null,
         }
     },
     CarnetAdresses: {
@@ -169,6 +171,12 @@ const UserStack = createStackNavigator({
     },
     DetailsAdresse: {
         screen: DetailsAdresse,
+        navigationOptions: {
+            headerTitle: <Logo />
+        }
+    },
+    DetailsCommande: {
+        screen: DetailsCommande,
         navigationOptions: {
             headerTitle: <Logo />
         }

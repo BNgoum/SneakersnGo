@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Animated } from 'react-native';
+import { StyleSheet, View, Text, Animated, Dimensions } from 'react-native';
 
 export default class Toast extends Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.animatedValue = new Animated.Value(-70)
     }
 
@@ -12,6 +12,7 @@ export default class Toast extends Component {
     }
 
     callToast() {
+        const windowHeight = Dimensions.get('window').height;
         Animated.timing(
           this.animatedValue,
           { 
