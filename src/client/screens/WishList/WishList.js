@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, ScrollView, TouchableOpacity } from 'react-native';
-import {Swiper, SwipeRow} from 'react-native-swiper';
+import { StyleSheet, View, Text } from 'react-native';
 import { SwipeListView } from 'react-native-swipe-list-view';
 
 import { connect } from 'react-redux';
@@ -21,7 +20,7 @@ class WishList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            arrayWishlist: [],
+            arrayWishlist: ["err", "rer", "po"],
             token: this.props.state.AuthenticationReducer.isLogin
         }
     }

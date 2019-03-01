@@ -90,7 +90,7 @@ class Research extends Component {
                         
                                 {
                                     this.props.state.SneakersReducer.models.map((item, index) => (
-                                        <SneakersBlocItem key = {item._id} navigation={ this.props.navigation } dataModel={item} /> 
+                                        <SneakersBlocItem caracteristiqueKey = {item._id} navigation={ this.props.navigation } dataModel={item} /> 
                                     ))
                                 }
                           
@@ -112,7 +112,7 @@ class Research extends Component {
                         /> */}
                         {
                             this.props.state.SneakersReducer.models.map((item, index) => (
-                                <SneakersListeItem key = {item._id} navigation={ this.props.navigation } dataModel={item} /> 
+                                <SneakersListeItem caracteristiqueKey = {item._id} navigation={ this.props.navigation } dataModel={item} /> 
                             ))
                         }
                     </ScrollView>

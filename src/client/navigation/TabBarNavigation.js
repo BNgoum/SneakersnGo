@@ -1,8 +1,8 @@
 import React from 'react'
 import { createStackNavigator, createBottomTabNavigator, createAppContainer, StackNavigator } from 'react-navigation'
-import { StyleSheet, View, Image, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, Image, Text } from 'react-native'
 
-import { HomeActiveSvg, HomeInactiveSvg, ResearchActiveSvg, ResearchInactiveSvg, WishListActiveSvg, WishListInactiveSvg, ChatActiveSvg, ChatInactiveSvg, UserActiveSvg, UserInactiveSvg, ActiveIcon } from '../images/tabbar/icons';
+import { HomeActiveSvg, HomeInactiveSvg, ResearchActiveSvg, ResearchInactiveSvg, WishListActiveSvg, WishListInactiveSvg, PanierActiveSvg, PanierInactiveSvg, UserActiveSvg, UserInactiveSvg, ActiveIcon } from '../images/tabbar/icons';
 
 import Home from '../screens/Home/Home';
 import Concept from '../screens/Home/ConceptScreen';
@@ -16,7 +16,8 @@ import Genre from '../screens/Research/Filters/Genre';
 
 import WishList from '../screens/WishList/WishList';
 
-import Chat from '../screens/Chat/Chat';
+import Panier from '../screens/Panier/Panier';
+import BadgePanier from '../components/Style/BadgePanier';
 
 import Connexion from '../screens/User/Connexion';
 import Inscription from '../screens/User/Inscription';
@@ -27,7 +28,6 @@ import MesCommandes from '../screens/User/MesCommandes';
 import CarnetAdresses from '../screens/User/CarnetAdresses';
 import DetailsAdresse from '../screens/User/DetailsAdresse';
 import DetailsCommande from '../screens/User/DetailsCommande';
-
 
 class Logo extends React.Component {
     render() {
@@ -111,9 +111,9 @@ const WishListStack = createStackNavigator({
     }
 })
 
-const ChatStack = createStackNavigator({
-    Chat : {
-        screen: Chat,
+const PanierStack = createStackNavigator({
+    Panier : {
+        screen: Panier,
         navigationOptions: {
             headerTitle: <Logo />,
             headerBackTitle: null,
@@ -214,13 +214,20 @@ const TabBarNavigator = createBottomTabNavigator({
             )
         }
     },
-    Chat: {
-        screen: ChatStack,
+    Panier: {
+        screen: PanierStack,
         navigationOptions: {
             tabBarIcon: ({ focused }) =>  (
                 focused
-                ? <View style={ styles.wrapperSvg }><ChatActiveSvg /><ActiveIcon /></View>
-                : <ChatInactiveSvg style={ styles.wrapperSvg } />
+                ? <View style={ styles.wrapperSvg }>
+                    <PanierActiveSvg />
+                    <ActiveIcon />
+                    <BadgePanier value={0}/>
+                </View>
+                : <View style={ styles.wrapperPanier }>
+                    <PanierInactiveSvg style={ styles.wrapperSvg } />
+                    <BadgePanier value={0}/>
+                </View>
             )
         }
     },
@@ -256,6 +263,12 @@ const styles = StyleSheet.create({
         // paddingRight: 16,
         // paddingLeft: 16,
         height: 42,
+        marginBottom: -6
+    },
+    wrapperPanier: {
+        position: 'relative',
+        height: 42,
+        paddingTop: 10,
         marginBottom: -6
     }
 })

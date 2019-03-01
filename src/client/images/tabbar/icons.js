@@ -88,7 +88,7 @@ export const WishListInactiveSvg = props => (
     </Svg>
 )
 
-export const ChatActiveSvg = props => (
+export const PanierActiveSvg = props => (
   <Svg width={22} height={19} {...props}>
     <Path
       fill="#fff"
@@ -102,7 +102,7 @@ export const ChatActiveSvg = props => (
   </Svg>
 )
 
-export const ChatInactiveSvg = props => (
+export const PanierInactiveSvg = props => (
   <Svg width={21} height={19} {...props}>
     <Path
       fill="#fff"
