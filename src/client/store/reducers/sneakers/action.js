@@ -108,6 +108,18 @@ export const requestOneModel = (token, idModel) => {
     });
 }
 
+export const requestOneSneaker = (token, idSneaker) => {
+    let config = { headers: {'Authorization': 'Bearer ' + token} }
+
+    return axios.get('https://sneakersngo-api.herokuapp.com/sneaker/' + idSneaker, config)
+    .then((responseJson) => {
+        return responseJson.data.data;
+    })
+    .catch(err => {
+        console.log('Erreur lors de la récupération d\'une Sneaker : ', err);
+    });
+}
+
 export const requestOneBrand = (token, idBrand) => {
     let config = { headers: {'Authorization': 'Bearer ' + token} }
 
@@ -161,5 +173,14 @@ export const addToWishlist = (token, sneakerId) => {
     return axios.post('https://sneakersngo-api.herokuapp.com/wishlist', bodyParameters, config)
     .catch(err => {
         console.log('Erreur lors de l\'ajout de sneakers dans la wishlist: ', err);
+    });
+}
+
+export const deleteFromWishlist = (token, sneakerId) => {
+    let config = { headers: {'Authorization': 'Bearer ' + token} }
+
+    return axios.delete('https://sneakersngo-api.herokuapp.com/wishlist/' + sneakerId, config)
+    .catch(err => {
+        console.log('Erreur lors de la suppression d\'une sneakers de la wishlist: ', err);
     });
 }

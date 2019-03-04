@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 
-import { requestOneBrand, requestAllSneakerByModel, addToWishlist } from '../../store/reducers/sneakers/action';
+import { requestOneBrand, requestAllSneakerByModel, addToWishlist, deleteFromWishlist } from '../../store/reducers/sneakers/action';
 
 import { CoeurInactive, CoeurActive, Croix } from '../../images/icons';
 import SwiperSneakers from '../../components/Catalogue/SwiperSneakers';
@@ -27,7 +27,10 @@ class SneakersDetails extends Component {
             size: [],
             color: [],
             selectedSize: "",
-            isLogin: true
+            isLogin: true,
+            isAddToWishlist: false,
+            isSizeSelected: false,
+            isDeleteFromWishlist: false
         }
     }
 
@@ -35,6 +38,11 @@ class SneakersDetails extends Component {
         // this.getModel();
         this.setImage();
         this.setColorAndSizeSneakers()
+
+        // Si le user est connecté, on check si la paire de sneakers est déjà dans sa wishlist
+        if (this.props.state.AuthenticationReducer.isLogin) {
+            this.checkIsInWishlist()
+        }
     }
 
     handleOnPressDetails = () => {
@@ -43,22 +51,52 @@ class SneakersDetails extends Component {
         })
     }
 
+    checkIsInWishlist = () => {
+        const wishlist = this.props.state.AuthenticationReducer.user.wishlist;
+        const currentSneakers = this.props.state.SneakersReducer.currentSneakers;
+
+        wishlist.map(sneakersWishlist => {
+            currentSneakers.map(sneakersCurrent => {
+                if (sneakersWishlist == sneakersCurrent._id) {
+                    this.setState({ isLiked: true })
+                }
+            })
+        })
+    }
+
     handleOnPressHeart = () => {
         const token = this.props.state.AuthenticationReducer.isLogin;
         const currentSneakers = this.props.state.SneakersReducer.currentSneakers;
+        const wishlist = this.props.state.AuthenticationReducer.user.wishlist;
 
         // On check si le user est bien connecté en vérifiant si le token est dans le state redux isLogin
         if (!token) {
             this.setState({ isLogin: false })
-            setTimeout( () => { this.setState({ isLogin: true }) }, 3500);
+            setTimeout( () => { this.setState({ isLogin: true }) }, 2500);
             
         } else {
             if ( this.state.isLiked ) {
+                let sneakerIdToDelete = "";
                 // On retire la sneakers ou le modèle de la wishlist
-                this.setState({ isLiked: !this.state.isLiked })
+                currentSneakers.map(sneakers => {
+                    wishlist.map(sneakersIdWishlist => {
+                        if (sneakers._id == sneakersIdWishlist) {
+                            console.log('Dans le if : ', sneakers._id, sneakersIdWishlist)
+                            sneakerIdToDelete = sneakers._id;
+                        }
+                    })
+                })
+
+                return new Promise((resolve, reject) => {    
+                    console.log('Dans la promise : ', sneakerIdToDelete)                
+                    resolve(deleteFromWishlist(token, sneakerIdToDelete))
+                })
+                .then(() => {
+                    this.setState({ isLiked: !this.state.isLiked, isDeleteFromWishlist: true })
+                    setTimeout( () => { this.setState({ isAddToWishlist: false }) }, 2500);
+                })
             } else {
                 // On ajoute la sneakers ou le modèle dans la wishlist
-                console.log('In else: ', this.state.selectedSize)
 
                 // Une taille correspond à un id de sneakers
                 // Si le user ne sélectionne pas la taille, on ajoute le modèle et non pas la sneakers dans la wishlist
@@ -70,15 +108,21 @@ class SneakersDetails extends Component {
                         }
                     })
 
-                    console.log('Sneakers id : ', sneakerId)
-
                     return new Promise((resolve, reject) => {
                         resolve(addToWishlist(token, sneakerId))
                     })
-                    .then(data => {
-                        console.log('Data : ', data.data)
-                        this.setState({ isLiked: !this.state.isLiked })
+                    .then(() => {
+                        const action = { type: "ADD_WISHLIST", value: sneakerId }
+
+                        return this.props.dispatch(action);
                     })
+                    .then(() => {
+                        this.setState({ isLiked: !this.state.isLiked, isAddToWishlist: true })
+                        setTimeout( () => { this.setState({ isAddToWishlist: false }) }, 2500);
+                    })
+                } else {
+                    this.setState({ isSizeSelected: true })
+                    setTimeout( () => { this.setState({ isSizeSelected: false }) }, 2500);
                 }
             }
         }
@@ -147,18 +191,11 @@ class SneakersDetails extends Component {
     }
 
     render() {
-        // console.log('Current model : ', this.props.state.SneakersReducer.currentModel)
-        //console.log('Current sneakers : ', this.props.state.SneakersReducer.currentSneakers)
-        // console.log('Current brand : ', this.props.state.SneakersReducer.currentBrand)
-        // console.log('Path image render : ', this.state.pathImage)
-        // console.log(' Set Size : ', this.state.size)
-        // console.log(' Set colors : ', this.state.color)
-        
-        //console.log('Props sneakers daetails received : ', this.props.state.AuthenticationReducer)
         const currentSneakers = this.props.state.SneakersReducer.currentSneakers;
         const currentModel = this.props.state.SneakersReducer.currentModel;
         const currentBrand = this.props.state.SneakersReducer.currentBrand;
         const currentPathImage = this.props.state.SneakersReducer.pathImage;
+
         return (
             <ScrollView style={ styles.container }>
                 <TouchableOpacity onPress={ () => this.handleOnPressHeart() }>
@@ -171,6 +208,18 @@ class SneakersDetails extends Component {
 
                 {
                     !this.state.isLogin && <Toast text="Vous devez vous connecter pour ajouter cette sneakers à la wishlist !"/>
+                }
+
+                {
+                    this.state.isAddToWishlist && <Toast text="La sneakers a bien été ajouté dans la wishlist."/>
+                }
+                
+                {
+                    this.state.isSizeSelected && <Toast text="Sélectionnez une taille pour ajouter la sneakers."/>
+                }
+
+                {
+                    this.state.isDeleteFromWishlist && <Toast text="La sneakers est retirée de la wishlist."/>
                 }
                 
                 <SwiperSneakers brand={ currentBrand } model={ currentModel } pathImage={ currentPathImage }></SwiperSneakers>

@@ -2,10 +2,6 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text} from 'react-native';
 
 import Tab from '../../components/Tab/TabDetailsCommande';
-import ButtonCTA from '../../components/Style/Button/Button';
-import ButtonText from '../../components/Style/Button/ButtonText';
-import InputText from '../../components/Form/InputText';
-import InputSelect from '../../components/Form/InputSelect';
 
 export default class DetailsCommande extends Component {
     constructor(props) {

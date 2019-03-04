@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Animated, Dimensions } from 'react-native';
+import { StyleSheet, Text, Animated } from 'react-native';
 
 export default class Toast extends Component {
     constructor(props) {
@@ -12,12 +12,11 @@ export default class Toast extends Component {
     }
 
     callToast() {
-        const windowHeight = Dimensions.get('window').height;
         Animated.timing(
           this.animatedValue,
           { 
             toValue: 0,
-            duration: 350
+            duration: 500
           }).start(this.closeToast())
     }
 
@@ -27,7 +26,7 @@ export default class Toast extends Component {
           this.animatedValue,
           { 
             toValue: -70,
-            duration: 350
+            duration: 500
           }).start()
         }, 2000)
     }
@@ -37,7 +36,8 @@ export default class Toast extends Component {
             <Animated.View style={ {
                 transform: [{ translateY: this.animatedValue }],
                 height: 70,
-                backgroundColor: 'green',
+                width: '100%',
+                backgroundColor: '#070e37',
                 position: 'absolute',
                 left:0,
                 top:0,
@@ -58,6 +58,7 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         color: 'white',
         fontSize: 16,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        paddingHorizontal: 16
     }
 })

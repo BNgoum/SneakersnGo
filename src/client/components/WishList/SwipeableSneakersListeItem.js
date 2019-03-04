@@ -1,24 +1,95 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 
+import { connect } from 'react-redux';
+
+import { requestOneBrand, requestOneModel, requestOneSneaker } from '../../store/reducers/sneakers/action';
+
 import BackgroundSneakers from '../Style/BackgroundSneakersListe';
 import ButtonCTA from '../Style/Button/Button';
 import ButtonText from '../Style/Button/ButtonText';
 
-export default class SwipeableSneakersListeItem extends Component {
+class SwipeableSneakersListeItem extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            pathImage: {},
+            brandName: "",
+            modelName: "",
+            rentPrice: 0,
+            color: "",
+            idSneakers: "",
+            size: ""
+        }
+    }
+
+    componentWillMount() {
+        this.getModelAndBrand();
+        // this.setImage();
+    }
+
+    setImage = () => {
+        // const model = this.props.data.item.modelName;
+        switch (this.state.modelName) {
+            case 'Stan Smith':
+                this.setState({ pathImage: require("../../images/stansmith.png") })
+                break;
+            case 'Classic':
+                this.setState({ pathImage: require("../../images/vans.png") })
+                break;
+            case 'Triple S':
+                this.setState({ pathImage: require("../../images/balenciaga_triple_s.png") })
+                break;
+        }
+    }
+
+    getModelAndBrand = () => {
+        const token = this.props.state.AuthenticationReducer.isLogin;
+
+        return new Promise((resolve, reject) => {   
+            resolve(requestOneSneaker(token, this.props.data.item))
+        })
+        .then(data => {
+            this.setState({
+                idSneakers: data.sneaker._id,
+                color: data.sneaker.color,
+                rentPrice: data.sneaker.rentPrice,
+                size: data.sneaker.size
+            })
+            
+            return requestOneModel(token, data.sneaker.model)
+        })
+        .then( data => {
+            this.setState({ modelName: data.name })
+
+            return requestOneBrand(token, data.brand)
+        })
+        .then( data => {
+            this.setState({ brandName: data.name })
+        })
+        .then(() => {
+            this.setImage();
+        })
+        .catch((error) => {
+            console.log('Erreur lors de la récupération du modèle et de la marque de la sneakers de la wishlist : ', error)
+        })
+    }
+
     render() {
+        const sneakers = this.props.data.item;
+        // console.log('Data received : ', sneakers)
         return (
             <View style={ styles.container }>
                <TouchableOpacity style={ styles.wrapperSneakersListe } onPress={ () => this.props.navigation.navigate('DetailsSneakers') }>
                     <View style={ styles.wrapperSneakers }>
-                        <Image style={ styles.sneakersImage } source={require('../../images/balenciaga_liste.png')} />
+                        <Image style={ styles.sneakersImage } source={this.state.pathImage} />
                         <BackgroundSneakers style={ styles.backgroundSneakers }></BackgroundSneakers>
                     </View>
                     <View style={ styles.wrapperInformations }>
-                        <Text style={ styles.marque }>{ 'Balenciaga'.toUpperCase() }</Text>
-                        <Text style={ styles.modele }>{ 'Basket Triple S'.toUpperCase() }</Text>
-                        <Text style={ styles.prix }>A partir de 50€ /jour</Text>
-                        <ButtonCTA style={ styles.buttonStyle }><ButtonText style={ styles.buttonTextStyle }>{ 'louer'.toUpperCase() }</ButtonText></ButtonCTA>
+                        <Text style={ styles.marque }>{ this.state.brandName.toUpperCase() }</Text>
+                        <Text style={ styles.modele }>{ this.state.modelName.toUpperCase() }</Text>
+                        <Text style={ styles.prix }>A partir de { this.state.rentPrice }€ /jour</Text>
+                        <ButtonCTA style={ styles.buttonStyle }><ButtonText style={ styles.buttonTextStyle }>{ 'Louer'.toUpperCase() }</ButtonText></ButtonCTA>
                     </View>
                </TouchableOpacity>
             </View>
@@ -57,8 +128,9 @@ const styles = StyleSheet.create({
         zIndex: 0
     },
     sneakersImage: {
-        width: 132,
-        height: 110,
+        width: '100%',
+        height: '100%',
+        resizeMode: 'center',
         zIndex: 1
     },
     wrapperInformations: {
@@ -89,3 +161,15 @@ const styles = StyleSheet.create({
         fontSize: 10
     }
 })
+
+const mapStateToProps = (state) => { 
+    return {state};
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        dispatch: (action) => { dispatch(action) }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SwipeableSneakersListeItem)
