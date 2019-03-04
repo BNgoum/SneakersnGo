@@ -28,7 +28,6 @@ class HomeUser extends Component {
     }
 
     render() {
-        console.log('Props home user : ', this.props.state)
         const user = this.props.state.user;
         return (
             <ScrollView style={ styles.container }>

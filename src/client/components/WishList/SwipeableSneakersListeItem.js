@@ -25,11 +25,9 @@ class SwipeableSneakersListeItem extends Component {
 
     componentWillMount() {
         this.getModelAndBrand();
-        // this.setImage();
     }
 
     setImage = () => {
-        // const model = this.props.data.item.modelName;
         switch (this.state.modelName) {
             case 'Stan Smith':
                 this.setState({ pathImage: require("../../images/stansmith.png") })
@@ -76,8 +74,6 @@ class SwipeableSneakersListeItem extends Component {
     }
 
     render() {
-        const sneakers = this.props.data.item;
-        // console.log('Data received : ', sneakers)
         return (
             <View style={ styles.container }>
                <TouchableOpacity style={ styles.wrapperSneakersListe } onPress={ () => this.props.navigation.navigate('DetailsSneakers') }>

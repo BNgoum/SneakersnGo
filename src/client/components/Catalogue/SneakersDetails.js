@@ -34,7 +34,7 @@ class SneakersDetails extends Component {
         }
     }
 
-    componentWillMount() {
+    componentDidMount() {
         // this.getModel();
         this.setImage();
         this.setColorAndSizeSneakers()
@@ -53,9 +53,10 @@ class SneakersDetails extends Component {
 
     checkIsInWishlist = () => {
         const wishlist = this.props.state.AuthenticationReducer.user.wishlist;
+        const wishlistRedux = this.props.state.SneakersReducer.wishlist;
         const currentSneakers = this.props.state.SneakersReducer.currentSneakers;
 
-        wishlist.map(sneakersWishlist => {
+        wishlistRedux.map(sneakersWishlist => {
             currentSneakers.map(sneakersCurrent => {
                 if (sneakersWishlist == sneakersCurrent._id) {
                     this.setState({ isLiked: true })
@@ -67,36 +68,46 @@ class SneakersDetails extends Component {
     handleOnPressHeart = () => {
         const token = this.props.state.AuthenticationReducer.isLogin;
         const currentSneakers = this.props.state.SneakersReducer.currentSneakers;
-        const wishlist = this.props.state.AuthenticationReducer.user.wishlist;
+        const wishlistRedux = this.props.state.SneakersReducer.wishlist;
 
         // On check si le user est bien connecté en vérifiant si le token est dans le state redux isLogin
         if (!token) {
+            // Si le user n'est pas connecté, on lui affiche un toast d'erreur
             this.setState({ isLogin: false })
             setTimeout( () => { this.setState({ isLogin: true }) }, 2500);
             
         } else {
+            // Si le user est connecté et que la sneakers est déjà liker
             if ( this.state.isLiked ) {
                 let sneakerIdToDelete = "";
                 // On retire la sneakers ou le modèle de la wishlist
                 currentSneakers.map(sneakers => {
-                    wishlist.map(sneakersIdWishlist => {
+                    wishlistRedux.map(sneakersIdWishlist => {
                         if (sneakers._id == sneakersIdWishlist) {
-                            console.log('Dans le if : ', sneakers._id, sneakersIdWishlist)
                             sneakerIdToDelete = sneakers._id;
                         }
                     })
                 })
 
-                return new Promise((resolve, reject) => {    
-                    console.log('Dans la promise : ', sneakerIdToDelete)                
+                return new Promise((resolve, reject) => {
                     resolve(deleteFromWishlist(token, sneakerIdToDelete))
                 })
                 .then(() => {
+                    let index = wishlistRedux.indexOf(sneakerIdToDelete);
+                    if (index > -1) {
+                        wishlistRedux.splice(index, 1);
+                    }
+
+                    const action = { type: "SET_WISHLIST", value: wishlistRedux }
+
+                    return this.props.dispatch(action);
+                })
+                .then(() => {
                     this.setState({ isLiked: !this.state.isLiked, isDeleteFromWishlist: true })
-                    setTimeout( () => { this.setState({ isAddToWishlist: false }) }, 2500);
+                    setTimeout( () => { this.setState({ isDeleteFromWishlist: false }) }, 2500);
                 })
             } else {
-                // On ajoute la sneakers ou le modèle dans la wishlist
+                // Sinon, si la sneakers n'est pas liker, On ajoute la sneakers ou le modèle dans la wishlist
 
                 // Une taille correspond à un id de sneakers
                 // Si le user ne sélectionne pas la taille, on ajoute le modèle et non pas la sneakers dans la wishlist
@@ -131,7 +142,6 @@ class SneakersDetails extends Component {
     getModel = () => {
         const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YzAzZjMwMmJiNTQ4MTAwMjNjNDZkZTIiLCJlbWFpbCI6ImF6ZSIsInBhc3N3b3JkIjoiJDJhJDEwJGRYVVJLQmpuNkFRMGpTMDBRdENCVE84cGd3TUhKYWNpVHJ1SExYRDVteE43VTJPNTYyMXBDIiwiZXhwaXJlSW4iOiIxMHMiLCJleHAiOjE1NTU3OTEyNzg0LCJpYXQiOjE1NTA2OTM2Nzh9.Xb-4eSSK4uJ_aVYjE6XAIhD7iLmOG3jRhCdTQLk6DGM';
         const currentSneakers = this.props.state.SneakersReducer.currentSneakers;
-        console.log('Current sneakers : ', currentSneakers)
 
         return new Promise((resolve, reject) => {
             const idModel = currentSneakers[0].model;
@@ -198,13 +208,11 @@ class SneakersDetails extends Component {
 
         return (
             <ScrollView style={ styles.container }>
-                <TouchableOpacity onPress={ () => this.handleOnPressHeart() }>
-                    {
-                        this.state.isLiked ? 
-                        <CoeurActive style={ styles.wishlistPicto }></CoeurActive> :
-                        <CoeurInactive style={ styles.wishlistPicto }></CoeurInactive>
-                    }
-                </TouchableOpacity>
+                {
+                    this.state.isLiked ? 
+                    <CoeurActive style={ styles.wishlistPicto }></CoeurActive> :
+                    <CoeurInactive style={ styles.wishlistPicto }></CoeurInactive>
+                }
 
                 {
                     !this.state.isLogin && <Toast text="Vous devez vous connecter pour ajouter cette sneakers à la wishlist !"/>

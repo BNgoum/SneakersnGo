@@ -65,6 +65,11 @@ function addSneakers(state = initialState, action) {
                 ...state, wishlist: [...state.wishlist, action.value]
             }
             return nextState;
+        case 'SET_WISHLIST':
+            nextState = {
+                ...state, wishlist: action.value
+            }
+            return nextState;
         default:
             return state
     }

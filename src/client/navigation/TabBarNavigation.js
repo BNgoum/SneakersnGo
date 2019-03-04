@@ -191,7 +191,7 @@ const TabBarNavigator = createBottomTabNavigator({
                 focused
                 ? <View style={ styles.wrapperSvg }><HomeActiveSvg /><ActiveIcon /></View>
                 : <HomeInactiveSvg style={ styles.wrapperSvg } />
-            )
+            )            
         }
     },
     Research: {
@@ -201,7 +201,11 @@ const TabBarNavigator = createBottomTabNavigator({
                 focused
                 ? <View style={ styles.wrapperSvg }><ResearchActiveSvg /><ActiveIcon /></View>
                 : <ResearchInactiveSvg style={ styles.wrapperSvg } />
-            )
+            ),
+            tabBarOnPress({ navigation, defaultHandler }) {
+                navigation.navigate('Research')
+                defaultHandler();
+              }
         }
     },
     WishList: {

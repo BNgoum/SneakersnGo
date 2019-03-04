@@ -2,14 +2,12 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text, ScrollView, TouchableOpacity, FlatList } from 'react-native';
 import { connect } from 'react-redux';
 import { requestAllSneakers, requestAllModels } from '../../store/reducers/sneakers/action';
-
 import Swiper from 'react-native-swiper';
 
 import Tab from '../../components/Tab/TabResearch';
 import Filters from '../../components/Catalogue/Filters';
 import SneakersListeItem from '../../components/Catalogue/SneakersListeItem';
 import SneakersBlocItem from '../../components/Catalogue/SneakersBlocItem';
-import SneakersDetails from '../../components/Catalogue/SneakersDetails';
 import SneakersAsk from '../../components/Catalogue/SneakersAsk';
 
 import { ArrowBottomBig } from '../../images/icons';

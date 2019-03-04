@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, ScrollView } from 'react-native';
+import { StyleSheet, View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { SwipeListView } from 'react-native-swipe-list-view';
 
 import { connect } from 'react-redux';
 
-import { requestOneBrand, requestOneModel, requestOneSneaker } from '../../store/reducers/sneakers/action';
+import { deleteFromWishlist } from '../../store/reducers/sneakers/action';
 
 import SwipeableSneakersListeItem from '../../components/WishList/SwipeableSneakersListeItem';
 import ContainerTitle from '../../components/Style/Text/ContainerTitle';
@@ -25,7 +25,8 @@ class WishList extends Component {
     }
 
     componentDidMount() {
-        this.getSneakersFromWishlist();
+        if (this.state.token)
+            this.getSneakersFromWishlist();
     }
 
     // handleDidMount = () => {
@@ -82,6 +83,26 @@ class WishList extends Component {
     //     })
     // }
 
+    deleteSneakersFromWishlist = data => {
+        const wishlist = this.props.state.SneakersReducer.wishlist;
+        const sneakersId = data.item;
+
+        return new Promise((resolve, reject) => {
+            resolve(deleteFromWishlist(this.state.token, sneakersId))
+        })
+        .then(() => {
+            let index = wishlist.indexOf(sneakersId);
+            if (index > -1) {
+                wishlist.splice(index, 1);
+            }
+
+            const action = { type: "SET_WISHLIST", value: wishlist }
+
+            return this.props.dispatch(action);
+        })
+        .catch((error => console.log('Erreur lors de la suppression de la sneakers de la wishlist in wishlist.js : ', error)))
+    }
+
     render() {
         return (
             this.props.state.AuthenticationReducer.isLogin && this.props.state.SneakersReducer.wishlist.length > 0 ?
@@ -106,10 +127,10 @@ class WishList extends Component {
                                 </View>
                             )}
                             renderHiddenItem={ (data, rowMap) => (
-                                <View style={styles.rowBack}>
-                                    <Text style={ styles.textAction }>{'Supprimer'.toUpperCase()}</Text>
-                                    <Poubelle style={ styles.iconPoubelle } />
-                                </View>
+                                    <TouchableOpacity style={styles.rowBack} onPress={ () => this.deleteSneakersFromWishlist(data) }>
+                                        <Text style={ styles.textAction }>{'Supprimer'.toUpperCase()}</Text>
+                                        <Poubelle style={ styles.iconPoubelle } />
+                                    </TouchableOpacity>
                             )}
                             rightOpenValue={-66}
                         /> 
@@ -134,9 +155,12 @@ const styles = StyleSheet.create({
         alignItems: 'flex-end',
         backgroundColor: '#ea2300',
         flex: 1,
-        flexDirection: 'column',
         justifyContent: 'center',
         paddingRight: 8,
+    },
+    btnDelete: {
+        display: 'flex',
+        alignItems: 'center'
     },
     listSneakers: {
         backgroundColor: '#fff'
