@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, ScrollView } from 'react-native';
+import { StyleSheet, View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { SwipeListView } from 'react-native-swipe-list-view';
 
 import ContainerTitle from '../../components/Style/Text/ContainerTitle';
@@ -18,6 +18,11 @@ export default class Chat extends Component {
             arrayPanier: ["err", "rer", "po"],
         }
     }
+
+    deleteSneakersFromBasket = data => {
+        return
+    }
+
     render() {
         return (
             <View style={ styles.container }>
@@ -45,10 +50,10 @@ export default class Chat extends Component {
                                 </View>
                             )}
                             renderHiddenItem={ (data, rowMap) => (
-                                <View style={styles.rowBack}>
+                                <TouchableOpacity style={styles.rowBack} onPress={ () => this.deleteSneakersFromBasket(data) }>
                                     <Text style={ styles.textAction }>{'Supprimer'.toUpperCase()}</Text>
                                     <Poubelle style={ styles.iconPoubelle } />
-                                </View>
+                                </TouchableOpacity>
                             )}
                             rightOpenValue={-66}
                         /> 

@@ -119,6 +119,15 @@ export const ArrowBottomBig = props => (
   </Svg>
 )
 
+export const ArrowBottomLine = props => (
+  <Svg width={13} height={13} {...props}>
+    <G fill="none" fillRule="evenodd" stroke="#070E37" strokeLinecap="round">
+      <Path strokeLinejoin="round" d="M12.52 7.5l-6.14 4.825L0 7.5" />
+      <Path fillRule="nonzero" d="M6.5 11.991V1" />
+    </G>
+  </Svg>
+)
+
 export const Apostrophes = props => (
   <Svg width={48} height={29} {...props}>
     <Path
