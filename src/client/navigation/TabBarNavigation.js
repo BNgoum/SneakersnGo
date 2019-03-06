@@ -1,6 +1,6 @@
 import React from 'react'
-import { createStackNavigator, createBottomTabNavigator, createAppContainer, StackNavigator } from 'react-navigation'
-import { StyleSheet, View, Image, Text } from 'react-native'
+import { createStackNavigator, createBottomTabNavigator, createAppContainer, StackActions, NavigationActions } from 'react-navigation'
+import { StyleSheet, View, Image } from 'react-native'
 
 import { HomeActiveSvg, HomeInactiveSvg, ResearchActiveSvg, ResearchInactiveSvg, WishListActiveSvg, WishListInactiveSvg, PanierActiveSvg, PanierInactiveSvg, UserActiveSvg, UserInactiveSvg, ActiveIcon } from '../images/tabbar/icons';
 

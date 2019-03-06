@@ -13,7 +13,7 @@ export default class SneakersRecap extends Component {
             <View style={ styles.container }>
                 <View style={ styles.containerSneakers }> 
                     <View style={ styles.wrapperSneakers }>
-                        <Image style={ styles.sneakersImage } source={require('../../images/balenciaga_liste.png')} />
+                        <Image style={ styles.sneakersImage } source={require('../../images/balenciaga_liste.png')} resizeMode={"cover"} />
                         <BackgroundSneakers style={ styles.backgroundSneakers }></BackgroundSneakers>
                     </View>
                     <View style={ styles.wrapperInformations }>
@@ -57,7 +57,6 @@ const styles = StyleSheet.create({
     sneakersImage: {
         width: '100%',
         height: '100%',
-        resizeMode: 'center',
         zIndex: 1
     },
 

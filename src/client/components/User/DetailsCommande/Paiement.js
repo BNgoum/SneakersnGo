@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, Image } from 'react-native';
 
-import TitrePointRouge from '../../components/Style/TitrePointRouge';
+import TitrePointRouge from '../../Style/TitrePointRouge';
 
 export default class Paiement extends Component {
     render() {
@@ -10,9 +10,7 @@ export default class Paiement extends Component {
                 <TitrePointRouge title="Informations de paiement" />
 
                 <View style={ styles.containerCarte }>
-                    <View>
-                        
-                    </View>
+                    <Image source={require('../../../images/mastercard.png')} style={ styles.carteImage } />
 
                     <View>
                         <View style={ styles.containerCarteInfo }>
@@ -44,11 +42,13 @@ const styles = StyleSheet.create({
         fontSize: 10,
         fontFamily: 'roboto-regular',
         letterSpacing: 1,
-        color: '#9b9b9b'
+        color: '#9b9b9b',
+        lineHeight: 15
     },
     containerCarte: {
         display: 'flex',
         flexDirection: 'row',
+        marginTop: 10
     },
     containerCarteInfo: {
         display: 'flex',
@@ -71,5 +71,8 @@ const styles = StyleSheet.create({
     },
     textBlack: {
         color: "#333"
+    },
+    carteImage: {
+        marginRight: 10
     }
 })
