@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { SwipeListView } from 'react-native-swipe-list-view';
+import { connect } from 'react-redux';
 
 import ContainerTitle from '../../components/Style/Text/ContainerTitle';
 import Title from '../../components/Style/Text/Title';
@@ -11,7 +12,7 @@ import SneakersRecap from '../../components/Panier/SneakersRecap';
 
 import { Poubelle } from '../../images/icons';
 
-export default class Chat extends Component {
+class Panier extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -19,8 +20,22 @@ export default class Chat extends Component {
         }
     }
 
-    deleteSneakersFromBasket = data => {
-        return
+    componentWillMount() {
+        this.getSneakersInCartFromDB();
+    }
+
+    getSneakersInCartFromDB = () => {
+        return new Promise((resolve, reject) => {
+            const sneakersCart = this.props.state.AuthenticationReducer.user.cart;
+
+            const action = { type: "SET_CART", value: sneakersCart }
+
+            resolve(this.props.dispatch(action));
+        })
+    }
+
+    deleteSneakersFromCart = data => {
+        console.log('Data to deleted : ', data)
     }
 
     render() {
@@ -42,15 +57,15 @@ export default class Chat extends Component {
                     <View style={ styles.wrapperSneakersRecap }>
                         <SwipeListView
                             useFlatList
-                            data={this.state.arrayPanier}
+                            data={this.props.state.SneakersReducer.cart}
                             keyExtractor={(item) => item.toString()}
                             renderItem={ (data, rowMap) => (
                                 <View style={styles.rowFront}>
-                                    <SneakersRecap />
+                                    <SneakersRecap data={ data } />
                                 </View>
                             )}
                             renderHiddenItem={ (data, rowMap) => (
-                                <TouchableOpacity style={styles.rowBack} onPress={ () => this.deleteSneakersFromBasket(data) }>
+                                <TouchableOpacity style={styles.rowBack} onPress={ () => this.deleteSneakersFromCart(data) }>
                                     <Text style={ styles.textAction }>{'Supprimer'.toUpperCase()}</Text>
                                     <Poubelle style={ styles.iconPoubelle } />
                                 </TouchableOpacity>
@@ -154,3 +169,15 @@ const styles = StyleSheet.create({
         marginRight: 16
     },
 })
+
+const mapStateToProps = (state) => { 
+    return { state }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        dispatch: (action) => { dispatch(action) }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Panier)

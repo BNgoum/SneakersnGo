@@ -122,7 +122,8 @@ const styles = StyleSheet.create({
     titleStyle: {
         fontSize: 32,
         lineHeight: 40,
-        marginBottom: 0
+        marginBottom: 0,
+        marginRight: 8
     },
     wrapperLink: {
         position: 'absolute',

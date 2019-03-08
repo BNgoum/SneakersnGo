@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 
-import { requestOneBrand, requestAllSneakerByModel, addToWishlist, deleteFromWishlist } from '../../store/reducers/sneakers/action';
+import { addToWishlist, deleteFromWishlist, isInCart, addToCart } from '../../store/reducers/sneakers/action';
 
 import { CoeurInactive, CoeurActive, Croix } from '../../images/icons';
 import SwiperSneakers from '../../components/Catalogue/SwiperSneakers';
@@ -27,8 +27,11 @@ class SneakersDetails extends Component {
             size: [],
             color: [],
             selectedSize: "",
-            isLogin: true,
+            isLogin: false,
+            isLoginForCart: false,
             isAddToWishlist: false,
+            isAddToCart: false,
+            isInCart: false,
             isSizeSelected: false,
             isDeleteFromWishlist: false
         }
@@ -73,8 +76,8 @@ class SneakersDetails extends Component {
         // On check si le user est bien connecté en vérifiant si le token est dans le state redux isLogin
         if (!token) {
             // Si le user n'est pas connecté, on lui affiche un toast d'erreur
-            this.setState({ isLogin: false })
-            setTimeout( () => { this.setState({ isLogin: true }) }, 2500);
+            this.setState({ isLogin: true })
+            setTimeout( () => { this.setState({ isLogin: false }) }, 2500);
             
         } else {
             // Si le user est connecté et que la sneakers est déjà liker
@@ -131,6 +134,7 @@ class SneakersDetails extends Component {
                         this.setState({ isLiked: !this.state.isLiked, isAddToWishlist: true })
                         setTimeout( () => { this.setState({ isAddToWishlist: false }) }, 2500);
                     })
+                    .catch(error => console.log('Erreur lors de l\'ajout dans la wishlist de la sneakers : ', error))
                 } else {
                     this.setState({ isSizeSelected: true })
                     setTimeout( () => { this.setState({ isSizeSelected: false }) }, 2500);
@@ -139,36 +143,59 @@ class SneakersDetails extends Component {
         }
     }
 
-    getModel = () => {
-        const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YzAzZjMwMmJiNTQ4MTAwMjNjNDZkZTIiLCJlbWFpbCI6ImF6ZSIsInBhc3N3b3JkIjoiJDJhJDEwJGRYVVJLQmpuNkFRMGpTMDBRdENCVE84cGd3TUhKYWNpVHJ1SExYRDVteE43VTJPNTYyMXBDIiwiZXhwaXJlSW4iOiIxMHMiLCJleHAiOjE1NTU3OTEyNzg0LCJpYXQiOjE1NTA2OTM2Nzh9.Xb-4eSSK4uJ_aVYjE6XAIhD7iLmOG3jRhCdTQLk6DGM';
+    handleOnPressCart = () => {
+        const token = this.props.state.AuthenticationReducer.isLogin;
         const currentSneakers = this.props.state.SneakersReducer.currentSneakers;
 
-        return new Promise((resolve, reject) => {
-            const idModel = currentSneakers[0].model;
-            resolve(requestAllSneakerByModel(token, idModel))
-        })
-        .then(model => {
-            //this.setState({ modele: model.name , idBrand: model.brand })
-            //console.log('Sneaker by model : ', model)
-            switch (model[0].name) {
-                case 'Stan Smith':
-                    this.setState({ pathImage: require("../../images/stansmith.png"), modele: model[0].name , idBrand: model[0].brand })
-                    break;
-                case 'Classic':
-                    this.setState({ pathImage: require("../../images/vans.png"), modele: model[0].name , idBrand: model[0].brand })
-                    break;
-                case 'Triple S':
-                    this.setState({ pathImage: require("../../images/balenciaga_triple_s.png"), modele: model[0].name , idBrand: model[0].brand })
-                    break;
+        // On check si le user est bien connecté en vérifiant que le token soit dans le state redux isLogin
+        if (!token) {
+            // Si le user n'est pas connecté, on lui affiche un toast d'erreur
+            this.setState({ isLoginForCart: true });
+            setTimeout( () => { this.setState({ isLoginForCart: false }) }, 2500);
+        } else {
+            let sneakerId = "";
+
+            currentSneakers.map(sneakers => {
+                if (sneakers.size == this.state.selectedSize) {
+                    sneakerId = sneakers._id;
+                }
+            })
+
+            if ( sneakerId === "" ) {
+                this.setState({ isSizeSelected: true });
+                setTimeout( () => { this.setState({ isSizeSelected: false }) }, 2500);
+            } else {
+                // On check si l'id sneaker est présente dans le panier
+                return new Promise((resolve, reject) => {
+                    resolve(isInCart(token, sneakerId))
+                })
+                .then(data => {
+                    // Si elle est déjà présente, on affiche un toast d'erreur
+                    if (data) {
+                        this.setState({ isInCart: true });
+                        setTimeout( () => { this.setState({ isInCart: false }) }, 2500);
+                    } else {
+                        // Sinon on l'ajoute dans le panier et dans le state redux puis on affiche un toast d'info
+                        return new Promise((resolve, reject) => {
+                            resolve(addToCart(token, sneakerId))
+                        })
+                        .then(() => {
+                            const action = { type: "ADD_CART", value: sneakerId }
+        
+                            return this.props.dispatch(action);
+                        })
+                        .then(() => {
+                            this.setState({ isAddToCart: true })
+                            setTimeout( () => { this.setState({ isAddToCart: false }) }, 2500);
+                        })
+                        .catch(error => console.log('Erreur lors de l\'ajout dans le panier (SneakersDetails.js) : ', error))
+                    }
+                })
+                .catch(error => console.log('Erreur lors de la vérification de la sneakers dans le panier: ', error))
             }
-        })
-        .then(() => {
-            return requestOneBrand(token, this.state.idBrand)
-        })
-        .then(brand => {
-            this.setState({ brand: brand.name })
-        })
-        .catch((error) => console.log('Erreur lors de la récupération d\'une Sneaker (Sneaker.js) :', error ))
+
+            
+        }
     }
 
     setImage = () => {
@@ -208,14 +235,20 @@ class SneakersDetails extends Component {
 
         return (
             <ScrollView style={ styles.container }>
-                {
-                    this.state.isLiked ? 
-                    <CoeurActive style={ styles.wishlistPicto }></CoeurActive> :
-                    <CoeurInactive style={ styles.wishlistPicto }></CoeurInactive>
-                }
+                <TouchableOpacity onPress={ () => this.handleOnPressHeart() }>
+                    {
+                        this.state.isLiked ? 
+                        <CoeurActive style={ styles.wishlistPicto } /> :
+                        <CoeurInactive style={ styles.wishlistPicto } />
+                    }
+                </TouchableOpacity>
 
                 {
-                    !this.state.isLogin && <Toast text="Vous devez vous connecter pour ajouter cette sneakers à la wishlist !"/>
+                    this.state.isLogin && <Toast text="Vous devez vous connecter pour ajouter cette sneakers à la wishlist."/>
+                }
+                
+                {
+                    this.state.isLoginForCart && <Toast text="Vous devez vous connecter pour ajouter cette sneakers au panier."/>
                 }
 
                 {
@@ -228,6 +261,14 @@ class SneakersDetails extends Component {
 
                 {
                     this.state.isDeleteFromWishlist && <Toast text="La sneakers est retirée de la wishlist."/>
+                }
+
+                {
+                    this.state.isInCart && <Toast text="La sneakers est déjà dans le panier."/>
+                }
+
+                {
+                    this.state.isAddToCart && <Toast text="La sneakers est ajouté dans le panier."/>
                 }
                 
                 <SwiperSneakers brand={ currentBrand } model={ currentModel } pathImage={ currentPathImage }></SwiperSneakers>
@@ -265,7 +306,7 @@ class SneakersDetails extends Component {
                     <Price price={ currentSneakers[0].rentPrice } style={ styles.price }></Price>
                 </View>
 
-                <Button style={ styles.buttonValidate }>
+                <Button style={ styles.buttonValidate } onPress={ () => this.handleOnPressCart() }>
                     <ButtonText>{ 'Je les veux'.toUpperCase() }</ButtonText>
                 </Button>
             </ScrollView>

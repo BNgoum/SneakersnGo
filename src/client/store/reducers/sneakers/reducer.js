@@ -9,6 +9,7 @@ const initialState = {
     currentSneakers: "",
     pathImage: {},
     wishlist: [],
+    cart: []
     
 }
 
@@ -68,6 +69,16 @@ function addSneakers(state = initialState, action) {
         case 'SET_WISHLIST':
             nextState = {
                 ...state, wishlist: action.value
+            }
+            return nextState;
+        case 'ADD_CART':
+            nextState = {
+                ...state, cart: [...state.cart, action.value]
+            }
+            return nextState;
+        case 'SET_CART':
+            nextState = {
+                ...state, cart: action.value
             }
             return nextState;
         default:

@@ -23,7 +23,7 @@ export default class Buy extends Component {
                 </View>
                 <View style={ styles.content }>
                     <Background style={ styles.backgroundSneaker }></Background>
-                    <Image style={ styles.imgSneaker } source={require('../../images/airmax.png')} />
+                    <Image style={ styles.imgSneaker } source={require('../../images/background_acheter.png')} />
                 </View>
             </View>
         )
@@ -66,10 +66,10 @@ const styles = StyleSheet.create({
     },
     imgSneaker: {
         position: 'absolute',
-        bottom: 0,
-        left: -60,
-        width: 230,
-        height: 200
+        bottom: -10,
+        left: -10,
+        width: 162,
+        height: 168
     },
     ButtonCTA: {
         width: 137

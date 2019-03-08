@@ -7,12 +7,12 @@ export default class Footer extends Component {
         return (
             <View style={ styles.container }>
                 <View style={ styles.wrapperText }>
-                    <Text style={ styles.keyStyle }>{ "Total : ".toUpperCase() }</Text>
-                    <Text style={ styles.valueStyle }>{ this.props.prix }€</Text>
+                    <TouchableOpacity><Text style={ styles.linkStyle }>Modifier</Text></TouchableOpacity>
                 </View>
 
                 <View style={ styles.wrapperText }>
-                    <TouchableOpacity><Text style={ styles.linkStyle }>Modifier</Text></TouchableOpacity>
+                    <Text style={ styles.keyStyle }>{ "Total : ".toUpperCase() }</Text>
+                    <Text style={ styles.valueStyle }>{ this.props.prix }€</Text>
                 </View>
             </View>
         )

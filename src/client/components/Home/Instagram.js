@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Image } from 'react-native';
+import { StyleSheet, View, Image, Linking } from 'react-native';
 
 import ButtonSecondary from '../Style/Button/ButtonSecondary';
 import ButtonTextBold from '../Style/Button/ButtonTextBold';
@@ -12,7 +12,7 @@ export default class Instagram extends Component {
                 <Image style={ styles.instaImage1 } source={require('../../images/instagram.jpg')} />
                 <Image style={ styles.instaImage2 } source={require('../../images/instagram.jpg')} />
                 <Image style={ styles.instaImage3 } source={require('../../images/instagram.jpg')} />
-                <ButtonSecondary style={ styles.instaBtn }>
+                <ButtonSecondary style={ styles.instaBtn } onPress={()=>{ Linking.openURL('instagram://user?username=sneakersngoo')}}>
                     <ButtonTextBold>{'Instagram'.toUpperCase()}</ButtonTextBold>
                 </ButtonSecondary>
             </View>

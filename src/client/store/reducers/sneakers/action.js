@@ -184,3 +184,38 @@ export const deleteFromWishlist = (token, sneakerId) => {
         console.log('Erreur lors de la suppression d\'une sneakers de la wishlist: ', err);
     });
 }
+
+export const deleteFromCart = (token, sneakerId) => {
+    let config = { headers: {'Authorization': 'Bearer ' + token} }
+
+    return axios.delete('https://sneakersngo-api.herokuapp.com/cart/' + sneakerId, config)
+    .catch(err => {
+        console.log('Erreur lors de la suppression d\'une sneakers du panier: ', err);
+    });
+}
+
+export const addToCart = (token, sneakerId) => {
+    let config = { headers: {'Authorization': 'Bearer ' + token} }
+
+    let bodyParameters = { sneakerId }
+
+    return axios.post('https://sneakersngo-api.herokuapp.com/cart', bodyParameters, config)
+    .then(responseJson => {
+        return responseJson.data.data
+    })
+    .catch(err => {
+        console.log('Erreur lors de l\'ajout de sneakers dans le panier: ', err);
+    });
+}
+
+export const isInCart = (token, sneakerId) => {
+    let config = { headers: {'Authorization': 'Bearer ' + token} }
+
+    return axios.get('https://sneakersngo-api.herokuapp.com/cart/' + sneakerId, config)
+    .then((responseJson) => {
+        return responseJson.data.data;
+    })
+    .catch(err => {
+        console.log('Erreur lors de la vérification de la présence d\'une sneakers dans le panier : ', err);
+    });
+}

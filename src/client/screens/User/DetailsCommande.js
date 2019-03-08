@@ -12,6 +12,7 @@ import LienFacture from '../../components/User/DetailsCommande/LienFacture';
 import CommandeAVenir from '../../components/User/DetailsCommande/CommandeAVenir';
 
 import GroupeMessages from '../../components/User/Messages/GroupeMessages';
+import InputText from '../../components/User/Messages/InputText';
 
 export default class DetailsCommande extends Component {
     constructor(props) {
@@ -48,10 +49,12 @@ export default class DetailsCommande extends Component {
             </ScrollView>
             
         } else {
-            return <View style={ styles.wrapperSneakersAsk }>
-                <GroupeMessages heure="11:35"/>
+            return <View style={ styles.wrapperViewMessage }>
+                <ScrollView style={ styles.wrapperMessage }>
+                    <GroupeMessages heure="11:35"/>
+                </ScrollView>
 
-                <View></View>
+                <InputText style={ styles.inputTextStyle } />
             </View>
         }
     }
@@ -67,8 +70,12 @@ export default class DetailsCommande extends Component {
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1
+    },
     wrapperDetailsCommande: {
-        marginBottom: 60,
+    },
+    wrapperMessage: {
     },
     titleStyle: {
         marginLeft: 20,
@@ -78,4 +85,12 @@ const styles = StyleSheet.create({
         borderBottomColor: '#c4c4c4',
         borderBottomWidth: 1
     },
+    wrapperViewMessage: {
+        position: 'relative'
+    },
+    inputTextStyle: {
+        position: 'absolute',
+        bottom: 0,
+        width: '100%'
+    }
 })

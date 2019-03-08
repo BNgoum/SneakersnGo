@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     paragraph: {
         padding: 20,
         marginTop: 48,
-        marginBottom: 70
+        marginBottom: 10
     },
     btnSneakers: {
         width: 220,

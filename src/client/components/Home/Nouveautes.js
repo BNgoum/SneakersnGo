@@ -14,7 +14,7 @@ export default class Nouveautes extends Component {
         return (
             <View style={ styles.container }>
                 <Background style={ styles.backgroundSquare }></Background>
-                <Image style={ styles.backgroundSneaker } source={require('../../images/balenciaga.png')} />
+                <Image style={ styles.backgroundSneaker } source={require('../../images/background_nouveautes.png')}  />
                 
                 <ContainerTitle style={ styles.title }>
                     <Title>{'Toutes les nouveautés'.toUpperCase()}</Title>
@@ -29,7 +29,8 @@ export default class Nouveautes extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        paddingTop: 64,
+        position: 'relative',
+        paddingTop: 34,
         paddingRight: 20,
         paddingLeft: 20,
         marginBottom: 54,
@@ -47,10 +48,10 @@ const styles = StyleSheet.create({
     },
     backgroundSneaker: {
         position: 'absolute',
-        bottom: -80,
-        left: 70,
-        width: 247,
-        height: 133
+        bottom: -140,
+        right: -10,
+        width: 205,
+        height: 198
     },
     ButtonCTA: {
         width: 137

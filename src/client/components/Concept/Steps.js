@@ -7,8 +7,6 @@ import ContainerTitle from '../Style/Text/ContainerTitle';
 import Step1 from './Step1';
 import Step2 from './Step2';
 import Step3 from './Step3';
-import Button from '../Style/Button/Button';
-import ButtonText from '../Style/Button/ButtonText';
 
 export default class Steps extends Component {
 
@@ -25,7 +23,7 @@ export default class Steps extends Component {
                     <Step3></Step3>
                 </View>
                 
-                <Image source={require('../../images/man_background.png')} style={styles.backgroundSteps} />
+                <Image source={require('../../images/background_concept.png')} style={styles.backgroundSteps} />
             </View>
         )
     }
@@ -40,7 +38,7 @@ const styles = StyleSheet.create({
         width: '60%'
     },
     wrapperTitle: {
-        width: 130,
+        width: 140,
         marginBottom: 40
     },
     title: {
@@ -57,7 +55,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         right: 0,
         bottom: 80,
-        width: 146,
-        height: 456,
+        width: 130,
+        height: 400
     }
 })

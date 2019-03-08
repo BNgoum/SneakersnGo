@@ -29,19 +29,6 @@ class WishList extends Component {
             this.getSneakersFromWishlist();
     }
 
-    // handleDidMount = () => {
-    //     if ( this.state.token ) {
-    //         return new Promise((resolve, reject) => {
-    //             resolve(this.getSneakersFromWishlist())
-    //         })
-    //         .then(() => {
-    //             this.props.state.SneakersReducer.wishlist.map(sneakers => {
-    //                 this.getModelAndBrand(sneakers)
-    //             })
-    //         })            
-    //     }
-    // }
-
     getSneakersFromWishlist = () => {
         const wishlist = this.props.state.AuthenticationReducer.user.wishlist;
 
@@ -50,38 +37,6 @@ class WishList extends Component {
             return this.props.dispatch(action);
         })
     }
-
-    // getModelAndBrand = (idSneaker) => {
-    //     const token = this.state.token;
-    //     let sneakers = {};
-
-    //     return new Promise((resolve, reject) => {   
-    //         resolve(requestOneSneaker(token, idSneaker))
-    //     })
-    //     .then(data => {
-    //         sneakers.idSneaker = data.sneaker._id;
-    //         sneakers.color = data.sneaker.color;
-    //         sneakers.rentPrice = data.sneaker.rentPrice;
-    //         sneakers.size = data.sneaker.size;
-            
-    //         return requestOneModel(token, data.sneaker.model)
-    //     })
-    //     .then( data => {
-    //         sneakers.modelName = data.name;
-
-    //         return requestOneBrand(token, data.brand)
-    //     })
-    //     .then( data => {
-    //         sneakers.brandName = data.name;
-
-    //         this.setState(prevState => ({
-    //             arrayWishlist: [...prevState.arrayWishlist, sneakers]
-    //         }))
-    //     })
-    //     .catch((error) => {
-    //         console.log('Erreur lors de la récupération du modèle et de la marque de la sneakers de la wishlist : ', error)
-    //     })
-    // }
 
     deleteSneakersFromWishlist = data => {
         const wishlist = this.props.state.SneakersReducer.wishlist;
@@ -134,16 +89,13 @@ class WishList extends Component {
                             )}
                             rightOpenValue={-66}
                         /> 
-
                     </View>
                 </ScrollView>
             :
             <View style={ styles.container }>
                 <ContainerTitle><Title>{ 'Pas de coup de coeur'.toUpperCase() }</Title><BorderTitle /></ContainerTitle>
-                <Paragraph style={ styles.textStyle }>Aucune paire chouchou vraiment ?{"\n"}
-                    Ici tu peux stocker toutes tes sneakers favorites !
-                </Paragraph>
-                <ButtonCTA style={ styles.buttonStyle }><ButtonText>{ 'Découvrir les sneakers'.toUpperCase() }</ButtonText></ButtonCTA>
+                <Paragraph style={ styles.textStyle }>Aucune paire chouchou vraiment ?{"\n"}Ici tu peux stocker toutes tes sneakers favorites !</Paragraph>
+                <ButtonCTA style={ styles.buttonStyle } onPress={() => this.props.navigation.navigate('Research')} ><ButtonText>{ 'Découvrir les sneakers'.toUpperCase() }</ButtonText></ButtonCTA>
             </View>
         )
     }

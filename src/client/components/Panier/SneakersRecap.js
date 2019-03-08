@@ -1,35 +1,100 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, Image } from 'react-native';
+import { connect } from 'react-redux';
+
+import { requestOneSneaker, requestOneBrand, requestOneModel, deleteFromCart} from '../../store/reducers/sneakers/action';
 
 import BackgroundSneakers from '../Style/BackgroundSneakersListe';
 import CaracteristiquesSneakers from './CaracteristiquesSneakers';
 import RecapDate from './RecapDate';
 import Footer from './Footer';
 
-export default class SneakersRecap extends Component {
+class SneakersRecap extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            pathImage: {},
+            brandName: "",
+            modelName: "",
+            rentPrice: 0,
+            color: "",
+            idSneakers: "",
+            size: ""
+        }
+    }
+
+    componentDidMount() {
+        this.getModelAndBrand();
+    }
+
+    getModelAndBrand = () => {
+        const token = this.props.state.AuthenticationReducer.isLogin;
+
+        return new Promise((resolve, reject) => {   
+            resolve(requestOneSneaker(token, this.props.data.item))
+        })
+        .then(data => {
+            this.setState({
+                idSneakers: data.sneaker._id,
+                color: data.sneaker.color,
+                rentPrice: data.sneaker.rentPrice,
+                size: data.sneaker.size
+            })
+            
+            return requestOneModel(token, data.sneaker.model)
+        })
+        .then( data => {
+            this.setState({ modelName: data.name })
+
+            return requestOneBrand(token, data.brand)
+        })
+        .then( data => {
+            this.setState({ brandName: data.name })
+        })
+        .then(() => {
+            this.setImage();
+        })
+        .catch((error) => {
+            console.log('Erreur lors de la récupération du modèle et de la marque de la sneakers du panier : ', error)
+        })
+    }
+
+    setImage = () => {
+        switch (this.state.modelName) {
+            case 'Stan Smith':
+                this.setState({ pathImage: require("../../images/stansmith.png") })
+                break;
+            case 'Classic':
+                this.setState({ pathImage: require("../../images/vans.png") })
+                break;
+            case 'Triple S':
+                this.setState({ pathImage: require("../../images/balenciaga_triple_s.png") })
+                break;
+        }
+    }
 
     render() {
         return (
             <View style={ styles.container }>
                 <View style={ styles.containerSneakers }> 
                     <View style={ styles.wrapperSneakers }>
-                        <Image style={ styles.sneakersImage } source={require('../../images/balenciaga_liste.png')} resizeMode={"cover"} />
+                        <Image style={ styles.sneakersImage } source={this.state.pathImage} resizeMode={"center"} />
                         <BackgroundSneakers style={ styles.backgroundSneakers }></BackgroundSneakers>
                     </View>
                     <View style={ styles.wrapperInformations }>
-                        <Text style={ styles.marque }>{ 'Balenciaga'.toUpperCase() }</Text>
-                        <Text style={ styles.modele }>{ 'Basket Triple S'.toUpperCase() }</Text>
-                        <Text style={ styles.prix }>50€ /jour</Text>
+                        <Text style={ styles.marque }>{ this.state.brandName.toUpperCase() }</Text>
+                        <Text style={ styles.modele }>{ this.state.modelName.toUpperCase() }</Text>
+                        <Text style={ styles.prix }>{ this.state.rentPrice }€ /jour</Text>
 
-                        <CaracteristiquesSneakers caracteristiqueKey="Couleur : " value="Noir" />
-                        <CaracteristiquesSneakers caracteristiqueKey="Taille : " value="41" />
+                        <CaracteristiquesSneakers caracteristiqueKey="Couleur : " value={ this.state.color } />
+                        <CaracteristiquesSneakers caracteristiqueKey="Taille : " value={ this.state.size.toString() } />
                         <CaracteristiquesSneakers caracteristiqueKey="Qté : " value="1" />
                     </View>
                 </View>
 
                 <RecapDate dateDebut="Jeudi 18 Févr." dateFin="Samedi 20 Févr. 2019" totalDate={3} />
 
-                <Footer prix={150} />
+                <Footer prix={this.state.rentPrice} />
             </View>
         )
     }
@@ -49,21 +114,20 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         marginBottom: 24
     },
-    wrapperSneakers: {
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-between'
-    },
     sneakersImage: {
         width: '100%',
         height: '100%',
         zIndex: 1
     },
-
+    wrapperInformations: {
+        width: '60%',
+        height: 100,
+        paddingLeft: 16 
+    },
     wrapperSneakers: {
         position: 'relative',
-        width: 132,
-        height: 110,
+        width: '40%',
+        height: 100
     },
     backgroundSneakers: {
         position: 'absolute',
@@ -93,3 +157,15 @@ const styles = StyleSheet.create({
         marginBottom: 16
     }
 })
+
+const mapStateToProps = (state) => { 
+    return { state }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        dispatch: (action) => { dispatch(action) }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SneakersRecap)

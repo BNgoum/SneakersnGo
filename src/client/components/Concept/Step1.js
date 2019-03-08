@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
     textStyle: {
         fontSize: 18,
         fontFamily: 'roboto-bold',
-        color: '#070e37'
+        color: '#070e37',
+        marginRight: 8
     }
 })
