@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
+import { connect } from 'react-redux';
 
-export default class BadgePanier extends Component {
+class BadgePanier extends Component {
     render() {
         return (
-            this.props.value > 0 ?
+            this.props.state.AuthenticationReducer.isLogin && this.props.state.SneakersReducer.cart.length > 0 ?
             <View style={ styles.wrapperBadge }>
-                <Text style={ styles.badge }>{this.props.value}</Text>
+                <Text style={ styles.badge }>{this.props.state.SneakersReducer.cart.length}</Text>
             </View>
             : null
         )
@@ -33,3 +34,9 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     }
 })
+
+const mapStateToProps = (state) => { 
+    return { state }
+}
+
+export default connect(mapStateToProps)(BadgePanier)

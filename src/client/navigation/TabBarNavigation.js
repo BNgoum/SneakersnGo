@@ -2,6 +2,8 @@ import React from 'react'
 import { createStackNavigator, createBottomTabNavigator, createAppContainer, StackActions, NavigationActions } from 'react-navigation'
 import { StyleSheet, View, Image } from 'react-native'
 
+import { connect } from 'react-redux';
+
 import { HomeActiveSvg, HomeInactiveSvg, ResearchActiveSvg, ResearchInactiveSvg, WishListActiveSvg, WishListInactiveSvg, PanierActiveSvg, PanierInactiveSvg, UserActiveSvg, UserInactiveSvg, ActiveIcon } from '../images/tabbar/icons';
 
 import Home from '../screens/Home/Home';
@@ -183,7 +185,8 @@ const UserStack = createStackNavigator({
     },
 })
 
-const TabBarNavigator = createBottomTabNavigator({
+const TabBarNavigator = createBottomTabNavigator(
+{
     Accueil: {
         screen: HomeStack,
         navigationOptions: {
@@ -226,11 +229,11 @@ const TabBarNavigator = createBottomTabNavigator({
                 ? <View style={ styles.wrapperSvg }>
                     <PanierActiveSvg />
                     <ActiveIcon />
-                    <BadgePanier value={0}/>
+                    <BadgePanier />
                 </View>
                 : <View style={ styles.wrapperPanier }>
                     <PanierInactiveSvg style={ styles.wrapperSvg } />
-                    <BadgePanier value={0}/>
+                    <BadgePanier />
                 </View>
             )
         }
@@ -245,7 +248,7 @@ const TabBarNavigator = createBottomTabNavigator({
             )
         }
     }
-    },
+},
     {
         tabBarOptions : {
             showLabel: false,
@@ -263,9 +266,6 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         paddingTop: 10,
-        // paddingBottom: 12,
-        // paddingRight: 16,
-        // paddingLeft: 16,
         height: 42,
         marginBottom: -6
     },

@@ -94,7 +94,7 @@ class WishList extends Component {
             :
             <View style={ styles.container }>
                 <ContainerTitle><Title>{ 'Pas de coup de coeur'.toUpperCase() }</Title><BorderTitle /></ContainerTitle>
-                <Paragraph style={ styles.textStyle }>Aucune paire chouchou vraiment ?{"\n"}Ici tu peux stocker toutes tes sneakers favorites !</Paragraph>
+                <Paragraph style={ styles.textStyle }>Aucune paire chouchou, vraiment ?{"\n"}Ici tu peux stocker toutes tes sneakers favorites !</Paragraph>
                 <ButtonCTA style={ styles.buttonStyle } onPress={() => this.props.navigation.navigate('Research')} ><ButtonText>{ 'Découvrir les sneakers'.toUpperCase() }</ButtonText></ButtonCTA>
             </View>
         )
@@ -136,7 +136,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         padding: 20,
         flex: 1
-        
     },
     textStyle: {
         marginTop: 20,

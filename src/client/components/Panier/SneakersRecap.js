@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text, Image } from 'react-native';
 import { connect } from 'react-redux';
 
-import { requestOneSneaker, requestOneBrand, requestOneModel, deleteFromCart} from '../../store/reducers/sneakers/action';
+import { requestOneSneaker, requestOneBrand, requestOneModel} from '../../store/reducers/sneakers/action';
 
 import BackgroundSneakers from '../Style/BackgroundSneakersListe';
 import CaracteristiquesSneakers from './CaracteristiquesSneakers';
@@ -30,7 +30,7 @@ class SneakersRecap extends Component {
     getModelAndBrand = () => {
         const token = this.props.state.AuthenticationReducer.isLogin;
 
-        return new Promise((resolve, reject) => {   
+        return new Promise((resolve, reject) => {
             resolve(requestOneSneaker(token, this.props.data.item))
         })
         .then(data => {

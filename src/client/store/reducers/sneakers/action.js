@@ -189,6 +189,9 @@ export const deleteFromCart = (token, sneakerId) => {
     let config = { headers: {'Authorization': 'Bearer ' + token} }
 
     return axios.delete('https://sneakersngo-api.herokuapp.com/cart/' + sneakerId, config)
+    .then(responseJson => {
+        return responseJson.data.data
+    })
     .catch(err => {
         console.log('Erreur lors de la suppression d\'une sneakers du panier: ', err);
     });

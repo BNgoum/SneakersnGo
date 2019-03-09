@@ -3,12 +3,15 @@ import { StyleSheet, View, Text, ScrollView, TouchableOpacity } from 'react-nati
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { connect } from 'react-redux';
 
+import { deleteFromCart } from '../../store/reducers/sneakers/action';
+
 import ContainerTitle from '../../components/Style/Text/ContainerTitle';
 import Title from '../../components/Style/Text/Title';
 import BorderTitle from '../../components/Style/Text/BorderBottomTitle';
 import ButtonCTA from '../../components/Style/Button/Button';
 import ButtonText from '../../components/Style/Button/ButtonText';
 import SneakersRecap from '../../components/Panier/SneakersRecap';
+import Paragraph from '../../components/Style/Text/Paragraph';
 
 import { Poubelle } from '../../images/icons';
 
@@ -16,18 +19,18 @@ class Panier extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            arrayPanier: ["err", "rer", "po"],
+            token: this.props.state.AuthenticationReducer.isLogin
         }
     }
 
     componentWillMount() {
-        this.getSneakersInCartFromDB();
+        if (this.state.token)
+            this.getSneakersInCartFromDB();
     }
 
     getSneakersInCartFromDB = () => {
         return new Promise((resolve, reject) => {
             const sneakersCart = this.props.state.AuthenticationReducer.user.cart;
-
             const action = { type: "SET_CART", value: sneakersCart }
 
             resolve(this.props.dispatch(action));
@@ -35,49 +38,76 @@ class Panier extends Component {
     }
 
     deleteSneakersFromCart = data => {
-        console.log('Data to deleted : ', data)
+        let cartElement = this.props.state.SneakersReducer.cart;
+        const sneakersId = data.item;
+
+        return new Promise((resolve, reject) => {
+            resolve(deleteFromCart(this.state.token, sneakersId))
+        })
+        .then(data => {
+            if (data) {
+                let index = cartElement.indexOf(sneakersId);
+                if (index > -1) {
+                    cartElement.splice(index, 1);
+                }
+    
+                const action = { type: "SET_CART", value: cartElement }
+    
+                return this.props.dispatch(action);
+            } else {
+                return null;
+            }
+        })
+        .catch(error => console.log('Erreur lors de la suppression de sneakers du panier : ', error))
     }
 
     render() {
         return (
-            <View style={ styles.container }>
-                <ScrollView style={ styles.scrollViewContainer }>
-                    <ContainerTitle style={ styles.containerTitle }>
-                        <Title style={ styles.titleStyle }>{ "Mon panier".toUpperCase() }</Title>
-                        <BorderTitle />
-                    </ContainerTitle>
+            this.props.state.AuthenticationReducer.isLogin && this.props.state.SneakersReducer.cart.length ?
+                <View style={ styles.container }>
+                    <ScrollView style={ styles.scrollViewContainer }>
+                        <ContainerTitle style={ styles.containerTitle }>
+                            <Title style={ styles.titleStyle }>{ "Mon panier".toUpperCase() }</Title>
+                            <BorderTitle />
+                        </ContainerTitle>
 
-                    <View style={ styles.wrapperRecap }>
-                        <Text style={ styles.numberArticles }>{"2 articles".toUpperCase()}</Text>
-                        <View style={ styles.wrapperRecapTotal }>
-                            <Text style={ styles.textTotal }>{"Total : ".toUpperCase()}</Text>
-                            <Text style={ styles.total }>200 €</Text>
+                        <View style={ styles.wrapperRecap }>
+                            <Text style={ styles.numberArticles }>{"2 articles".toUpperCase()}</Text>
+                            <View style={ styles.wrapperRecapTotal }>
+                                <Text style={ styles.textTotal }>{"Total : ".toUpperCase()}</Text>
+                                <Text style={ styles.total }>200 €</Text>
+                            </View>
                         </View>
-                    </View>
-                    <View style={ styles.wrapperSneakersRecap }>
-                        <SwipeListView
-                            useFlatList
-                            data={this.props.state.SneakersReducer.cart}
-                            keyExtractor={(item) => item.toString()}
-                            renderItem={ (data, rowMap) => (
-                                <View style={styles.rowFront}>
-                                    <SneakersRecap data={ data } />
-                                </View>
-                            )}
-                            renderHiddenItem={ (data, rowMap) => (
-                                <TouchableOpacity style={styles.rowBack} onPress={ () => this.deleteSneakersFromCart(data) }>
-                                    <Text style={ styles.textAction }>{'Supprimer'.toUpperCase()}</Text>
-                                    <Poubelle style={ styles.iconPoubelle } />
-                                </TouchableOpacity>
-                            )}
-                            rightOpenValue={-66}
-                        /> 
-                    </View>
-                </ScrollView>
+                        <View style={ styles.wrapperSneakersRecap }>
+                            <SwipeListView
+                                useFlatList
+                                data={this.props.state.SneakersReducer.cart}
+                                keyExtractor={(item) => item.toString()}
+                                renderItem={ (data, rowMap) => (
+                                    <View style={styles.rowFront}>
+                                        <SneakersRecap data={ data } />
+                                    </View>
+                                )}
+                                renderHiddenItem={ (data, rowMap) => (
+                                    <TouchableOpacity style={styles.rowBack} onPress={ () => this.deleteSneakersFromCart(data) }>
+                                        <Text style={ styles.textAction }>{'Supprimer'.toUpperCase()}</Text>
+                                        <Poubelle style={ styles.iconPoubelle } />
+                                    </TouchableOpacity>
+                                )}
+                                rightOpenValue={-66}
+                            /> 
+                        </View>
+                    </ScrollView>
 
-                <View style={ styles.wrapperFooter }>
-                    <ButtonCTA style={ styles.buttonStyle }><ButtonText>{ 'Paiement'.toUpperCase() }</ButtonText></ButtonCTA>
+                    <View style={ styles.wrapperFooter }>
+                        <ButtonCTA style={ styles.buttonStyle }><ButtonText>{ 'Paiement'.toUpperCase() }</ButtonText></ButtonCTA>
+                    </View>
                 </View>
+            :
+            <View style={ styles.containerEmpty }>
+                <ContainerTitle><Title>{ 'Panier vide'.toUpperCase() }</Title><BorderTitle /></ContainerTitle>
+                <Paragraph style={ styles.textStyle }>Aucune paire dans le panier.{"\n"}Ici tu peux stocker toutes tes sneakers favorites !</Paragraph>
+                <ButtonCTA style={ styles.buttonStyle } onPress={() => this.props.navigation.navigate('Research')} ><ButtonText>{ 'Découvrir les sneakers'.toUpperCase() }</ButtonText></ButtonCTA>
             </View>
         )
     }
@@ -86,6 +116,12 @@ class Panier extends Component {
 const styles = StyleSheet.create({
     container: {
         position: 'relative',
+        flex: 1
+    },
+    containerEmpty: {
+        display: 'flex',
+        justifyContent: 'center',
+        padding: 20,
         flex: 1
     },
     scrollViewContainer: {
