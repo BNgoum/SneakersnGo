@@ -2,12 +2,20 @@ import React from 'react'
 import { createStackNavigator, createBottomTabNavigator, createAppContainer, StackActions, NavigationActions } from 'react-navigation'
 import { StyleSheet, View, Image } from 'react-native'
 
-import { connect } from 'react-redux';
-
 import { HomeActiveSvg, HomeInactiveSvg, ResearchActiveSvg, ResearchInactiveSvg, WishListActiveSvg, WishListInactiveSvg, PanierActiveSvg, PanierInactiveSvg, UserActiveSvg, UserInactiveSvg, ActiveIcon } from '../images/tabbar/icons';
 
 import Home from '../screens/Home/Home';
 import Concept from '../screens/Home/ConceptScreen';
+import ConditionGenerales from '../screens/Home/CG/ConditionsGenerales';
+import Objet from '../screens/Home/CG/Objet';
+import Articles from '../screens/Home/CG/Articles';
+import Commande from '../screens/Home/CG/Commande';
+import Usage from '../screens/Home/CG/Usage';
+import DonneesPersonnelles from '../screens/Home/CG/DonneesPersonnelles';
+import RetractationAnnulation from '../screens/Home/CG/RetractationAnnulation';
+import ProprieteIntellectuelle from '../screens/Home/CG/ProprieteIntellectuelle';
+
+import MentionsLegales from '../screens/Home/MentionsLegales';
 
 import Research from '../screens/Research/Research';
 import SuccessSend from '../screens/Research/SuccessSend';
@@ -59,7 +67,61 @@ const HomeStack = createStackNavigator({
             
         }
     },
-    
+    ConditionGenerales: {
+        screen: ConditionGenerales,
+        navigationOptions: {
+            headerTitle: <Logo />,
+            headerBackTitle: null,
+        }
+    },
+    Objet: {
+        screen: Objet,
+        navigationOptions: {
+            headerTitle: <Logo />,
+        }
+    },
+    Articles: {
+        screen: Articles,
+        navigationOptions: {
+            headerTitle: <Logo />,
+        }
+    },
+    Commande: {
+        screen: Commande,
+        navigationOptions: {
+            headerTitle: <Logo />,
+        }
+    },
+    Usage: {
+        screen: Usage,
+        navigationOptions: {
+            headerTitle: <Logo />,
+        }
+    },
+    DonneesPersonnelles: {
+        screen: DonneesPersonnelles,
+        navigationOptions: {
+            headerTitle: <Logo />,
+        }
+    },
+    RetractationAnnulation: {
+        screen: RetractationAnnulation,
+        navigationOptions: {
+            headerTitle: <Logo />,
+        }
+    },
+    ProprieteIntellectuelle: {
+        screen: ProprieteIntellectuelle,
+        navigationOptions: {
+            headerTitle: <Logo />,
+        }
+    },
+    MentionsLegales: {
+        screen: MentionsLegales,
+        navigationOptions: {
+            headerTitle: <Logo />,
+        }
+    },
 })
 
 const ResearchStack = createStackNavigator({

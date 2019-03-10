@@ -19,8 +19,11 @@ export default class Home extends Component {
                 <Concept navigation={ this.props.navigation } />
                 <Instagram />
                 <Buy navigation={ this.props.navigation }></Buy>
-                <Link style={ styles.linkText }>
-                    <TextLink>{'Besoin d\'assistance ?'.toUpperCase()}</TextLink>
+                <Link style={ styles.linkText } onPress={ () => this.props.navigation.navigate('ConditionGenerales') }>
+                    <TextLink>{'Conditions générales'.toUpperCase()}</TextLink>
+                </Link>
+                <Link style={ styles.linkTextLast } onPress={ () => this.props.navigation.navigate('MentionsLegales') }>
+                    <TextLink>{'Mentions Légales'.toUpperCase()}</TextLink>
                 </Link>
                 <Background style={ styles.backgroundFooter } />
             </Container>
@@ -35,7 +38,13 @@ const styles = StyleSheet.create({
     linkText: {
         alignSelf: 'center',
         marginTop: 20,
-        marginBottom: 60,
+        zIndex: 5,
+        textTransform: 'uppercase'
+    },
+    linkTextLast: {
+        alignSelf: 'center',
+        marginTop: 20,
+        marginBottom: 30,
         zIndex: 5,
         textTransform: 'uppercase'
     },
