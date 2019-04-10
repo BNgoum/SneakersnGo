@@ -255,7 +255,7 @@ const TabBarNavigator = createBottomTabNavigator(
             tabBarIcon: ({ focused }) =>  (
                 focused
                 ? <View style={ styles.wrapperSvg }><HomeActiveSvg /><ActiveIcon /></View>
-                : <HomeInactiveSvg style={ styles.wrapperSvg } />
+                : <View style={ styles.wrapperSvg }><HomeInactiveSvg /></View>
             )            
         }
     },
@@ -265,7 +265,7 @@ const TabBarNavigator = createBottomTabNavigator(
             tabBarIcon: ({ focused }) =>  (
                 focused
                 ? <View style={ styles.wrapperSvg }><ResearchActiveSvg /><ActiveIcon /></View>
-                : <ResearchInactiveSvg style={ styles.wrapperSvg } />
+                : <View style={ styles.wrapperSvg }><ResearchInactiveSvg /></View>
             ),
             tabBarOnPress({ navigation, defaultHandler }) {
                 navigation.navigate('Research')
@@ -279,7 +279,7 @@ const TabBarNavigator = createBottomTabNavigator(
             tabBarIcon: ({ focused }) =>  (
                 focused
                 ? <View style={ styles.wrapperSvg }><WishListActiveSvg /><ActiveIcon /></View>
-                : <WishListInactiveSvg style={ styles.wrapperSvg }/>
+                : <View style={ styles.wrapperSvg }><WishListInactiveSvg /></View>
             )
         }
     },
@@ -288,13 +288,13 @@ const TabBarNavigator = createBottomTabNavigator(
         navigationOptions: {
             tabBarIcon: ({ focused }) =>  (
                 focused
-                ? <View style={ styles.wrapperSvg }>
+                ? <View style={ styles.wrapperPanier }>
                     <PanierActiveSvg />
                     <ActiveIcon />
                     <BadgePanier />
                 </View>
                 : <View style={ styles.wrapperPanier }>
-                    <PanierInactiveSvg style={ styles.wrapperSvg } />
+                    <PanierInactiveSvg />
                     <BadgePanier />
                 </View>
             )
@@ -306,7 +306,7 @@ const TabBarNavigator = createBottomTabNavigator(
             tabBarIcon: ({ focused }) =>  (
                 focused
                 ? <View style={ styles.wrapperSvg }><UserActiveSvg /><ActiveIcon style={ styles.activeIcon }/></View>
-                : <UserInactiveSvg style={ styles.wrapperSvg } />
+                : <View style={ styles.wrapperSvg }><UserInactiveSvg /></View>
             )
         }
     }
@@ -324,18 +324,26 @@ const AppContainer = createAppContainer(TabBarNavigator);
 const styles = StyleSheet.create({
     wrapperSvg: {
         position: 'relative',
-        display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
         paddingTop: 10,
         height: 42,
-        marginBottom: -6
+        marginBottom: -6,
+        overflow: 'hidden'
+    },
+    wrapperOverlow: {
+        overflow: 'hidden'
     },
     wrapperPanier: {
         position: 'relative',
         height: 42,
+        width: 40,
+        alignItems: 'center',
+        justifyContent: 'space-between',
         paddingTop: 10,
-        marginBottom: -6
+        paddingHorizontal: 10,
+        marginBottom: -6,
+        overflow: 'hidden'
     }
 })
 
