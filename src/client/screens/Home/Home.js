@@ -15,7 +15,7 @@ export default class Home extends Component {
     render() {
         return (
             <Container>
-                <Nouveautes />
+                <Nouveautes navigation={ this.props.navigation } />
                 <Concept navigation={ this.props.navigation } />
                 <Instagram />
                 <Buy navigation={ this.props.navigation }></Buy>

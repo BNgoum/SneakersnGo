@@ -29,12 +29,24 @@ class HomeUser extends Component {
 
     render() {
         const user = this.props.state.user;
+
         return (
             <ScrollView style={ styles.container }>
                 <ContainerTitle style={ styles.containerTitle }>
                     <Title style={ styles.titleStyle }>{ "Hello ".toUpperCase() } { user.firstname.toUpperCase() }</Title>
                     <BorderTitle />
                 </ContainerTitle>
+
+                {
+                    this.props.state.isAdmin &&
+                    <View style={ styles.viewUser }>
+                        <TouchableOpacity onPress={ () => this.props.navigation.navigate('HomeBackOffice') } style={ styles.containerUser }>
+                            <Text style={ styles.titleUser }>{ "Gestion du back-office".toUpperCase() }</Text>
+                            { this.state.genre !== "" && <Text style={ styles.selectedUser }>{ this.state.genre.toUpperCase() }</Text> }
+                            <ArrowBottom style={ styles.iconArrow }/>
+                        </TouchableOpacity>
+                    </View>
+                }
 
                 <View style={ styles.viewUser }>
                     <TouchableOpacity onPress={ () => this.props.navigation.navigate('MesCommandes') } style={ styles.containerUser }>

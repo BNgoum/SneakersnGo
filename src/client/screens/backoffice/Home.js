@@ -19,9 +19,6 @@ class Home extends Component {
         return (
             <ScrollView style={styles.wrapperScrollView}>
                 <View style={styles.wrapperHeader}>
-                    <TouchableOpacity onPress={ () => this.props.navigation.toggleDrawer() } style={styles.buttonBurgerMenu}>
-                        <Image source={require(pathToImage + 'menu.png')} style={styles.buttonBurgerMenu} />
-                    </TouchableOpacity>
                     <View style={styles.wrapperTitle}>
                         <Text style={styles.user}>Hello {user === null ? "Admin" : user.firstname}</Text>
                     </View>

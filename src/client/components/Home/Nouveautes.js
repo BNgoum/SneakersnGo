@@ -21,7 +21,7 @@ export default class Nouveautes extends Component {
                     <BorderBottomTitle></BorderBottomTitle>
                 </ContainerTitle>
 
-                <ButtonCTA style={ styles.ButtonCTA }><ButtonText>{'Découvrir'.toUpperCase()}</ButtonText></ButtonCTA>
+                <ButtonCTA onPress={ () => this.props.navigation.navigate('Research') } style={ styles.ButtonCTA }><ButtonText>{'Découvrir'.toUpperCase()}</ButtonText></ButtonCTA>
             </View>
         )
     }

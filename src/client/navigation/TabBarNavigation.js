@@ -39,6 +39,12 @@ import CarnetAdresses from '../screens/User/CarnetAdresses';
 import DetailsAdresse from '../screens/User/DetailsAdresse';
 import DetailsCommande from '../screens/User/DetailsCommande';
 
+import HomeBackOffice from '../screens/backoffice/Home';
+import AddBrands from '../screens/backoffice/AddBrands';
+import AddModels from '../screens/backoffice/AddModels';
+import AddSneakers from '../screens/backoffice/AddSneakers';
+import AllSneakers from '../screens/backoffice/AllSneakers';
+
 class Logo extends React.Component {
     render() {
       return (
@@ -243,6 +249,33 @@ const UserStack = createStackNavigator({
         screen: DetailsCommande,
         navigationOptions: {
             headerTitle: <Logo />
+        }
+    },
+    HomeBackOffice: {
+        screen: HomeBackOffice,
+        navigationOptions: {
+            headerTitle: <Logo />
+        }
+    },
+    AddBrands: {
+        screen: AddBrands,
+        navigationOptions: {
+            headerTitle: <Logo />,
+            headerBackTitle: null
+        }
+    },
+    AddModels: {
+        screen: AddModels,
+        navigationOptions: {
+            headerTitle: <Logo />,
+            headerBackTitle: null
+        }
+    },
+    AddSneakers: {
+        screen: AddSneakers,
+        navigationOptions: {
+            headerTitle: <Logo />,
+            headerBackTitle: null
         }
     },
 })

@@ -40,10 +40,6 @@ class FormAddModel extends Component {
 
         return (
             <View style={styles.wrapperFormModel}>
-                <TouchableOpacity onPress={ () => this.props.navigation.toggleDrawer() } style={styles.wrapperBurgerMenu}>
-                    <Image source={require(pathToImage + 'menu.png')} style={styles.buttonBurgerMenu} />
-                </TouchableOpacity>
-
                 <Text style={styles.title}>Ajouter un nouveau modèle</Text>
 
                 <TextInput

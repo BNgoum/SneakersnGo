@@ -5,7 +5,7 @@ import { StatusBar, View } from 'react-native';
 import { Provider } from 'react-redux';
 import Store from './src/client/store/configureStore'
 
-import Navigation from './src/client/navigation/Navigation';
+import Navigation from './src/client/navigation/TabBarNavigation';
 
 export default class App extends React.Component {
   constructor(props) {

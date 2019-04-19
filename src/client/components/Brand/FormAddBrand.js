@@ -44,9 +44,6 @@ class FormAddBrand extends Component {
 
         return (
             <View style={styles.wrapperFormBrand}>
-                <TouchableOpacity onPress={ () => this.props.navigation.toggleDrawer() } style={styles.wrapperBurgerMenu}>
-                    <Image source={require(pathToImage + 'menu.png')} style={styles.buttonBurgerMenu} />
-                </TouchableOpacity>
                 <Text style={styles.title}>Ajouter une nouvelle marque</Text>
                 <TextInput 
                     placeholder="Saisir une marque..."

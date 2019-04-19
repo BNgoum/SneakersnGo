@@ -6,13 +6,27 @@ import ButtonTextBold from '../Style/Button/ButtonTextBold';
 
 export default class Instagram extends Component {
 
+    openInstagram = () => {
+        const url = 'instagram://user?username=sneakersngoo';
+
+        Linking.canOpenURL(url)
+        .then((supported) => {
+            if (!supported) {
+                Linking.openURL('https://www.instagram.com/sneakersngoo/');
+            } else {
+                return Linking.openURL(url);
+            }
+        })
+        .catch((err) => console.error('An error occurred', err));
+    }
+
     render() {
         return (
             <View style={ styles.container }>
                 <Image style={ styles.instaImage1 } source={require('../../images/instagram.jpg')} />
                 <Image style={ styles.instaImage2 } source={require('../../images/instagram.jpg')} />
                 <Image style={ styles.instaImage3 } source={require('../../images/instagram.jpg')} />
-                <ButtonSecondary style={ styles.instaBtn } onPress={()=>{ Linking.openURL('instagram://user?username=sneakersngoo')}}>
+                <ButtonSecondary style={ styles.instaBtn } onPress={this.openInstagram}>
                     <ButtonTextBold>{'Instagram'.toUpperCase()}</ButtonTextBold>
                 </ButtonSecondary>
             </View>

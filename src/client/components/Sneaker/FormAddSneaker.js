@@ -37,10 +37,6 @@ class FormAddSneaker extends Component {
 
         return (
             <View style={styles.wrapperFormSneaker}>
-                <TouchableOpacity onPress={ () => this.props.navigation.toggleDrawer() } style={styles.wrapperBurgerMenu}>
-                    <Image source={require(pathToImage + 'menu.png')} style={styles.buttonBurgerMenu} />
-                </TouchableOpacity>
-
                 <Text style={styles.title}>Ajouter une nouvelle Sneaker</Text>
 
                 <Picker

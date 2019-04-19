@@ -106,7 +106,7 @@ class Panier extends Component {
             :
             <View style={ styles.containerEmpty }>
                 <ContainerTitle><Title>{ 'Panier vide'.toUpperCase() }</Title><BorderTitle /></ContainerTitle>
-                <Paragraph style={ styles.textStyle }>Aucune paire dans le panier.{"\n"}Ici tu peux stocker toutes tes sneakers favorites !</Paragraph>
+                <Paragraph style={ styles.textStyle }>Aucune paire dans le panier.</Paragraph>
                 <ButtonCTA style={ styles.buttonStyle } onPress={() => this.props.navigation.navigate('Research')} ><ButtonText>{ 'Découvrir les sneakers'.toUpperCase() }</ButtonText></ButtonCTA>
             </View>
         )

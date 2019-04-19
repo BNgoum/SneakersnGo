@@ -18,7 +18,6 @@ export default class Filters extends Component {
 
     handleOnPress = type => {
         this.setState({selected: type});
-        //this.props.selectedFilter("genre", this.state.selected);
     }
 
     render() {
@@ -98,6 +97,7 @@ const styles = StyleSheet.create({
         color: '#070e37',
         fontFamily: 'roboto-regular',
         letterSpacing: 1,
+        marginRight: 15
     },
     containerButton: {
         position: 'absolute',

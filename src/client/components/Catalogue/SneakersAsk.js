@@ -12,7 +12,8 @@ export default class SneakersAsk extends Component {
         super(props);
         this.state = {
             isDisable: true,
-            isSend: false
+            isSend: false,
+            text: ""
         }
     }
 
@@ -20,13 +21,17 @@ export default class SneakersAsk extends Component {
         this.setState({ isSend: true })
     }
 
+    handleInputText = (text) => {
+        this.setState({ text })
+    }
+
     render() {
         return (
             this.state.isSend ?
             <SuccessSend /> :
             <ScrollView style={ styles.container }>
-                <InputText placeholder="Marque"></InputText>
-                <InputText placeholder="Modèle"></InputText>
+                <InputText placeholder="Marque" sendPropsToParent={ this.handleInputText }></InputText>
+                <InputText placeholder="Modèle" sendPropsToParent={ this.handleInputText }></InputText>
                 <InputSelect style={ styles.inputSelectStyle } placeholder="Coloris" data={["BLEU", "ROUGE", "VERT", "NOIR", "VIOLET"]} />
                 <InputSelect style={ styles.inputSelectStyle } placeholder="Taille" data={["39", "40", "41", "42"]} />
                 <DatePickerCustom placeholder="Début de location" />
