@@ -24,7 +24,8 @@ class Connexion extends Component {
             password: "",
             isFound: true,
             isEmailBlank: false,
-            isPasswordBlank: false
+            isPasswordBlank: false,
+            resetText: false
         }
     }
 
@@ -62,6 +63,8 @@ class Connexion extends Component {
                         }
                         this.props.dispatch(action_user);
 
+                        this.setState({resetText: true, email: "", password: "", isEmailBlank: false, isPasswordBlank: false });
+
                         return this.props.navigation.navigate('HomeUser');
                     } else {
                         const action = {
@@ -73,6 +76,8 @@ class Connexion extends Component {
                             type: "INFO_USER", value: user.user
                         }
                         this.props.dispatch(action_user);
+
+                        this.setState({resetText: true, email: "", password: "", isEmailBlank: false, isPasswordBlank: false });
 
                         return this.props.navigation.navigate('HomeUser');
                     }
@@ -96,8 +101,8 @@ class Connexion extends Component {
                 </View>
 
                 <View style={ styles.wrapperForm }>
-                    <InputText placeholder="E-mail" sendPropsToParent={ this.handleInputTextEmail }/>
-                    <InputText placeholder="Mot de passe" sendPropsToParent={ this.handleInputTextPassword } isPassword={true} />
+                    <InputText placeholder="E-mail" sendPropsToParent={ this.handleInputTextEmail } resetText={this.state.resetText}/>
+                    <InputText placeholder="Mot de passe" sendPropsToParent={ this.handleInputTextPassword } isPassword={true} resetText={this.state.resetText} />
 
                     { this.props.state.AuthenticationReducer.auth_message_error !== "" && <Text style={styles.textError}>{this.props.state.AuthenticationReducer.auth_message_error}</Text> }
                     { this.state.isPasswordBlank && <Text style={styles.textError}>Vous devez saisir votre mot de passe.</Text> }

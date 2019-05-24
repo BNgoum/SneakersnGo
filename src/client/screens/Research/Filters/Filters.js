@@ -91,7 +91,7 @@ export default class Filters extends Component {
                         <ArrowBottom style={ styles.iconArrow }/>
                     </TouchableOpacity>
                 </View>
-                <ButtonCTA style={ styles.containerButton }><ButtonText>{ "Afficher les résultats".toUpperCase() }</ButtonText></ButtonCTA>
+                <ButtonCTA style={ styles.containerButton } onPress={ () => this.props.navigation.navigate('Research') } ><ButtonText>{ "Afficher les résultats".toUpperCase() }</ButtonText></ButtonCTA>
             </ScrollView>
         )
     }

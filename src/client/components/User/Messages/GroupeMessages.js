@@ -26,7 +26,9 @@ export default class GroupeMessages extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 26
+        flex: 1,
+        marginTop: 26,
+        justifyContent: 'flex-end'
     },
     textNormal: {
         fontSize: 11,

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, ScrollView } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import InputText from '../../components/Form/InputText';
 import InputSelect from '../../components/Form/InputSelect';
@@ -29,7 +29,7 @@ export default class SneakersAsk extends Component {
         return (
             this.state.isSend ?
             <SuccessSend /> :
-            <ScrollView style={ styles.container }>
+            <View style={ styles.container }>
                 <InputText placeholder="Marque" sendPropsToParent={ this.handleInputText }></InputText>
                 <InputText placeholder="Modèle" sendPropsToParent={ this.handleInputText }></InputText>
                 <InputSelect style={ styles.inputSelectStyle } placeholder="Coloris" data={["BLEU", "ROUGE", "VERT", "NOIR", "VIOLET"]} />
@@ -37,13 +37,14 @@ export default class SneakersAsk extends Component {
                 <DatePickerCustom placeholder="Début de location" />
                 <DatePickerCustom placeholder="Fin de location" />
                 <Button onPress={ () => this.props.navigation.navigate('SuccessSend') } style={ [styles.buttonStyle, this.state.isDisable && styles.buttonDisable] }><ButtonText>{ "Envoyer ma demande".toUpperCase() }</ButtonText></Button>
-            </ScrollView>
+            </View>
         )
     }
 }
 
 const styles = StyleSheet.create({
     container: {
+        marginTop: 8,
         paddingTop: 24,
         paddingHorizontal: 20,
     },

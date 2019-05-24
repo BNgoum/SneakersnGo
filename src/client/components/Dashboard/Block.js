@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 8
     },
     wrapperBody: {
-        height: 125
+        // height: 125
     },
     title: {
         fontSize: 24,

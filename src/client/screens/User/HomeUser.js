@@ -97,7 +97,7 @@ class HomeUser extends Component {
                 </View>
 
                 <View style={ styles.btnDeconnexion }>
-                    <TouchableOpacity style={ styles.containerBtnDeconnexion }>
+                    <TouchableOpacity style={ styles.containerBtnDeconnexion } onPress={ () => this.props.navigation.navigate('Connexion')}>
                         <Text style={ styles.titleUser }>{ "Deconnexion".toUpperCase() }</Text>
                     </TouchableOpacity>
                 </View>

@@ -21,12 +21,12 @@ export default class InputTextMessages extends Component {
     render() {
         return (
             <View style={ styles.container }>
-                <Camera style={ styles.pictoStyle } />
+                {/* <Camera style={ styles.pictoStyle } /> */}
                 <InputText
                     sendPropsToParent={ this.handleOnChangeMessage }
                     placeholder="Taper votre message"
                     style={ styles.textInputStyle } />
-                <ArrowBottomLine tyle={ styles.pictoStyle } />
+                {/* <ArrowBottomLine tyle={ styles.pictoStyle } /> */}
             </View>
         )
     }
@@ -34,21 +34,16 @@ export default class InputTextMessages extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        alignItems: 'center',
+        
         borderTopWidth: 1,
         borderTopColor: '#c4c4c4',
-        width: '100%'
+        
+        paddingHorizontal: 16
     },
     textInputStyle: {
-        width: '70%',
-        fontSize: 13,
-        letterSpacing: 1,
-        color: "#070e37",
-        textTransform: 'uppercase',
-        fontFamily: 'roboto-regular'
+        width: '100%'
     },
     pictoStyle: {
         width: "15%"

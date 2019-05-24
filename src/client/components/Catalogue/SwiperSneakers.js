@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
 
 import Swiper from 'react-native-swiper';
 import BackgroundSneakersBloc from '../../components/Style/BackgroundSneakersBloc';
-import { CoeurInactive, Croix } from '../../images/icons';
-import TextLink from '../Style/Text/TextLink'
-import ButtonText from '../Style/Button/ButtonText'
-import Button from '../Style/Button/Button';
-import Select from '../Form/Select';
 
 export default class SwiperSneakers extends Component {
     constructor(props) {

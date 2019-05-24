@@ -57,7 +57,8 @@ const styles = StyleSheet.create({
         marginTop: 4,
         marginBottom: 12,
         marginLeft: 4,
-        marginRight: 4
+        marginRight: 4,
+        width: 110
     },
     wrapperSneakerName: {
         paddingTop: 8,

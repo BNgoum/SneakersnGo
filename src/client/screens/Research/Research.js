@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, ScrollView, TouchableOpacity, FlatList } from 'react-native';
+import { StyleSheet, View, ScrollView, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { requestAllSneakers, requestAllModels } from '../../store/reducers/sneakers/action';
 import Swiper from 'react-native-swiper';
@@ -18,7 +18,7 @@ class Research extends Component {
         this.state = {
             isCatalogue: true,
             isBlock: false,
-            indexScreen: 0
+            indexScreen: 1
         }
     }
 
@@ -52,12 +52,17 @@ class Research extends Component {
         .catch( (error) => console.log('Erreur lors de la récupération des modèles (Research.js) : ', error))
     }
 
-    handleSwipeScreen = (index) => { 
-        // TODO : Limiter le next swipe au nombre de sneakers dans SneakersBlocItem
-        if (index === 'plus' && this.state.indexScreen < 5) {
+    handleSwipeScreen = type => { 
+        const numberSneakers = this.props.state.SneakersReducer.models.length;
+
+        if (type === 'plus' && this.state.indexScreen === numberSneakers) {
+            this.setState({indexScreen: 1})
+        } else if ( type === 'plus' && this.state.indexScreen < numberSneakers ) {
             let newIndex = this.state.indexScreen + 1;
             this.setState({indexScreen: newIndex})
-        } else if ( index === "moins" && this.state.indexScreen > 0 ) {
+        } else if ( type === "moins" && this.state.indexScreen === 1 ) {
+            this.setState({indexScreen: numberSneakers})
+        } else if ( type === "moins" && this.state.indexScreen > 1 ) {
             let newIndex = this.state.indexScreen - 1;
             this.setState({indexScreen: newIndex})
         }
@@ -80,37 +85,25 @@ class Research extends Component {
                 {
                     this.state.isBlock ?
                     <View style={ styles.swiper }>
-                        <Swiper index={this.state.indexScreen} showsButtons={false} showsPagination={false}>
-                        
-                        {/* <SneakersBlocItem navigation={ this.props.navigation }></SneakersBlocItem>
-                        <SneakersBlocItem navigation={ this.props.navigation }></SneakersBlocItem>
-                        <SneakersBlocItem navigation={ this.props.navigation }></SneakersBlocItem> */}
-                        
-                                {
-                                    this.props.state.SneakersReducer.models.map((item, index) => (
-                                        <SneakersBlocItem key = {item._id} navigation={ this.props.navigation } dataModel={item} /> 
-                                    ))
-                                }
-                          
-                        
+                        <Swiper index={this.state.indexScreen} showsButtons={false}>
+                            {
+                                this.props.state.SneakersReducer.models.map((item, index) => (
+                                    <SneakersBlocItem key={item._id} navigation={ this.props.navigation } dataModel={item} /> 
+                                ))
+                            }
                         </Swiper>
-                        <TouchableOpacity onPress={ () => this.handleSwipeScreen('moins') } style={ styles.buttonPrev }>
+                        {/* <TouchableOpacity onPress={ () => this.handleSwipeScreen('moins') } style={ styles.buttonPrev }>
                             <ArrowBottomBig></ArrowBottomBig>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={ () => this.handleSwipeScreen('plus') }  style={ styles.buttonNext }>
                             <ArrowBottomBig></ArrowBottomBig>
-                        </TouchableOpacity>
+                        </TouchableOpacity> */}
                     </View>
                      :
                     <ScrollView>
-                        {/* <FlatList 
-                            data={this.props.state.SneakersReducer.sneakers}
-                            keyExtractor={(item) => item._id.toString()}
-                            renderItem={({item}) => <SneakersListeItem navigation={ this.props.navigation } dataSneaker={item} /> }
-                        /> */}
                         {
                             this.props.state.SneakersReducer.models.map((item, index) => (
-                                <SneakersListeItem key = {item._id} navigation={ this.props.navigation } dataModel={item} /> 
+                                <SneakersListeItem key={item._id} navigation={ this.props.navigation } dataModel={item} /> 
                             ))
                         }
                     </ScrollView>

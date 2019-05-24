@@ -18,7 +18,7 @@ export default class ProprieteIntellectuelle extends Component {
 
                 <Paragraph style={ styles.textStyle }>SNEAKERS AND GO est une EIRL au capital de 3000 Euros.{"\n"}RCS NANTERRE : 837 947 936 N° Siret : 83794793600014.</Paragraph>
                 
-                <Paragraph style={ [styles.textStyle, styles.lastText] }>Adresse du siège social : 5 rue buffon  92700 Colombes{"\n"}Développeur Web : Wesley Isaac.{"\n"}Site hébergé par OVH.</Paragraph>
+                <Paragraph style={ [styles.textStyle, styles.lastText] }>Adresse du siège social : 5 rue buffon  92700 Colombes</Paragraph>
             </Container>
         )
     }

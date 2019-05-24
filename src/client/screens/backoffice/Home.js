@@ -32,11 +32,6 @@ class Home extends Component {
                     <Block title="Les marques" content="brands" navigation={this.props.navigation} />
                 </View>
 
-                <View style={styles.wrapperFooter}>
-                    <TouchableOpacity onPress={this.disconnect} style={styles.buttonDisconnect} >
-                        <Text>Se déconnecter</Text>
-                    </TouchableOpacity>
-                </View>
             </ScrollView>
         )
     }

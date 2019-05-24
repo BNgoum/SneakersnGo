@@ -51,7 +51,7 @@ export default class Filters extends Component {
                     </TouchableOpacity>
                 </View>
 
-                <ButtonCTA style={ styles.containerButton }><ButtonText>{ "Afficher les résultats".toUpperCase() }</ButtonText></ButtonCTA>
+                <ButtonCTA style={ styles.containerButton } onPress={ () => this.props.navigation.navigate('Research') } ><ButtonText>{ "Afficher les résultats".toUpperCase() }</ButtonText></ButtonCTA>
             </View>
         )
     }

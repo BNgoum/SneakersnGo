@@ -30,8 +30,8 @@ class ListSneakers extends Component {
                 <FlatList 
                     data={this.props.state.SneakersReducer.sneakers}
                     keyExtractor={(item) => item._id.toString()}
-                    numColumns = {3}
                     renderItem={({item}) => <BlockSneaker dataSneaker={item} /> }
+                    numColumns = {3}
                 />
             </View>
         )

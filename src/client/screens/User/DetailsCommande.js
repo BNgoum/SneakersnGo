@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, ScrollView, Text} from 'react-native';
+import { StyleSheet, View, ScrollView} from 'react-native';
 
 import Tab from '../../components/Tab/TabDetailsCommande';
 import TitrePointRouge from '../../components/Style/TitrePointRouge';
@@ -12,13 +12,17 @@ import LienFacture from '../../components/User/DetailsCommande/LienFacture';
 import CommandeAVenir from '../../components/User/DetailsCommande/CommandeAVenir';
 
 import GroupeMessages from '../../components/User/Messages/GroupeMessages';
-import InputText from '../../components/User/Messages/InputText';
+import InputText from '../../components/Form/InputText';
+// import InputText from '../../components/User/Messages/InputText';
+
+import { ArrowBottomLine, Camera } from '../../images/icons';
 
 export default class DetailsCommande extends Component {
     constructor(props) {
         super(props);
         this.state = {
             isDetails: true,
+            message: ""
         }
     }
 
@@ -26,6 +30,13 @@ export default class DetailsCommande extends Component {
         if ( isDetails ) { this.setState({ isDetails: true }) }
         else { this.setState({ isDetails: false }) }
     }
+
+    handleOnChangeMessage = message => {
+        this.setState({
+            message
+        })
+    }
+
 
     displayContent = () => {
         if( this.state.isDetails ) {
@@ -54,7 +65,15 @@ export default class DetailsCommande extends Component {
                     <GroupeMessages heure="11:35"/>
                 </ScrollView>
 
-                <InputText style={ styles.inputTextStyle } />
+                <View style={ styles.wrapperInputText }>
+                    <Camera style={ styles.pictoStyleLeft } />
+                    <InputText 
+                    sendPropsToParent={ this.handleOnChangeMessage }
+                    placeholder="Taper votre message"
+                    style={ styles.wrapperInput } />
+                    <ArrowBottomLine style={ styles.pictoStyleRight } />
+                </View>
+                
             </View>
         }
     }
@@ -86,11 +105,28 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1
     },
     wrapperViewMessage: {
-        position: 'relative'
+        flex: 1,
+        position: 'relative',
+        justifyContent: 'flex-end'
     },
-    inputTextStyle: {
+    pictoStyleLeft: {
         position: 'absolute',
-        bottom: 0,
-        width: '100%'
+        top: 20,
+        left: 20
+    },
+    pictoStyleRight: {
+        position: 'absolute',
+        top: 28,
+        right: 20,
+        transform: [{ rotate: "-90deg" }]
+    },
+    wrapperInputText: {
+        position: 'relative',
+        paddingLeft: 62,
+        paddingRight: 45,
+        paddingTop: 20,
+        borderTopWidth: 1,
+        borderTopColor: '#c4c4c4',
+        height: 60
     }
 })

@@ -19,12 +19,20 @@ export default class InputText extends Component {
         }
     }
 
-    handleChange = (text) => {
+    handleChange = text => {
         this.setState({
             text
         })
 
         this.props.sendPropsToParent(text);            
+    }
+
+    checkInputReset = () => {
+        if (this.props.resetText) {
+            return "";
+        } else {
+            return this.state.text;
+        }
     }
 
     render() {
@@ -33,7 +41,7 @@ export default class InputText extends Component {
                 <TextInput
                     style={ styles.inputText }
                     onChangeText={(text) => this.handleChange(text)}
-                    value={this.state.text}
+                    value={this.checkInputReset()}
                     onFocus={() => this.setState({isFocus: true})}
                     onBlur={() => this.handleOnBlur()}
                     textContentType={this.props.typeContent}

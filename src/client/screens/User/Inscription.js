@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 
 import { connect } from 'react-redux';
 import {requestRegister} from '../../store/reducers/user/action';
 
 import Link from '../../components/Style/Text/Link';
 import Title from '../../components/Style/Text/Title';
-import TextLink from '../../components/Style/Text/TextLink';
 import Background from '../../components/Style/Background';
 import ButtonCTA from '../../components/Style/Button/Button';
 import ButtonText from '../../components/Style/Button/ButtonText';
@@ -27,7 +26,8 @@ class Inscription extends Component {
             isEmailBlank: false,
             isPasswordBlank: false,
             isEmpty: false,
-            isExist: false
+            isExist: false,
+            resetText: false
         }
     }
 
@@ -67,6 +67,8 @@ class Inscription extends Component {
                     })
                 }
 
+                this.setState({resetText: true, email: "", password: "", firstName: "", lastName: "", isEmailBlank: false, isPasswordBlank: false });
+
                 this.props.dispatch(action);
             })
             .catch((error) => { console.log('Erreur lors de l\‘inscription : ', error); });
@@ -74,7 +76,6 @@ class Inscription extends Component {
     }
 
     render() {
-        console.log('porps : ', this.props.state.AuthenticationReducer)
         return (
             <View style={ styles.container }>
                 <Background style={ styles.backgroundTop }/>
@@ -86,10 +87,10 @@ class Inscription extends Component {
                 </View>
 
                 <View style={ styles.wrapperForm }>
-                    <InputText placeholder="Prenom" style={ styles.inputTextStyle} sendPropsToParent={ this.handleInputTextFirstName } />
-                    <InputText placeholder="Nom" style={ styles.inputTextStyle} sendPropsToParent={ this.handleInputTextLastName } />
-                    <InputText placeholder="E-mail" style={ styles.inputTextStyle} sendPropsToParent={ this.handleInputTextEmail } />
-                    <InputText placeholder="Mot de passe" style={ styles.inputTextStyle} isPassword={true} sendPropsToParent={ this.handleInputTextPassword } />
+                    <InputText placeholder="Prenom" style={ styles.inputTextStyle} sendPropsToParent={ this.handleInputTextFirstName } resetText={this.state.resetText} />
+                    <InputText placeholder="Nom" style={ styles.inputTextStyle} sendPropsToParent={ this.handleInputTextLastName } resetText={this.state.resetText} />
+                    <InputText placeholder="E-mail" style={ styles.inputTextStyle} sendPropsToParent={ this.handleInputTextEmail } resetText={this.state.resetText} />
+                    <InputText placeholder="Mot de passe" style={ styles.inputTextStyle} isPassword={true} sendPropsToParent={ this.handleInputTextPassword } resetText={this.state.resetText} />
                     { this.state.isEmpty && <Text style={{ alignSelf: 'center' }}>Tous les champs doivent être remplis.</Text> }
                     { this.state.isExist && <Text style={{ alignSelf: 'center' }}>Cette adresse mail est déjà utilisée.</Text> }
                     { this.props.state.auth_inscription_not_validated !== "" && <Text style={{ alignSelf: 'center' }}>Votre inscription est prise en compte. Vous allez recevoir un mail de confirmation.</Text> }

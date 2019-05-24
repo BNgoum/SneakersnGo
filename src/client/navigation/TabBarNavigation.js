@@ -278,6 +278,13 @@ const UserStack = createStackNavigator({
             headerBackTitle: null
         }
     },
+    AllSneakers: {
+        screen: AllSneakers,
+        navigationOptions: {
+            headerTitle: <Logo />,
+            headerBackTitle: null
+        }
+    },
 })
 
 const TabBarNavigator = createBottomTabNavigator(

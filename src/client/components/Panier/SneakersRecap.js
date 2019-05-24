@@ -31,7 +31,7 @@ class SneakersRecap extends Component {
         const token = this.props.state.AuthenticationReducer.isLogin;
 
         return new Promise((resolve, reject) => {
-            resolve(requestOneSneaker(token, this.props.data.item))
+            resolve(requestOneSneaker(token, "5c421c42b4251800248d4f5f"))
         })
         .then(data => {
             this.setState({

@@ -1,4 +1,4 @@
-import { createDrawerNavigator, createStackNavigator, createAppContainer } from 'react-navigation'
+import { createDrawerNavigator, createStackNavigator, createAppContainer, createSwitchNavigator } from 'react-navigation'
 
 import Home from '../screens/backoffice/Home';
 import AddBrands from '../screens/backoffice/AddBrands';
@@ -7,6 +7,12 @@ import AddSneakers from '../screens/backoffice/AddSneakers';
 import AllSneakers from '../screens/backoffice/AllSneakers';
 
 const NavigatorStack = createStackNavigator({
+    AllSneakers: {
+        screen: AllSneakers,
+        navigationOptions: {
+            title: 'Les Sneakers'
+        }
+    },
     Home: {
         screen: Home,
         navigationOptions: {
@@ -31,12 +37,7 @@ const NavigatorStack = createStackNavigator({
             title: 'Les Sneakers'
         }
     },
-    AllSneakers: {
-        screen: AllSneakers,
-        navigationOptions: {
-            title: 'Les Sneakers'
-        }
-    },
+    
 })
 
 const AddBrandsStack = createStackNavigator({
@@ -53,7 +54,13 @@ const Drawer = createDrawerNavigator({
     'Nouvelle Sneaker': { screen: AddBrandsStack }
 })
 
-const AppContainer = createAppContainer(Drawer);
+// const AppContainer = createAppContainer(Drawer);
 
 
-export default AppContainer;
+// export default AppContainer;
+
+export default createAppContainer(createSwitchNavigator(
+    {
+        NavigatorStack: NavigatorStack
+    }
+));

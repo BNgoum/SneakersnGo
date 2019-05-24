@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { requestOneBrand, requestAllSneakerByModel } from '../../store/reducers/sneakers/action';
 
-import BackgroundSneakersBloc from '../../components/Style/BackgroundSneakersBloc';
+import BackgroundSneakersBloc from '../Style/BackgroundSneakersBloc';
 
 class SneakersBlocItem extends Component {
     constructor(props) {

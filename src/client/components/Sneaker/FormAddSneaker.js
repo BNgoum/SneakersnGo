@@ -29,6 +29,7 @@ class FormAddSneaker extends Component {
             const action = { type: "GET_ALL_SNEAKERS_BY_MODEL", value: sneakers }
             return this.props.dispatch(action)
         })
+        .then(() => console.log('Its okay'))
         .catch((error) => console.log('Erreur lors de la création d\'une Sneaker : ', error))
     }
 
