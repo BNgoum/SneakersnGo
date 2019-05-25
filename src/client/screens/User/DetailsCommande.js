@@ -3,7 +3,7 @@ import { StyleSheet, View, ScrollView} from 'react-native';
 
 import Tab from '../../components/Tab/TabDetailsCommande';
 import TitrePointRouge from '../../components/Style/TitrePointRouge';
-import SneakersRecap from '../../components/Panier/SneakersRecap';
+import SneakersRecap from '../../components/User/DetailsCommande/SneakersRecap';
 import Paiement from '../../components/User/DetailsCommande/Paiement';
 import TotalCommande from '../../components/User/DetailsCommande/TotalCommande';
 import Total from '../../components/User/DetailsCommande/Total';

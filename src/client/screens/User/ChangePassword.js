@@ -15,6 +15,10 @@ export default class ChangePassword extends Component {
         }
     }
 
+    handleInputText = () => {
+        
+    }
+
     render() {
         return (
             <ScrollView style={ styles.container }>
@@ -23,9 +27,9 @@ export default class ChangePassword extends Component {
                     <BorderTitle />
                 </ContainerTitle>
 
-                <InputText typeContent="password" isPassword={true} placeholder="Mot de passe actuel" />
-                <InputText typeContent="password" isPassword={true} placeholder="Nouveau mot de passe" />
-                <InputText typeContent="password" isPassword={true} placeholder="Confirmer ce mot de passe" />
+                <InputText sendPropsToParent={ this.handleInputText } typeContent="password" isPassword={true} placeholder="Mot de passe actuel" />
+                <InputText sendPropsToParent={ this.handleInputText } typeContent="password" isPassword={true} placeholder="Nouveau mot de passe" />
+                <InputText sendPropsToParent={ this.handleInputText } typeContent="password" isPassword={true} placeholder="Confirmer ce mot de passe" />
                 
                 <ButtonCTA style={ styles.containerButton }><ButtonText>{ "Enregistrer".toUpperCase() }</ButtonText></ButtonCTA>
             </ScrollView>

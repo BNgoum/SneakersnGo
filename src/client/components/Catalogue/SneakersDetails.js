@@ -229,6 +229,7 @@ class SneakersDetails extends Component {
 
     render() {
         const currentSneakers = this.props.state.SneakersReducer.currentSneakers;
+        const price =  currentSneakers[0].rentPrice || 0;
         const currentModel = this.props.state.SneakersReducer.currentModel;
         const currentBrand = this.props.state.SneakersReducer.currentBrand;
         const currentPathImage = this.props.state.SneakersReducer.pathImage;
@@ -303,7 +304,7 @@ class SneakersDetails extends Component {
                     <DatePickerCustom placeholder="Début de location" />
                     <DatePickerCustom placeholder="Fin de location" />
 
-                    <Price price={ currentSneakers[0].rentPrice } style={ styles.price }></Price>
+                    <Price price={ price } style={ styles.price }></Price>
                 </View>
 
                 <Button style={ styles.buttonValidate } onPress={ () => this.handleOnPressCart() }>

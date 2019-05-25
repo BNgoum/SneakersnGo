@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text, Image } from 'react-native';
 import { connect } from 'react-redux';
 
-import { requestOneSneaker, requestOneBrand, requestOneModel} from '../../store/reducers/sneakers/action';
+import { requestOneSneaker, requestOneBrand, requestOneModel} from '../../../store/reducers/sneakers/action';
 
-import BackgroundSneakers from '../Style/BackgroundSneakersListe';
-import CaracteristiquesSneakers from './CaracteristiquesSneakers';
-import RecapDate from './RecapDate';
-import Footer from './Footer';
+import BackgroundSneakers from '../../Style/BackgroundSneakersListe';
+import CaracteristiquesSneakers from '../../Panier/CaracteristiquesSneakers';
+import RecapDate from '../../Panier/RecapDate';
+import Footer from '../../Panier/Footer';
 
 class SneakersRecap extends Component {
     constructor(props) {
@@ -29,10 +29,9 @@ class SneakersRecap extends Component {
 
     getModelAndBrand = () => {
         const token = this.props.state.AuthenticationReducer.isLogin;
-        const idSnk = this.props.data.item;
 
         return new Promise((resolve, reject) => {
-            resolve(requestOneSneaker(token, idSnk))
+            resolve(requestOneSneaker(token, "5c421c42b4251800248d4f5f"))
         })
         .then(data => {
             this.setState({
@@ -63,13 +62,13 @@ class SneakersRecap extends Component {
     setImage = () => {
         switch (this.state.modelName) {
             case 'Stan Smith':
-                this.setState({ pathImage: require("../../images/stansmith.png") })
+                this.setState({ pathImage: require("../../../images/stansmith.png") })
                 break;
             case 'Classic':
-                this.setState({ pathImage: require("../../images/vans.png") })
+                this.setState({ pathImage: require("../../../images/vans.png") })
                 break;
             case 'Triple S':
-                this.setState({ pathImage: require("../../images/balenciaga_triple_s.png") })
+                this.setState({ pathImage: require("../../../images/balenciaga_triple_s.png") })
                 break;
         }
     }

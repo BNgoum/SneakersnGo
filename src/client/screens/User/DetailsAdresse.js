@@ -8,15 +8,19 @@ import InputSelect from '../../components/Form/InputSelect';
 
 export default class DetailsAdresse extends Component {
 
+    handleInputText = () => {
+        
+    }
+    
     render() {
         return (
             <View style={ styles.container }>
-                <InputText placeholder="Nom de l'adresse" style={ styles.inputTextStyle} />
+                <InputText sendPropsToParent={ this.handleInputText } placeholder="Nom de l'adresse" style={ styles.inputTextStyle} />
                 <InputSelect placeholder="Pays" data={["France", "Belgique", "Italie", "Espagne"]} style={ styles.inputTextStyle} />
-                <InputText placeholder="Adresse" style={ styles.inputTextStyle} />
-                <InputText placeholder="Adresse suite" style={ styles.inputTextStyle} />
-                <InputText placeholder="Code postal" typeContent="postalCode" style={ styles.inputTextStyle} />
-                <InputText placeholder="Ville" style={ styles.inputTextStyle} />
+                <InputText sendPropsToParent={ this.handleInputText } placeholder="Adresse" style={ styles.inputTextStyle} />
+                <InputText sendPropsToParent={ this.handleInputText } placeholder="Adresse suite" style={ styles.inputTextStyle} />
+                <InputText sendPropsToParent={ this.handleInputText } placeholder="Code postal" typeContent="postalCode" style={ styles.inputTextStyle} />
+                <InputText sendPropsToParent={ this.handleInputText } placeholder="Ville" style={ styles.inputTextStyle} />
 
                 <ButtonCTA style={ styles.wrapperBtn }><ButtonText>{ "Enregistrer".toUpperCase() }</ButtonText></ButtonCTA>
             </View>

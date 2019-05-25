@@ -27,12 +27,12 @@ export default class InputText extends Component {
         this.props.sendPropsToParent(text);            
     }
 
-    checkInputReset = () => {
+    resetText = () => {
         if (this.props.resetText) {
-            return "";
-        } else {
-            return this.state.text;
+            this.textInput.clear();
         }
+
+        return this.state.text;
     }
 
     render() {
@@ -41,11 +41,13 @@ export default class InputText extends Component {
                 <TextInput
                     style={ styles.inputText }
                     onChangeText={(text) => this.handleChange(text)}
-                    value={this.checkInputReset()}
+                    value={this.state.text}
                     onFocus={() => this.setState({isFocus: true})}
                     onBlur={() => this.handleOnBlur()}
                     textContentType={this.props.typeContent}
                     secureTextEntry={this.props.isPassword}
+                    clearButtonMode="always"
+                    ref={input => { this.textInput = input }}
                 />
                 <Text style={ [styles.placeholder, this.state.isFocus && styles.isFocus] }>{this.props.placeholder.toUpperCase()}</Text>
             </View>

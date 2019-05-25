@@ -63,7 +63,8 @@ class Connexion extends Component {
                         }
                         this.props.dispatch(action_user);
 
-                        this.setState({resetText: true, email: "", password: "", isEmailBlank: false, isPasswordBlank: false });
+                        // this.setState({resetText: true, email: "", password: "", isEmailBlank: false, isPasswordBlank: false });
+                        this.setState({ isEmailBlank: false, isPasswordBlank: false });
 
                         return this.props.navigation.navigate('HomeUser');
                     } else {
@@ -77,7 +78,8 @@ class Connexion extends Component {
                         }
                         this.props.dispatch(action_user);
 
-                        this.setState({resetText: true, email: "", password: "", isEmailBlank: false, isPasswordBlank: false });
+                        // this.setState({resetText: true, email: "", password: "", isEmailBlank: false, isPasswordBlank: false });
+                        this.setState({ isEmailBlank: false, isPasswordBlank: false });
 
                         return this.props.navigation.navigate('HomeUser');
                     }

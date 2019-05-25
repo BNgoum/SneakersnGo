@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
         maxWidth: '65%'
     },
     textNormal: {
-        fontSize: 10,
+        fontSize: 14,
         fontFamily: 'brawler-regular',
         letterSpacing: 1,
         color: '#333',

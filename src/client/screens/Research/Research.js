@@ -85,7 +85,7 @@ class Research extends Component {
                 {
                     this.state.isBlock ?
                     <View style={ styles.swiper }>
-                        <Swiper index={this.state.indexScreen} showsButtons={false}>
+                        <Swiper index={this.state.indexScreen} showsButtons={false} activeDotColor="#070e37">
                             {
                                 this.props.state.SneakersReducer.models.map((item, index) => (
                                     <SneakersBlocItem key={item._id} navigation={ this.props.navigation } dataModel={item} /> 

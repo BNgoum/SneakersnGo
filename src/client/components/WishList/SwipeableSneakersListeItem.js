@@ -76,7 +76,7 @@ class SwipeableSneakersListeItem extends Component {
     render() {
         return (
             <View style={ styles.container }>
-               <TouchableOpacity style={ styles.wrapperSneakersListe } onPress={ () => this.props.navigation.navigate('DetailsSneakers') }>
+               <TouchableOpacity style={ styles.wrapperSneakersListe } onPress={ () => this.props.navigation.navigate('Research') }>
                     <View style={ styles.wrapperSneakers }>
                         <Image style={ styles.sneakersImage } source={this.state.pathImage} />
                         <BackgroundSneakers style={ styles.backgroundSneakers }></BackgroundSneakers>

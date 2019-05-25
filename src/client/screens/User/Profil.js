@@ -16,6 +16,10 @@ export default class Profil extends Component {
         }
     }
 
+    handleInputText = () => {
+        
+    }
+
     render() {
         return (
             <ScrollView style={ styles.container }>
@@ -24,12 +28,12 @@ export default class Profil extends Component {
                     <BorderTitle />
                 </ContainerTitle>
 
-                <InputText placeholder="Prénom" />
-                <InputText placeholder="Nom" />
-                <InputText typeContent="emailAddress" placeholder="E-mail" />
+                <InputText sendPropsToParent={ this.handleInputText } placeholder="Prénom" />
+                <InputText sendPropsToParent={ this.handleInputText } placeholder="Nom" />
+                <InputText sendPropsToParent={ this.handleInputText } typeContent="emailAddress" placeholder="E-mail" />
                 <DatePicker placeholder="Date de naissance" />
-                <InputText typeContent="telephoneNumber" placeholder="Numéro de mobile" />
-                <InputText placeholder="Entreprise" />
+                <InputText sendPropsToParent={ this.handleInputText } typeContent="telephoneNumber" placeholder="Numéro de mobile" />
+                <InputText sendPropsToParent={ this.handleInputText } placeholder="Entreprise" />
                 
                 <ButtonCTA style={ styles.containerButton }><ButtonText>{ "Enregistrer".toUpperCase() }</ButtonText></ButtonCTA>
             </ScrollView>
