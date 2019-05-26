@@ -70,6 +70,21 @@ class SneakersRecap extends Component {
             case 'Triple S':
                 this.setState({ pathImage: require("../../../images/balenciaga_triple_s.png") })
                 break;
+            case 'Off Court':
+                this.setState({ pathImage: require("../../../images/offwhite.png")})
+                break;
+            case 'Trainers Speed':
+                this.setState({ pathImage: require("../../../images/trainersspeed.png")})
+                break;
+            case 'Cross Chainer':
+                this.setState({ pathImage: require("../../../images/crosschainer.png")})
+                break;
+            case 'Yeezy Boost 350 V2':
+                this.setState({ pathImage: require("../../../images/yeezy.png")})
+                break;
+            case 'Chain Reaction':
+                this.setState({ pathImage: require("../../../images/chainreaction.png")})
+                break;
         }
     }
 

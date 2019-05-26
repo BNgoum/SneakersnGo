@@ -3,9 +3,10 @@ import { StyleSheet, Text, View } from 'react-native';
 
 export default class Price extends Component {
     render() {
+        console.log('Receive props : ', this.props.price)
         return (
             <View style={ styles.wrapperPrice }>
-                <Text style={ styles.price }>{this.props.price} €</Text>
+                <Text style={ styles.price }>{this.props.price[0].rentPrice} €</Text>
                 <Text style={ styles.textPrice }>{ ' par jour'.toUpperCase() }</Text>
             </View>
         )

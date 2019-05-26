@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
         height: 270
     },
     wrapperTitle: {
-        width: 100,
+        width: 105,
         marginBottom: 14
     },
     title: {

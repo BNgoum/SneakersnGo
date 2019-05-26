@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, Animated } from 'react-native';
+import { StyleSheet, Text, Animated, Dimensions } from 'react-native';
 
 export default class Toast extends Component {
     constructor(props) {
@@ -8,7 +8,8 @@ export default class Toast extends Component {
     }
 
     componentDidMount() {
-        this.callToast()
+        this.callToast();
+        
     }
 
     callToast() {
@@ -40,7 +41,7 @@ export default class Toast extends Component {
                 backgroundColor: '#070e37',
                 position: 'absolute',
                 left:0,
-                top:0,
+                top: 0,
                 right:0,
                 justifyContent: 'center',
                 zIndex: 768

@@ -23,17 +23,33 @@ class HomeUser extends Component {
 
     componentWillMount() {
         this.setState({
-            prenom: this.props.state.user.firstname
+            prenom: this.props.state.user.firstname || ""
         })
     }
 
+    handleDisconnect = () => {
+        const action = { type: "TO_DISCONNECT", value: null }
+
+        return new Promise((resolve, reject) => {
+            resolve(this.props.navigation.navigate('Connexion'));
+        })
+        .then(() => {
+            const action = { type: "RESET_SNEAKERS", value: null }
+            this.props.dispatch(action)
+        })
+        .then(
+            this.props.dispatch(action)
+        )
+        .catch(err => ('Erreur lors de la déconnexion : ', err));
+    }
+
     render() {
-        const user = this.props.state.user;
+        const user = this.props.state.user.firstname || "";
 
         return (
             <ScrollView style={ styles.container }>
                 <ContainerTitle style={ styles.containerTitle }>
-                    <Title style={ styles.titleStyle }>{ "Hello ".toUpperCase() } { user.firstname.toUpperCase() }</Title>
+                    <Title style={ styles.titleStyle }>{ "Hello ".toUpperCase() } { user.toUpperCase() }</Title>
                     <BorderTitle />
                 </ContainerTitle>
 
@@ -97,7 +113,7 @@ class HomeUser extends Component {
                 </View>
 
                 <View style={ styles.btnDeconnexion }>
-                    <TouchableOpacity style={ styles.containerBtnDeconnexion } onPress={ () => this.props.navigation.navigate('Connexion')}>
+                    <TouchableOpacity style={ styles.containerBtnDeconnexion } onPress={ this.handleDisconnect }>
                         <Text style={ styles.titleUser }>{ "Deconnexion".toUpperCase() }</Text>
                     </TouchableOpacity>
                 </View>

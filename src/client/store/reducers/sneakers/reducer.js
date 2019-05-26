@@ -16,6 +16,8 @@ const initialState = {
 function addSneakers(state = initialState, action) {
     let nextState;
     switch (action.type) {
+        case 'RESET_SNEAKERS':
+            return initialState;
         case 'GET_ALL_BRANDS':
             nextState = {
                 ...state, brands: action.value

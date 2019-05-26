@@ -211,6 +211,7 @@ const UserStack = createStackNavigator({
         navigationOptions: {
             headerTitle: <Logo />,
             headerBackTitle: null,
+            headerLeft: null
         }
     },
     Profil: {

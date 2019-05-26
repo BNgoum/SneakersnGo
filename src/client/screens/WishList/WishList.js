@@ -20,27 +20,37 @@ class WishList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            token: this.props.state.AuthenticationReducer.isLogin
+            token: this.props.state.AuthenticationReducer.isLogin,
+            currentWishlist: {}
         }
     }
 
     componentDidMount() {
-        if (this.state.token)
-            this.getSneakersFromWishlist();
+        this._navListener = this.props.navigation.addListener('didFocus', () => {
+            if (this.props.state.AuthenticationReducer.isLogin) {
+                this.getSneakersFromWishlist();
+            }
+        });
     }
 
     getSneakersFromWishlist = () => {
         const wishlist = this.props.state.AuthenticationReducer.user.wishlist;
+        const wishlistRedux = this.props.state.SneakersReducer.wishlist;
 
-        wishlist.map(idSneaker => {
-            const action = { type: "ADD_WISHLIST", value: idSneaker }
-            return this.props.dispatch(action);
-        })
+            wishlist.map(idSneaker => {
+                if (!wishlistRedux.includes(idSneaker)) {
+                    const action = { type: "ADD_WISHLIST", value: idSneaker }
+                    return this.props.dispatch(action);
+                }
+            })
     }
 
     deleteSneakersFromWishlist = data => {
         const wishlist = this.props.state.SneakersReducer.wishlist;
         const sneakersId = data.item;
+
+        const user = this.props.state.AuthenticationReducer.user;
+        const wishlistDB = this.props.state.AuthenticationReducer.user.wishlist;
 
         return new Promise((resolve, reject) => {
             resolve(deleteFromWishlist(this.state.token, sneakersId))
@@ -50,6 +60,17 @@ class WishList extends Component {
             if (index > -1) {
                 wishlist.splice(index, 1);
             }
+
+            let index2 = wishlistDB.indexOf(sneakersId);
+            if (index2 > -1) {
+                wishlistDB.splice(index2, 1);
+
+                user.wishlist = wishlistDB;
+            }
+
+            const actionDB = { type: "SET_WISHLIST_DB", value: user }
+
+            this.props.dispatch(actionDB)
 
             const action = { type: "SET_WISHLIST", value: wishlist }
 

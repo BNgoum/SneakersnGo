@@ -19,18 +19,30 @@ class Panier extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            token: this.props.state.AuthenticationReducer.isLogin
+            token: this.props.state.AuthenticationReducer.isLogin,
         }
     }
 
-    componentWillMount() {
-        if (this.state.token)
-            this.getSneakersInCartFromDB();
+    componentDidMount() {
+        this._navListener = this.props.navigation.addListener('didFocus', () => {
+            if (this.props.state.AuthenticationReducer.isLogin) {
+                this.getSneakersInCartFromDB();
+            }
+        });
     }
 
     getSneakersInCartFromDB = () => {
+        let sneakersCart = this.props.state.AuthenticationReducer.user.cart;
+        const sneakersCartRedux = this.props.state.SneakersReducer.cart;
+
         return new Promise((resolve, reject) => {
-            const sneakersCart = this.props.state.AuthenticationReducer.user.cart;
+
+            sneakersCartRedux.map(sneaker => {
+                if (!sneakersCart.includes(sneaker)) {
+                    sneakersCart.push(sneaker)
+                }
+            })
+
             const action = { type: "SET_CART", value: sneakersCart }
 
             resolve(this.props.dispatch(action));
@@ -72,7 +84,7 @@ class Panier extends Component {
                         </ContainerTitle>
 
                         <View style={ styles.wrapperRecap }>
-                            <Text style={ styles.numberArticles }>{"2 articles".toUpperCase()}</Text>
+                            <Text style={ styles.numberArticles }>{this.props.state.SneakersReducer.cart.length + " articles".toUpperCase()}</Text>
                             <View style={ styles.wrapperRecapTotal }>
                                 <Text style={ styles.textTotal }>{"Total : ".toUpperCase()}</Text>
                                 <Text style={ styles.total }>200 €</Text>

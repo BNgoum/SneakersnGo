@@ -18,12 +18,19 @@ class Research extends Component {
         this.state = {
             isCatalogue: true,
             isBlock: false,
-            indexScreen: 1
+            indexScreen: 0
         }
     }
 
     componentWillMount() {
         this.getAllModels();
+    }
+
+    componentDidMount() {
+        this._navListener = this.props.navigation.addListener('didFocus', () => {
+        // get your new data here and then set state it will rerender
+            this.getAllModels();
+        });
     }
 
     getAllSneakers = () => {
@@ -52,22 +59,6 @@ class Research extends Component {
         .catch( (error) => console.log('Erreur lors de la récupération des modèles (Research.js) : ', error))
     }
 
-    handleSwipeScreen = type => { 
-        const numberSneakers = this.props.state.SneakersReducer.models.length;
-
-        if (type === 'plus' && this.state.indexScreen === numberSneakers) {
-            this.setState({indexScreen: 1})
-        } else if ( type === 'plus' && this.state.indexScreen < numberSneakers ) {
-            let newIndex = this.state.indexScreen + 1;
-            this.setState({indexScreen: newIndex})
-        } else if ( type === "moins" && this.state.indexScreen === 1 ) {
-            this.setState({indexScreen: numberSneakers})
-        } else if ( type === "moins" && this.state.indexScreen > 1 ) {
-            let newIndex = this.state.indexScreen - 1;
-            this.setState({indexScreen: newIndex})
-        }
-    }
-
     handleDisplaySneakers = isBlock => {
         if ( isBlock ) { this.setState({ isBlock: true }) }
         else { this.setState({ isBlock: false }) }
@@ -92,12 +83,6 @@ class Research extends Component {
                                 ))
                             }
                         </Swiper>
-                        {/* <TouchableOpacity onPress={ () => this.handleSwipeScreen('moins') } style={ styles.buttonPrev }>
-                            <ArrowBottomBig></ArrowBottomBig>
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={ () => this.handleSwipeScreen('plus') }  style={ styles.buttonNext }>
-                            <ArrowBottomBig></ArrowBottomBig>
-                        </TouchableOpacity> */}
                     </View>
                      :
                     <ScrollView>

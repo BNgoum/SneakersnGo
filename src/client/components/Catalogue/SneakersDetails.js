@@ -180,8 +180,9 @@ class SneakersDetails extends Component {
                             resolve(addToCart(token, sneakerId))
                         })
                         .then(() => {
+
                             const action = { type: "ADD_CART", value: sneakerId }
-        
+
                             return this.props.dispatch(action);
                         })
                         .then(() => {
@@ -193,8 +194,6 @@ class SneakersDetails extends Component {
                 })
                 .catch(error => console.log('Erreur lors de la vérification de la sneakers dans le panier: ', error))
             }
-
-            
         }
     }
 
@@ -210,6 +209,21 @@ class SneakersDetails extends Component {
                 break;
             case 'Triple S':
                 this.setState({ pathImage: require("../../images/balenciaga_triple_s.png") })
+                break;
+            case 'Off Court':
+                this.setState({ pathImage: require("../../images/offwhite.png")})
+                break;
+            case 'Trainers Speed':
+                this.setState({ pathImage: require("../../images/trainersspeed.png")})
+                break;
+            case 'Cross Chainer':
+                this.setState({ pathImage: require("../../images/crosschainer.png")})
+                break;
+            case 'Yeezy Boost 350 V2':
+                this.setState({ pathImage: require("../../images/yeezy.png")})
+                break;
+            case 'Chain Reaction':
+                this.setState({ pathImage: require("../../images/chainreaction.png")})
                 break;
         }
     }
@@ -229,88 +243,90 @@ class SneakersDetails extends Component {
 
     render() {
         const currentSneakers = this.props.state.SneakersReducer.currentSneakers;
-        const price =  currentSneakers[0].rentPrice || 0;
+        const price =  currentSneakers;
         const currentModel = this.props.state.SneakersReducer.currentModel;
         const currentBrand = this.props.state.SneakersReducer.currentBrand;
         const currentPathImage = this.props.state.SneakersReducer.pathImage;
 
         return (
-            <ScrollView style={ styles.container }>
-                <TouchableOpacity onPress={ () => this.handleOnPressHeart() }>
+            <View style={ styles.wrapper }>
+                <ScrollView style={ styles.container }>
+                    <TouchableOpacity onPress={ () => this.handleOnPressHeart() }>
+                        {
+                            this.state.isLiked ? 
+                            <CoeurActive style={ styles.wishlistPicto } /> :
+                            <CoeurInactive style={ styles.wishlistPicto } />
+                        }
+                    </TouchableOpacity>
+
                     {
-                        this.state.isLiked ? 
-                        <CoeurActive style={ styles.wishlistPicto } /> :
-                        <CoeurInactive style={ styles.wishlistPicto } />
+                        this.state.isLogin && <Toast text="Vous devez vous connecter pour ajouter cette sneakers à la wishlist."/>
                     }
-                </TouchableOpacity>
-
-                {
-                    this.state.isLogin && <Toast text="Vous devez vous connecter pour ajouter cette sneakers à la wishlist."/>
-                }
-                
-                {
-                    this.state.isLoginForCart && <Toast text="Vous devez vous connecter pour ajouter cette sneakers au panier."/>
-                }
-
-                {
-                    this.state.isAddToWishlist && <Toast text="La sneakers a bien été ajouté dans la wishlist."/>
-                }
-                
-                {
-                    this.state.isSizeSelected && <Toast text="Sélectionnez une taille pour ajouter la sneakers."/>
-                }
-
-                {
-                    this.state.isDeleteFromWishlist && <Toast text="La sneakers est retirée de la wishlist."/>
-                }
-
-                {
-                    this.state.isInCart && <Toast text="La sneakers est déjà dans le panier."/>
-                }
-
-                {
-                    this.state.isAddToCart && <Toast text="La sneakers est ajouté dans le panier."/>
-                }
-                
-                <SwiperSneakers brand={ currentBrand } model={ currentModel } pathImage={ currentPathImage }></SwiperSneakers>
-
-                <View style={ styles.wrapperContent }>
-                    <Text style={ styles.description }>Petit texte court pour expliquer ou décrire la paire de sneakers dans la fiche produit.</Text>
+                    
+                    {
+                        this.state.isLoginForCart && <Toast text="Vous devez vous connecter pour ajouter cette sneakers au panier."/>
+                    }
 
                     {
-                        this.state.isOpenDetails ? 
-                        <View style={ styles.wrapperDetailsDeplie }>
-                            <TouchableOpacity onPress={ () => this.handleOnPressDetails() }  style={ styles.wrapperLinkDetail }>
-                                <Text style={ styles.linkDetailsDeplie }>{ 'Plus de détails'.toUpperCase() }</Text>
-                                <Croix></Croix>
+                        this.state.isAddToWishlist && <Toast text="La sneakers a bien été ajouté dans la wishlist."/>
+                    }
+                    
+                    {
+                        this.state.isSizeSelected && <Toast text="Sélectionnez une taille pour ajouter la sneakers."/>
+                    }
+
+                    {
+                        this.state.isDeleteFromWishlist && <Toast text="La sneakers est retirée de la wishlist."/>
+                    }
+
+                    {
+                        this.state.isInCart && <Toast text="La sneakers est déjà dans le panier."/>
+                    }
+
+                    {
+                        this.state.isAddToCart && <Toast text="La sneakers est ajouté dans le panier."/>
+                    }
+                    
+                    <SwiperSneakers brand={ currentBrand } model={ currentModel } pathImage={ currentPathImage }></SwiperSneakers>
+
+                    <View style={ styles.wrapperContent }>
+                        <Text style={ styles.description }>Petit texte court pour expliquer ou décrire la paire de sneakers dans la fiche produit.</Text>
+
+                        {
+                            this.state.isOpenDetails ? 
+                            <View style={ styles.wrapperDetailsDeplie }>
+                                <TouchableOpacity onPress={ () => this.handleOnPressDetails() }  style={ styles.wrapperLinkDetail }>
+                                    <Text style={ styles.linkDetailsDeplie }>{ 'Plus de détails'.toUpperCase() }</Text>
+                                    <Croix></Croix>
+                                </TouchableOpacity>
+                                <View style={ styles.wrapperDetailsText }>
+                                    <Text style={ styles.titleDetails }>Composition extérieure</Text>
+                                    <Text style={ styles.textDetails }>Coton 100%</Text>
+                                    <Text style={ styles.textDetails }>Cuir 100%</Text>
+                                </View>
+                                <View style={ styles.wrapperDetailsText }>
+                                    <Text style={ styles.titleDetails }>Composition de la semelle</Text>
+                                    <Text style={ styles.textDetails }>Caoutchouc 100%</Text>
+                                </View>
+                            </View> :
+                            <TouchableOpacity style={ styles.linkDetails } onPress={ () => this.handleOnPressDetails() }>
+                                <TextLink>{ 'Plus de détails'.toUpperCase() }</TextLink>
                             </TouchableOpacity>
-                            <View style={ styles.wrapperDetailsText }>
-                                <Text style={ styles.titleDetails }>Composition extérieure</Text>
-                                <Text style={ styles.textDetails }>Coton 100%</Text>
-                                <Text style={ styles.textDetails }>Cuir 100%</Text>
-                            </View>
-                            <View style={ styles.wrapperDetailsText }>
-                                <Text style={ styles.titleDetails }>Composition de la semelle</Text>
-                                <Text style={ styles.textDetails }>Caoutchouc 100%</Text>
-                            </View>
-                        </View> :
-                        <TouchableOpacity style={ styles.linkDetails } onPress={ () => this.handleOnPressDetails() }>
-                            <TextLink>{ 'Plus de détails'.toUpperCase() }</TextLink>
-                        </TouchableOpacity>
-                    }
+                        }
 
-                    <InputSelect placeholder="Coloris" data={this.state.color}/>
-                    <InputSelect placeholder="Taille" data={this.state.size} sendPropsToParent={ this.handleInputSelectSize }/>
-                    <DatePickerCustom placeholder="Début de location" />
-                    <DatePickerCustom placeholder="Fin de location" />
+                        <InputSelect placeholder="Coloris" data={this.state.color}/>
+                        <InputSelect placeholder="Taille" data={this.state.size} sendPropsToParent={ this.handleInputSelectSize }/>
+                        <DatePickerCustom placeholder="Début de location" />
+                        <DatePickerCustom placeholder="Fin de location" />
 
-                    <Price price={ price } style={ styles.price }></Price>
-                </View>
+                        <Price price={ price } style={ styles.price }></Price>
+                    </View>
 
-                <Button style={ styles.buttonValidate } onPress={ () => this.handleOnPressCart() }>
-                    <ButtonText>{ 'Je les veux'.toUpperCase() }</ButtonText>
-                </Button>
-            </ScrollView>
+                    <Button style={ styles.buttonValidate } onPress={ () => this.handleOnPressCart() }>
+                        <ButtonText>{ 'Je les veux'.toUpperCase() }</ButtonText>
+                    </Button>
+                </ScrollView>
+            </View>
         )
     }
 }
@@ -320,6 +336,10 @@ const styles = StyleSheet.create({
         flex: 1,
         // padding: 20,
         paddingBottom: 40
+    },
+    wrapper: {
+        flex: 1,
+        position: 'relative'
     },
     wishlistPicto: {
         alignSelf: 'flex-end',
