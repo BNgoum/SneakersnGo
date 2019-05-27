@@ -74,6 +74,9 @@ class Panier extends Component {
                 return null;
             }
         })
+        .then(() => {
+            this.setState({totalPrice: 0}, () => this.getTotalPrice())
+        })
         .catch(error => console.log('Erreur lors de la suppression de sneakers du panier : ', error))
     }
 
