@@ -250,6 +250,34 @@ class SneakersDetails extends Component {
 
         return (
             <View style={ styles.wrapper }>
+                {
+                    this.state.isLogin && <Toast text="Vous devez vous connecter pour ajouter cette sneakers à la wishlist."/>
+                }
+                
+                {
+                    this.state.isLoginForCart && <Toast text="Vous devez vous connecter pour ajouter cette sneakers au panier."/>
+                }
+
+                {
+                    this.state.isAddToWishlist && <Toast text="La sneakers a bien été ajouté dans la wishlist."/>
+                }
+                
+                {
+                    this.state.isSizeSelected && <Toast text="Sélectionnez une taille pour ajouter la sneakers."/>
+                }
+
+                {
+                    this.state.isDeleteFromWishlist && <Toast text="La sneakers est retirée de la wishlist."/>
+                }
+
+                {
+                    this.state.isInCart && <Toast text="La sneakers est déjà dans le panier."/>
+                }
+
+                {
+                    this.state.isAddToCart && <Toast text="La sneakers est ajouté dans le panier."/>
+                }
+                
                 <ScrollView style={ styles.container }>
                     <TouchableOpacity onPress={ () => this.handleOnPressHeart() }>
                         {
@@ -259,34 +287,6 @@ class SneakersDetails extends Component {
                         }
                     </TouchableOpacity>
 
-                    {
-                        this.state.isLogin && <Toast text="Vous devez vous connecter pour ajouter cette sneakers à la wishlist."/>
-                    }
-                    
-                    {
-                        this.state.isLoginForCart && <Toast text="Vous devez vous connecter pour ajouter cette sneakers au panier."/>
-                    }
-
-                    {
-                        this.state.isAddToWishlist && <Toast text="La sneakers a bien été ajouté dans la wishlist."/>
-                    }
-                    
-                    {
-                        this.state.isSizeSelected && <Toast text="Sélectionnez une taille pour ajouter la sneakers."/>
-                    }
-
-                    {
-                        this.state.isDeleteFromWishlist && <Toast text="La sneakers est retirée de la wishlist."/>
-                    }
-
-                    {
-                        this.state.isInCart && <Toast text="La sneakers est déjà dans le panier."/>
-                    }
-
-                    {
-                        this.state.isAddToCart && <Toast text="La sneakers est ajouté dans le panier."/>
-                    }
-                    
                     <SwiperSneakers brand={ currentBrand } model={ currentModel } pathImage={ currentPathImage }></SwiperSneakers>
 
                     <View style={ styles.wrapperContent }>

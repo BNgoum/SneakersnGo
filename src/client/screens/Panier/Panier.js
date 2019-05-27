@@ -4,6 +4,8 @@ import { SwipeListView } from 'react-native-swipe-list-view';
 import { connect } from 'react-redux';
 
 import { deleteFromCart } from '../../store/reducers/sneakers/action';
+import { requestOneSneaker } from '../../store/reducers/sneakers/action';
+
 
 import ContainerTitle from '../../components/Style/Text/ContainerTitle';
 import Title from '../../components/Style/Text/Title';
@@ -20,6 +22,7 @@ class Panier extends Component {
         super(props);
         this.state = {
             token: this.props.state.AuthenticationReducer.isLogin,
+            totalPrice: 0
         }
     }
 
@@ -27,6 +30,7 @@ class Panier extends Component {
         this._navListener = this.props.navigation.addListener('didFocus', () => {
             if (this.props.state.AuthenticationReducer.isLogin) {
                 this.getSneakersInCartFromDB();
+                this.setState({totalPrice: 0}, () => this.getTotalPrice())
             }
         });
     }
@@ -73,6 +77,27 @@ class Panier extends Component {
         .catch(error => console.log('Erreur lors de la suppression de sneakers du panier : ', error))
     }
 
+    getTotalPrice = () => {
+        const token = this.props.state.AuthenticationReducer.isLogin;
+        const sneakersCartRedux = this.props.state.SneakersReducer.cart;
+
+        sneakersCartRedux.map(idSneaker => {
+            return new Promise((resolve, reject) => {
+                resolve(requestOneSneaker(token, idSneaker))
+            })
+            .then(data => {
+                this.setState({
+                    totalPrice: this.state.totalPrice + data.sneaker.rentPrice
+                })                
+            })
+            .catch((error) => {
+                console.log('Erreur lors de la récupération du modèle et de la marque de la sneakers du panier : ', error)
+            })
+        })
+
+        
+    }
+
     render() {
         return (
             this.props.state.AuthenticationReducer.isLogin && this.props.state.SneakersReducer.cart.length ?
@@ -87,7 +112,7 @@ class Panier extends Component {
                             <Text style={ styles.numberArticles }>{this.props.state.SneakersReducer.cart.length + " articles".toUpperCase()}</Text>
                             <View style={ styles.wrapperRecapTotal }>
                                 <Text style={ styles.textTotal }>{"Total : ".toUpperCase()}</Text>
-                                <Text style={ styles.total }>200 €</Text>
+                                <Text style={ styles.total }>{this.state.totalPrice} €</Text>
                             </View>
                         </View>
                         <View style={ styles.wrapperSneakersRecap }>
