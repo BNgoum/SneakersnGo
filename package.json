@@ -17,7 +17,7 @@
     "express": "^4.16.4",
     "jsonwebtoken": "^8.4.0",
     "jwt-decode": "^2.2.0",
-    "mongoose": "^5.4.1",
+    "mongoose": "^5.7.5",
     "native-base": "^2.11.0",
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
